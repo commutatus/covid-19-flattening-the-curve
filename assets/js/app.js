@@ -32,16 +32,16 @@
 })
  
 
-    function predicateBy(prop){
-        return function(a,b){
-           if (a[prop] < b[prop]){
-               return 1;
-           } else if(a[prop] > b[prop]){
-               return -1;
-           }
-           return 0;
-        }
-     }
+    function sortByProperty(property){  
+        return function(a,b){  
+        if(a[property] > b[property])  
+            return -1;  
+        else if(a[property] < b[property])  
+            return 1;  
+    
+        return 0;  
+        }  
+    }
 
     $(document).ready(()=>{
         var xlabels = []
@@ -54,13 +54,13 @@
         })
         .done(function(locations){
             var list=locations.locations.map(location => location.timelines.confirmed)
-            var country = locations.locations.map(location => location.country)
-            var provincesSortedObj =  list.sort(predicateBy("latest"))
+            var provincesSortedObj =  (list.sort(sortByProperty("latest"))).slice(0,25)
             var provincesTimelineArray = provincesSortedObj.map(obj => obj.timeline) 
-            provincesTimelineArray.slice(0,25).forEach((list, index )=>{
-
-                var values = Object.values(list)
-                var keys = Object.keys(list)
+            provincesTimelineArray.forEach((timeList, index )=>{
+                xlabels = []
+                ylabels = []
+                var values = Object.values(timeList)
+                var keys = Object.keys(timeList)
                 keys.forEach((key)=>{
                     xlabels.push(moment(key).format('DD/MM'))
                 })   
