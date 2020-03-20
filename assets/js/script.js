@@ -6,26 +6,8 @@
  * Copyright (c) 2020 Gurubalan Harikrishnan
  */
 
- console.log(`Inside console`);
- 
-//  $(document).ready(()=>{
-//     var api_url="https://coronavirus-tracker-api.herokuapp.com/v2/locations"
-//     const show = document.getElementById("people-names")
-//     $.ajax({
-//         url: api_url,
-//         contentType: "application/json",
-//         dataType: 'json',
-//         success: function(locations){
-//             console.log(locations);
-//             const list=locations.locations
-//             const names =  list.map(person => `<li>${person.country}</li>`).join("\n");
-//             show.innerHTML = `<ul>${names}</ul>` 
-//         },
-//         error: function(error){
-//             console.log(error);
-//         }
-//     })
-// })
+ console.log(`Inside script console`);
+
 
 $('a.js-scroll-trigger[href*="#"]:not([href="#"])').click(function() {
     if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
