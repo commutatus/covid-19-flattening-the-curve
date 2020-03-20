@@ -23,14 +23,15 @@ Copyright (c) 2020 Gurubalan Harikrishnan
         <link href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="assets/css/style.css" rel="stylesheet" />
-
         <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+
+
     </head>
     <body id="page-top">
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
             <div class="container">
-                <a class="navbar-brand js-scroll-trigger" href="#page-top">Corona Dashboard Demo</a><button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <a class="navbar-brand js-scroll-trigger" href="#page-top">Coronavirus Dashboard Demo</a><button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto my-2 my-lg-0">
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
@@ -112,11 +113,22 @@ Copyright (c) 2020 Gurubalan Harikrishnan
         <!-- Call to action section-->
         <section class="page-section bg-dark text-white">
             <div class="container text-center">
-                <h2 class="mb-4">Country wise statistics :</h2>
+                <h2 class="mb-4">Country wise statistics</h2>
             </div>
+
             <div class="container">
-                
-            </div>
+                <div id="country-graphs">
+                    <script>
+                        var container = document.getElementById("country-graphs");
+                        for( i =0; i<= 25 ; i++ ){
+                            container.innerHTML += `<div class='row'> <div class='col-6'> <div class='bg-light'> <canvas id='myChart${i}' width='400' height='250'></canvas> </div> </div> </div>`
+                        }
+                    </script>
+                </div>
+            </div> 
+
+       
+        
         </section>
         <!-- Contact section-->
         <section class="page-section" id="contact">
@@ -142,17 +154,22 @@ Copyright (c) 2020 Gurubalan Harikrishnan
         </section>
         <!-- Footer-->
         <footer class="bg-light py-5">
-            <div class="container"><div class="small text-center text-muted">Copyright © 2020 - Start Bootstrap</div></div>
+            <div class="container"><div class="small text-center text-muted">Copyright © 2020 - Commutatus</div></div>
         </footer>
-        <!-- Bootstrap core JS-->
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+        <!-- Bootstrap core JS-->
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
         <!-- Third party plugin JS-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="assets/js/script.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
         <!-- App JS -->
         <script src="assets/js/app.js"></script>
+        <!-- Core theme JS-->
+        <script src="assets/js/script.js"></script>
+
     </body>
 </html>
