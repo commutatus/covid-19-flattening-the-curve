@@ -74,17 +74,18 @@
                     data: {
                         labels: xlabels,
                         datasets: [{
-                            label: `Confirmed Cases ${list.country}`,
+                            label: `Confirmed Cases`,
                             data: ylabels,
                             backgroundColor: [
-                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(255, 99, 132, 0.3)',
                         
                             ],
                             borderColor: [
                                 'rgba(255, 99, 132, 1)',
                             ],
-                            lineTension: 0.2,
-                            borderWidth: 2
+                            lineTension: 0.4,
+                            borderWidth: 1,
+                            pointRadius: 0,
                         }]
                     },
                     options: {
