@@ -567,6 +567,14 @@ pre code {
     max-width: 1140px;
   }
 }
+@media only screen and (max-width: 450px) {
+  #myChart{
+    width: 200px;
+  }
+  #stats-div{
+    flex-direction: column;
+  }
+}
 
 .container-fluid, .container-xl, .container-lg, .container-md, .container-sm {
   width: 100%;
@@ -599,8 +607,6 @@ pre code {
 .row {
   display: flex;
   flex-wrap: wrap;
-  margin-right: -15px;
-  margin-left: -15px;
 }
 
 .no-gutters {
@@ -10047,7 +10053,7 @@ hr.light {
 header.masthead {
   padding-top: 10rem;
   padding-bottom: calc(10rem - 4.5rem);
-  background: linear-gradient(to bottom, rgba(92, 77, 66, 0.8) 0%, rgba(92, 77, 66, 0.8) 100%), url("https://www.cdc.gov/coronavirus/2019-ncov/images/outbreak-coronavirus-world.png");
+  /* background: linear-gradient(to bottom, rgba(92, 77, 66, 0.8) 0%, rgba(92, 77, 66, 0.8) 100%) */
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: scroll;
@@ -10118,8 +10124,29 @@ header.masthead h1 {
 
 .province-charts{
   border-radius: 10px;
+  height: auto;
+  width: 30vw;
+  position: relative;
+}
+
+@media only screen and (max-width: 600px) {
+  .province-charts{
+    border-radius: 10px;
+    height: auto;
+    width: 100vw;
+    position: relative;
+  }
 }
 
 .province-chart-parent{
   justify-content: center;
 }
+
+#confirmed{
+  font-size: 16px;
+}
+
+.global-stats{
+  justify-content: space-between;
+}
+
