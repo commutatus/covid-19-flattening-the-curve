@@ -20,10 +20,7 @@
             console.log(res);
             const latest = res.latest
             stats.innerHTML = `
-            <p id="confirmed" class="text-white-75 font-weight-light">Confirmed : ${latest.confirmed}</p>
-            <p id="deaths" class="text-white-75 font-weight-light">Deaths : ${latest.deaths}</p>
-            <p id="recovered" class="text-white-75 font-weight-light">Recovered : ${latest.recovered}</p> `
-
+            <p id="confirmed" class="font-weight-light">Global Stats - Confirmed : ${latest.confirmed} Deaths : ${latest.deaths} Recovered : ${latest.recovered}</p>`
         },
         error: function(error){
             console.log(error);

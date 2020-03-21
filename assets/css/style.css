@@ -10123,3 +10123,7 @@ header.masthead h1 {
 .province-chart-parent{
   justify-content: center;
 }
+
+#confirmed{
+  font-size: 16px;
+}
