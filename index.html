@@ -1,5 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <link rel="canonical" href="https://covid.commutatus.com/" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
+        <!-- Primary Meta Tags -->
+        <title>Flattening the Curve (Live) | COVID-19/Coronavirus affected countries </title>
+        <meta name="title" content="Flattening the Curve (Live) | COVID-19/Coronavirus affected countries">
+        <meta name="description" content="Flattening the curve | Dashboard to track the projected number of people who will contract COVID-19 / Coronavirus over a period of time by countries.">
+
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="https://covid.commutatus.com/">
+        <meta property="og:title" content="Flattening the Curve (Live) | COVID-19/Coronavirus affected countries ">
+        <meta property="og:description" content="Flattening the curve | Dashboard to track the projected number of people who will contract COVID-19 / Coronavirus over a period of time by countries.">
+        <meta property="og:image" content="assets/covid-dashboard-min.png">
+
+        <!-- Twitter -->
+        <meta property="twitter:card" content="summary_large_image">
+        <meta property="twitter:url" content="https://covid.commutatus.com/">
+        <meta property="twitter:title" content="Flattening the Curve (Live) | COVID-19/Coronavirus affected countries ">
+        <meta property="twitter:description" content="Flattening the curve | Dashboard to track the projected number of people who will contract COVID-19 / Coronavirus over a period of time by countries.">
+        <meta property="twitter:image" content="assets/covid-dashboard-min.png">
+
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v5.12.1/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic" rel="stylesheet" type="text/css" />
+        <!-- Third party plugin CSS-->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="assets/css/style.css" rel="stylesheet" />
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 
 <head>
     <meta charset="utf-8" />
@@ -47,33 +86,12 @@
 
         <div id="country-graphs" class="row province-chart-parent">
             <script>
+                let totalCountries = localStorage.getItem("totalCountries") || 100;
                 var container = document.getElementById("country-graphs");
-                for (i = 0; i <= 161; i++) {
+                for (i = 0; i <= totalCountries - 1; i++) {
                     container.innerHTML += ` <div class='bg-light p-1 m-2 province-charts'> <canvas id='myChart${i}' width='600' height='300'></canvas> </div> `;
                 }
             </script>
-        </div>
-    </section>
-    <!-- Contact section-->
-    <section class="page-section" id="contact">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8 text-center">
-                    <h2 class="mt-0">Let's Get In Touch!</h2>
-                    <hr class="divider my-4" />
-                    <p class="text-muted mb-5">Want to discuss more about this?</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-4 ml-auto text-center mb-5 mb-lg-0">
-                    <i class="fas fa-phone fa-3x mb-3 text-muted"></i>
-                    <div>(+91) 9176004582</div>
-                </div>
-                <div class="col-lg-4 mr-auto text-center">
-                    <i class="fas fa-envelope fa-3x mb-3 text-muted"></i>
-                    <a class="d-block" href="mailto:mkv@commutatus.com">Commutatus</a>
-                </div>
-            </div>
         </div>
     </section>
     <!-- Footer-->
