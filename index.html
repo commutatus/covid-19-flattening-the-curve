@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
+<head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
@@ -40,31 +40,12 @@
         <link href="assets/css/style.css" rel="stylesheet" />
         <!-- Chart JS  -->
         <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
-
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>Covid-19 Flattening Curves</title>
-    <!-- Font Awesome icons (free version)-->
-    <script src="https://use.fontawesome.com/releases/v5.12.1/js/all.js" crossorigin="anonymous"></script>
-    <!-- Google fonts-->
-    <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic"
-        rel="stylesheet" type="text/css" />
-    <!-- Third party plugin CSS-->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css"
-        rel="stylesheet" />
-    <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="assets/css/style.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 </head>
 
 <body id="page-top">
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top py-1 " id="mainNav">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top">Covid-19 Flattening Curves</a><button
+        <a class="navbar-brand font-weight-light js-scroll-trigger" href="#page-top">Flattening the Curve | COVID-19</a><button
             class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
             data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
             aria-label="Toggle navigation">
@@ -72,9 +53,7 @@
         </button>
     </nav>
 
-    <!-- Flattening curve graphs section-->
-    <section class="page-section bg-dark text-white" id="province-graphs">
-
+    <section class="global-stats-section bg-dark text-white">
         <div class="container text-center">
             <h4 class="mb-4">Global Statistics</h4>
         </div>
@@ -82,19 +61,16 @@
         <div class="container row text-black-50 global-stats" id="stats-div">
             <!-- content generated from app.js -->
         </div>
+    </section>
 
+    <!-- Flattening curve graphs section-->
+    <section class="page-section graphs-section text-black" id="province-graphs">
         <div class="container text-center">
-            <h2 class="mb-4">Country wise flattening curves</h2>
+            <h2 class="mb-4">Flatten curves by Country</h2>
         </div>
 
         <div id="country-graphs" class="row province-chart-parent">
-            <script>
-                let totalCountries = localStorage.getItem("totalCountries") || 150;
-                var container = document.getElementById("country-graphs");
-                for (i = 0; i <= totalCountries - 1; i++) {
-                    container.innerHTML += ` <div class='bg-light p-1 m-2 province-charts'> <canvas id='myChart${i}' width='100%'></canvas> </div> `;
-                }
-            </script>
+      
         </div>
     </section>
     <!-- Footer-->
