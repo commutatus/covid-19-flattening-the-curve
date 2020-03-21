@@ -10047,7 +10047,7 @@ hr.light {
 header.masthead {
   padding-top: 10rem;
   padding-bottom: calc(10rem - 4.5rem);
-  background: linear-gradient(to bottom, rgba(92, 77, 66, 0.8) 0%, rgba(92, 77, 66, 0.8) 100%), url("https://www.cdc.gov/coronavirus/2019-ncov/images/outbreak-coronavirus-world.png");
+  /* background: linear-gradient(to bottom, rgba(92, 77, 66, 0.8) 0%, rgba(92, 77, 66, 0.8) 100%) */
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: scroll;
