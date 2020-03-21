@@ -1,14 +1,3 @@
-/*
- * Created Date: Friday March 20th 2020
- * Author: Gurubalan Harikrishnan
- * Email-ID: gurubalan.work@gmail.com
- * -----
- * Copyright (c) 2020 Gurubalan Harikrishnan
- */
-
- console.log(`Inside App console`);
-
-
  $(document).ready(()=>{
     var api_url="https://coronavirus-tracker-api.herokuapp.com/v2/latest"
     const stats = document.getElementById("stats-div")
@@ -126,11 +115,11 @@
                             label: `Confirmed Cases in ${i}`,
                             data: ylabels,
                             backgroundColor: [
-                                'rgba(255, 99, 132, 0.3)',
+                                'rgba(255, 159, 64, 0.2)'
                         
                             ],
                             borderColor: [
-                                'rgba(255, 99, 132, 1)',
+                                'rgba(255, 159, 64, 1)'
                             ],
                             lineTension: 0.4,
                             borderWidth: 1,
