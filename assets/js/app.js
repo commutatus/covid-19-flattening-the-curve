@@ -43,38 +43,90 @@
         }  
     }
 
-    $(document).ready(()=>{
-        var xlabels = []
-        var ylabels = []
-        var api_url="https://coronavirus-tracker-api.herokuapp.com/v2/locations?timelines=1"
-        $.ajax({
-            url: api_url,
-            contentType: "application/json",
-            dataType: 'json',
-        })
-        .done(function(locations){
-            var list=locations.locations.map(location => location.timelines.confirmed)
-            var provincesSortedObj =  (list.sort(sortByProperty("latest"))).slice(0,25)
-            var provincesTimelineArray = provincesSortedObj.map(obj => obj.timeline) 
-            provincesTimelineArray.forEach((timeList, index )=>{
-                xlabels = []
-                ylabels = []
-                var values = Object.values(timeList)
-                var keys = Object.keys(timeList)
-                keys.forEach((key)=>{
-                    xlabels.push(moment(key).format('DD/MM'))
-                })   
-                values.forEach((value)=>{
-                    ylabels.push(value)
-                })
+    // $(document).ready(()=>{
+    //     var xlabels = []
+    //     var ylabels = []
+    //     var api_url="https://coronavirus-tracker-api.herokuapp.com/v2/locations?timelines=1"
+    //     $.ajax({
+    //         url: api_url,
+    //         contentType: "application/json",
+    //         dataType: 'json',
+    //     })
+    //     .done(function(locations){
+    //         var list=locations.locations.map(location => location.timelines.confirmed)
+    //         var provincesSortedObj =  (list.sort(sortByProperty("latest"))).slice(0,25)
+    //         var provincesTimelineArray = provincesSortedObj.map(obj => obj.timeline) 
+    //         provincesTimelineArray.forEach((timeList, index )=>{
+    //             xlabels = []
+    //             ylabels = []
+    //             var values = Object.values(timeList)
+    //             var keys = Object.keys(timeList)
+    //             keys.forEach((key)=>{
+    //                 xlabels.push(moment(key).format('DD/MM'))
+    //             })   
+    //             values.forEach((value)=>{
+    //                 ylabels.push(value)
+    //             })
                 
+    //             var ctx = document.getElementById(`myChart${index}`);
+    //             var myChart = new Chart(ctx, {
+    //                 type: 'line',
+    //                 data: {
+    //                     labels: xlabels,
+    //                     datasets: [{
+    //                         label: `Confirmed Cases`,
+    //                         data: ylabels,
+    //                         backgroundColor: [
+    //                             'rgba(255, 99, 132, 0.3)',
+                        
+    //                         ],
+    //                         borderColor: [
+    //                             'rgba(255, 99, 132, 1)',
+    //                         ],
+    //                         lineTension: 0.4,
+    //                         borderWidth: 1,
+    //                         pointRadius: 0,
+    //                     }]
+    //                 },
+    //                 options: {
+    //                     scales: {
+    //                         yAxes: [{
+    //                             ticks: {
+    //                                 beginAtZero: true
+    //                             }
+    //                         }]
+    //                     }
+    //                 }
+    //             }); 
+                    
+    //         })
+    //     })
+    //     .fail(function(err) {
+    //         console.log(err);
+    //     })
+    // })
+
+
+    fetch("https://pomber.github.io/covid19/timeseries.json")
+    .then(response => response.json())
+    .then(data => {
+              Object.keys(data).forEach((i, index)=>{
+               var  xlabels = []
+               var  ylabels = []
+                data[i].forEach((e)=>{
+
+                    ylabels.push(e.confirmed)
+                    xlabels.push(moment(e.date).format('DD/MM'))
+
+                    
+                })
                 var ctx = document.getElementById(`myChart${index}`);
                 var myChart = new Chart(ctx, {
                     type: 'line',
                     data: {
                         labels: xlabels,
                         datasets: [{
-                            label: `Confirmed Cases`,
+                            label: `Confirmed Cases in ${i}`,
                             data: ylabels,
                             backgroundColor: [
                                 'rgba(255, 99, 132, 0.3)',
@@ -97,14 +149,17 @@
                             }]
                         }
                     }
-                }); 
-                    
-            })
-        })
-        .fail(function(err) {
-            console.log(err);
-        })
+                });        
+              })           
     })
 
      
-     
+        //   var api_url="https://pomber.github.io/covid19/timeseries.json"
+        // $.ajax({
+        //     url: api_url,
+        //     contentType: "application/json",
+        //     dataType: 'json',
+        // })
+        // .done(function(locations){
+
+        // })
