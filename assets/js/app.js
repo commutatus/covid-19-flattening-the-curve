@@ -8,8 +8,29 @@ $(document).ready(() => {
         success: function (res) {
             console.log(res);
             const latest = res.latest;
-            stats.innerHTML = `
-            <p id="confirmed" class="font-weight-light">Global Stats - Confirmed : ${latest.confirmed} Deaths : ${latest.deaths} Recovered : ${latest.recovered}</p>`;
+            stats.innerHTML = `            
+            <div class="card bg-light border-warning mb-3 text-center w-20" style="border-radius: 10px;">
+            <div class="card-header">Confirmed</div>
+            <div class="card-body">
+              <h3 class="card-title text-warning">${latest.confirmed}</h5>
+            </div>
+          </div>
+
+  
+            <div class="card bg-light border-danger mb-3 text-center w-20" style="border-radius: 10px;">
+                <div class="card-header">Deaths</div>
+                <div class="card-body">
+                  <h3 class="card-title text-danger">${latest.deaths}</h5>
+                </div>
+              </div>
+       
+
+            <div class="card bg-light border-success mb-3 text-center w-20" style="border-radius: 10px;">
+                <div class="card-header">Recovered</div>
+                <div class="card-body">
+                  <h3 class="card-title text-success">${latest.recovered}</h5>
+                </div>
+            </div>`;
         },
         error: function (error) {
             console.log(error);

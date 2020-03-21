@@ -567,6 +567,11 @@ pre code {
     max-width: 1140px;
   }
 }
+@media only screen and (max-width: 400px) {
+  #myChart{
+    width: 200px;
+  }
+}
 
 .container-fluid, .container-xl, .container-lg, .container-md, .container-sm {
   width: 100%;
@@ -10137,3 +10142,8 @@ header.masthead h1 {
 #confirmed{
   font-size: 16px;
 }
+
+.global-stats{
+  justify-content: space-between;
+}
+
