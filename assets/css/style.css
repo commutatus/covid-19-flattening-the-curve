@@ -599,8 +599,6 @@ pre code {
 .row {
   display: flex;
   flex-wrap: wrap;
-  margin-right: -15px;
-  margin-left: -15px;
 }
 
 .no-gutters {
@@ -10047,7 +10045,7 @@ hr.light {
 header.masthead {
   padding-top: 10rem;
   padding-bottom: calc(10rem - 4.5rem);
-  background: linear-gradient(to bottom, rgba(92, 77, 66, 0.8) 0%, rgba(92, 77, 66, 0.8) 100%), url("https://www.cdc.gov/coronavirus/2019-ncov/images/outbreak-coronavirus-world.png");
+  /* background: linear-gradient(to bottom, rgba(92, 77, 66, 0.8) 0%, rgba(92, 77, 66, 0.8) 100%) */
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: scroll;
@@ -10122,4 +10120,8 @@ header.masthead h1 {
 
 .province-chart-parent{
   justify-content: center;
+}
+
+#confirmed{
+  font-size: 16px;
 }
