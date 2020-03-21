@@ -1,14 +1,3 @@
-/*
- * Created Date: Friday March 20th 2020
- * Author: Gurubalan Harikrishnan
- * Email-ID: gurubalan.work@gmail.com
- * -----
- * Copyright (c) 2020 Gurubalan Harikrishnan
- */
-
- console.log(`Inside script console`);
-
-
 $('a.js-scroll-trigger[href*="#"]:not([href="#"])').click(function() {
     if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
       var target = $(this.hash);
