@@ -567,9 +567,12 @@ pre code {
     max-width: 1140px;
   }
 }
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 450px) {
   #myChart{
     width: 200px;
+  }
+  #stats-div{
+    flex-direction: column;
   }
 }
 
