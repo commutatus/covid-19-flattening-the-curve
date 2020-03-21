@@ -110,10 +110,21 @@
     fetch("https://pomber.github.io/covid19/timeseries.json")
     .then(response => response.json())
     .then(data => {
-              Object.keys(data).forEach((i, index)=>{
+        let countriesArray = Object.keys(data)
+        localStorage.setItem('totalCountries', countriesArray.length)
+        let totalCountryCountArray = []
+        countriesArray.forEach((country)=>{
+           let countryTimelineArray = data[country] 
+           let latestCountryCount = (countryTimelineArray[countryTimelineArray.length - 1]).confirmed
+           let latestDate = (countryTimelineArray[countryTimelineArray.length - 1]).date
+           totalCountryCountArray.push({country : country, count: latestCountryCount, lastUpdated: latestDate})
+        })
+        let sortedCountryArray = totalCountryCountArray.sort((a,b) => (a.count < b.count) ? 1 : ((b.count < a.count) ? -1 : 0)); 
+             
+        sortedCountryArray.forEach((i, index)=>{
                var  xlabels = []
                var  ylabels = []
-                data[i].forEach((e)=>{
+                data[i.country].forEach((e)=>{
 
                     ylabels.push(e.confirmed)
                     xlabels.push(moment(e.date).format('DD/MM'))
@@ -126,7 +137,7 @@
                     data: {
                         labels: xlabels,
                         datasets: [{
-                            label: `Confirmed Cases in ${i}`,
+                            label: `Total confirmed cases: ${(sortedCountryArray[index]).count} (last updated: ${moment((sortedCountryArray[index]).lastUpdated).format('DD/MM/YY')})`,
                             data: ylabels,
                             backgroundColor: [
                                 'rgba(255, 99, 132, 0.3)',
@@ -141,12 +152,25 @@
                         }]
                     },
                     options: {
+                        title: {
+                            display: true,
+                            text: `${i.country}`
+                        },
+                        animation: {
+                            duration: 1000,
+                            easing: 'easeOutSine'
+                          },
                         scales: {
                             yAxes: [{
                                 ticks: {
-                                    beginAtZero: true
+                                    maxTicksLimit: 10,
                                 }
-                            }]
+                            }],
+                            xAxes: [{
+                                ticks:{
+                                    maxTicksLimit: 20,
+                                },
+                            }],
                         }
                     }
                 });        
