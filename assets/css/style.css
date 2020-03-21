@@ -10116,6 +10116,18 @@ header.masthead h1 {
 
 .province-charts{
   border-radius: 10px;
+  height: auto;
+  width: 30vw;
+  position: relative;
+}
+
+@media only screen and (max-width: 600px) {
+  .province-charts{
+    border-radius: 10px;
+    height: auto;
+    width: 100vw;
+    position: relative;
+  }
 }
 
 .province-chart-parent{

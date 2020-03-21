@@ -20,14 +20,14 @@
         <meta property="og:url" content="https://covid.commutatus.com/">
         <meta property="og:title" content="Flattening the Curve (Live) | COVID-19/Coronavirus affected countries ">
         <meta property="og:description" content="Flattening the curve | Dashboard to track the projected number of people who will contract COVID-19 / Coronavirus over a period of time by countries.">
-        <meta property="og:image" content="assets/covid-dashboard-min.png">
+        <meta property="og:image" content="https://covid-19-dashboard-commutatus.herokuapp.com/assets/covid-dashboard-min.png">
 
         <!-- Twitter -->
         <meta property="twitter:card" content="summary_large_image">
         <meta property="twitter:url" content="https://covid.commutatus.com/">
         <meta property="twitter:title" content="Flattening the Curve (Live) | COVID-19/Coronavirus affected countries ">
         <meta property="twitter:description" content="Flattening the curve | Dashboard to track the projected number of people who will contract COVID-19 / Coronavirus over a period of time by countries.">
-        <meta property="twitter:image" content="assets/covid-dashboard-min.png">
+        <meta property="twitter:image" content="https://covid-19-dashboard-commutatus.herokuapp.com/assets/covid-dashboard-min.png">
 
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v5.12.1/js/all.js" crossorigin="anonymous"></script>
@@ -86,10 +86,10 @@
 
         <div id="country-graphs" class="row province-chart-parent">
             <script>
-                let totalCountries = localStorage.getItem("totalCountries") || 100;
+                let totalCountries = localStorage.getItem("totalCountries") || 150;
                 var container = document.getElementById("country-graphs");
                 for (i = 0; i <= totalCountries - 1; i++) {
-                    container.innerHTML += ` <div class='bg-light p-1 m-2 province-charts'> <canvas id='myChart${i}' width='600' height='300'></canvas> </div> `;
+                    container.innerHTML += ` <div class='bg-light p-1 m-2 province-charts'> <canvas id='myChart${i}' width='100%'></canvas> </div> `;
                 }
             </script>
         </div>

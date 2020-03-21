@@ -46,7 +46,7 @@ fetch("https://pomber.github.io/covid19/timeseries.json")
             data[i.country].forEach((e) => {
 
                 ylabels.push(e.confirmed)
-                xlabels.push(moment(e.date).format('DD/MM'))
+                xlabels.push(moment(e.date,'YYYY-MM-DD').format('DD/MM'))
 
 
             })
@@ -56,7 +56,7 @@ fetch("https://pomber.github.io/covid19/timeseries.json")
                 data: {
                     labels: xlabels,
                     datasets: [{
-                        label: `Total confirmed cases: ${((sortedCountryArray[index]).count).toLocaleString()} (last updated: ${moment((sortedCountryArray[index]).lastUpdated).format('DD/MM/YY')})`,
+                        label: `Total confirmed cases: ${((sortedCountryArray[index]).count).toLocaleString()} (last updated: ${moment((sortedCountryArray[index]).lastUpdated, 'YYYY-MM-DD').format('DD/MM/YY')})`,
                         data: ylabels,
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.3)',
@@ -82,12 +82,12 @@ fetch("https://pomber.github.io/covid19/timeseries.json")
                     scales: {
                         yAxes: [{
                             ticks: {
-                                maxTicksLimit: 10,
+                                maxTicksLimit: 8,
                             }
                         }],
                         xAxes: [{
                             ticks: {
-                                maxTicksLimit: 20,
+                                maxTicksLimit: 12,
                             },
                         }],
                     }
