@@ -10393,6 +10393,10 @@ html {
   height: 100%;
 }
 
+li {
+  list-style: none;
+}
+
 hr.divider {
   max-width: 3.25rem;
   border-width: 0.2rem;
