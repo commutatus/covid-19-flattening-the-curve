@@ -565,6 +565,7 @@ pre code {
   }
   #stats-div{
     flex-direction: column;
+    align-items: center;
   }
   #mainNav a{
     font-size: 14px;
