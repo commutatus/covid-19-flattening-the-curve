@@ -3932,12 +3932,25 @@ input[type=button].btn-block {
 }
 
 .nav-pills .nav-link {
-  border-radius: 0.25rem;
+  background-color: white;
+  color: #000000;
+  font-size: 14px;
+  padding-right: 35px;
+  padding-left: 35px
 }
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #f4623a;
+  background-color: #E0E0E0;
+}
+
+.country-border{
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+
+.starred-border{
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
 }
 
 .nav-fill .nav-item {
@@ -9976,7 +9989,7 @@ hr.light {
 }
 
 .page-section {
-  padding: 8rem 0;
+  padding: 2rem 0 4rem 0;
 }
 
 .global-stats-section{
