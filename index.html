@@ -51,7 +51,7 @@
             class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
             data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
             aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"><i class="fa fa-bars" aria-hidden="true"></i></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto my-2 my-lg-0">
@@ -61,12 +61,33 @@
     </nav>
 
     <section class="global-stats-section bg-dark text-white">
-        <div class="container text-center">
-            <h4 class="mb-4">Global Statistics</h4>
-        </div>
 
-        <div class="container row text-black-50 global-stats" id="stats-div">
+        <div class="container row text-white-50 global-stats" id="stats-div">
             <!-- content generated from app.js -->
+            <div>
+                <p>Total confirmed cases</p>
+                <hr class="bg-light global-stats-hr">
+                <h4 id="total-confirmed" class="text-warning font-weight-light"></h4>
+            </div>
+
+            <div>
+                <p>Total deaths</p>
+                <hr class="bg-light global-stats-hr">
+                <h4 id="total-deaths" class="text-danger font-weight-light"></h4>
+            </div>
+
+            <div>
+                <p>Total recovered</p>
+                <hr class="bg-light global-stats-hr">
+                <h4 id="total-recovered" class="text-success font-weight-light"></h4>
+            </div>
+
+            <div>
+                <p>Last updated</p>
+                <hr class="bg-light global-stats-hr">
+                <h4 id="last-updated" class="text-light font-weight-light"></h4>
+            </div>
+    
         </div>
     </section>
 
