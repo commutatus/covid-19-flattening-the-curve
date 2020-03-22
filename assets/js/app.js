@@ -10,14 +10,14 @@ $(document).ready(() => {
     url: api_url,
     contentType: "application/json",
     dataType: "json",
-    success: function (res) {
+    success: function(res) {
       const latest = res.latest;
       confirmed.innerHTML = `${latest.confirmed}`;
       deaths.innerHTML = `${latest.deaths}`;
       recovered.innerHTML = `${latest.recovered}`;
       lastUpdated.innerHTML = `${lastUpdatedValue}`;
     },
-    error: function (error) {
+    error: function(error) {
       console.log(error);
     }
   });
@@ -47,15 +47,14 @@ $(document).ready(() => {
       const container = document.getElementById("country-graphs");
 
       sortedCountryArray.forEach((i, index) => {
-        container.innerHTML +=
-          ` <div class='bg-light p-1 m-2 province-charts'> 
-            <button class="btn btn-star" id="chart-star-${index}"> 
-              <i class="fas fa-star"> </i> 
-            </button>
-            <div id='country-id-${index}' class='text-center'> 
-              <p class= "country-names"> ${i.country} </p> 
-            </div> 
-            <canvas id='myChart${index}' width='100%'></canvas> 
+        container.innerHTML += `<div class='bg-light p-1 m-2 province-charts content'> 
+                  <button class="btn btn-star" id="chart-star-${index}"> 
+                    <i class="fas fa-star"> </i> 
+                  </button>
+                  <div id='country-id-${index}' class='text-center' > 
+                    <p class= "country-names">${i.country}</p> 
+                  </div> 
+                  <canvas id='myChart${index}' width='100%'></canvas> 
           </div> `;
       });
 
@@ -117,6 +116,29 @@ $(document).ready(() => {
               ]
             }
           }
+        });
+      });
+    })
+    .then(() => {
+      $(document).ready(function() {
+        $("#search").keyup(function() {
+          // Search text
+          var text = $(this).val();
+          // Hide all content class element
+          $(".content").hide();
+          // Search and show
+          $(".content .country-names").each(function() {
+            if (
+              $(this)
+                .text()
+                .toLowerCase()
+                .indexOf("" + text + "") != -1
+            ) {
+              $(this)
+                .closest(".content")
+                .show();
+            }
+          });
         });
       });
     });
