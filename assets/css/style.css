@@ -10037,7 +10037,7 @@ hr.light {
 @media (min-width: 992px) {
   #mainNav {
     box-shadow: none;
-    background-color: transparent;
+    background-color: #343A40;
   }
   #mainNav .navbar-brand {
     color: rgba(255, 255, 255, 0.7);
@@ -10201,4 +10201,11 @@ header.masthead h1 {
 
 .fa-star:hover{
   font-size: 20px;
+}
+
+.country-names{
+  color: #666666;
+  margin: 0;
+  padding: 10px 0 0 0;
+  font-size: 15px;
 }
