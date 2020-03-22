@@ -10167,7 +10167,8 @@ header.masthead h1 {
   position: absolute;
   right: 5px;
   top: 5px;
-  border-radius: 10px;
+  padding: 2px;
+  border-radius: 50%;
 }
 
 .btn:focus,.btn:active {
