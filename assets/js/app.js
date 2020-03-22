@@ -17,7 +17,7 @@ $(document).ready(() => {
       recovered.innerHTML = `${(latest.recovered).toLocaleString()}`;
       lastUpdated.innerHTML = `${lastUpdatedValue}`;
     },
-    error: function(error) {
+    error: function (error) {
       console.log(error);
     }
   });
@@ -26,12 +26,11 @@ $(document).ready(() => {
     .then(response => response.json())
     .then(data => {
       let countriesArray = Object.keys(data);
-      localStorage.setItem("totalCountries", countriesArray.length);
       let totalCountryCountArray = [];
       countriesArray.forEach(country => {
         let countryTimelineArray = data[country];
         let latestCountryCount =
-          countryTimelineArray[countryTimelineArray.length - 1].confirmed;
+          countryTimelineArray[countryTimelineArray.length - 1].confirmed - (countryTimelineArray[countryTimelineArray.length - 1].deaths + countryTimelineArray[countryTimelineArray.length - 1].recovered);
         let latestDate =
           countryTimelineArray[countryTimelineArray.length - 1].date;
         totalCountryCountArray.push({
@@ -44,24 +43,24 @@ $(document).ready(() => {
         a.count < b.count ? 1 : b.count < a.count ? -1 : 0
       );
 
-      let totalCountries = localStorage.getItem("totalCountries") || 150;
       const container = document.getElementById("country-graphs");
-    //   for (i = 0; i <= totalCountries - 1; i++) {
-    //   }
-        
-    sortedCountryArray.forEach((i,index)=>{
+
+      sortedCountryArray.forEach((i, index) => {
         container.innerHTML += ` <div class='bg-light p-1 m-2 province-charts'> <button class="btn btn-star" id="chart-star-${index}"> <i class="fas fa-star"> </i> </button><div id='country-id-${index}' class='text-center'> <p class= "country-names"> ${i.country} </p> </div> <canvas id='myChart${index}' width='100%'></canvas> </div> `;
-    })
-      
+      })
+
 
       sortedCountryArray.forEach((i, index) => {
         let xlabels = [];
         let ylabels = [];
-        let countryIds = document.getElementById(`country-id-${i}`)
         countries.push(i.country);
+        let dayCount = 0
         data[i.country].forEach(e => {
-          ylabels.push(e.confirmed);
-          xlabels.push(moment(e.date, "YYYY-MM-DD").format("DD/MM"));
+          if (e.confirmed !== 0) {
+            dayCount = dayCount + 1
+            ylabels.push(e.confirmed - (e.deaths + e.recovered));
+            xlabels.push(`${dayCount}`);
+          }
         });
 
         lastUpdatedValue = moment(
@@ -76,7 +75,7 @@ $(document).ready(() => {
             labels: xlabels,
             datasets: [
               {
-                label: `Total confirmed cases: ${sortedCountryArray[
+                label: `Active cases: ${sortedCountryArray[
                   index
                 ].count.toLocaleString()}`,
                 data: ylabels,
@@ -84,14 +83,24 @@ $(document).ready(() => {
                 borderColor: ["rgba(255, 99, 132, 1)"],
                 lineTension: 0.4,
                 borderWidth: 1,
-                pointRadius: 0
+                pointRadius: 2,
+                pointBackgroundColor: "rgba(255, 99, 132, 0.8)"
               }
             ]
           },
           options: {
-            title: {
-              display: true,
-            },
+            tooltips: {
+              callbacks: {
+                title: function(tooltipItems, data) {
+                  return '';
+                },
+                label: function(tooltipItem, data) {
+                  return (data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index]).toLocaleString();
+                }
+              },
+              enabled: true,
+              mode: 'nearest'
+           },
             animation: {
               duration: 1000,
               easing: "easeOutSine"
@@ -106,6 +115,10 @@ $(document).ready(() => {
               ],
               xAxes: [
                 {
+                  scaleLabel: {
+                    display: true,
+                    labelString: `Days since first confirmed case in ${i.country}`
+                  },
                   ticks: {
                     maxTicksLimit: 12
                   }
