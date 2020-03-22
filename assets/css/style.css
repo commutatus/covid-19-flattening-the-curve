@@ -566,6 +566,10 @@ pre code {
   #stats-div{
     flex-direction: column;
   }
+  #mainNav a{
+    font-size: 14px;
+    padding-right: 0;
+  }
 }
 
 .container-fluid, .container-xl, .container-lg, .container-md, .container-sm {
