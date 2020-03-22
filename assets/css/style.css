@@ -10140,11 +10140,24 @@ header.masthead h1 {
   margin: 10px 0;
   border-radius: 15px;
   border: none;
-  padding: 5px 10px;
+  padding: 5px 10px 5px 27px;
   font-size: 14px;
   width: 250px;
 }
 
 .search:focus{
   outline: none;
+}
+
+.list-js-search{
+  position: relative;
+}
+
+.fa-search-location{
+  position: absolute;
+  left: 8px;
+  top: 17px;
+  font-size: 17px;
+  padding: 2px;
+  z-index: 2;
 }
