@@ -49,8 +49,6 @@
     <link href="assets/css/style.css" rel="stylesheet" />
     <!-- Chart JS  -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
-    <!-- List JS -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
     <!-- Font Awesome SVGs -->
     <script src="https://use.fontawesome.com/releases/v5.8.1/js/all.js"></script>
     <!-- Google Tag Manager -->
@@ -85,7 +83,7 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto my-2 my-lg-0">
                 <div class="list-js-search">
-                    <input class="search" placeholder="Search by country" />
+                    <input class="search" type='text' id='search' placeholder="Search by country" />
                     <i class="fas fa-search-location"></i>
                 </div>
             </ul>
@@ -125,8 +123,7 @@
         <ul class="nav nav-pills justify-content-center mb-4" id="pills-tab" role="tablist">
             <li class="nav-item">
                 <a class="nav-link active country-border" id="pills-home-tab" data-toggle="pill"
-                    href="#pills-country-graphs" role="tab" aria-controls="pills-home" aria-selected="true">All
-                    Countries</a>
+                    href="#pills-country-graphs" role="tab" aria-controls="pills-home" aria-selected="true">All Countries</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link starred-border" id="pills-contact-tab" data-toggle="pill" href="#pills-starred"
@@ -164,6 +161,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
     <!-- Moment JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
+    <!-- List JS -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
     <!-- App JS -->
     <script src="assets/js/app.js"></script>
     <!-- Core theme JS-->
