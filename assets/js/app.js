@@ -10,14 +10,14 @@ $(document).ready(() => {
     url: api_url,
     contentType: "application/json",
     dataType: "json",
-    success: function(res) {
+    success: function (res) {
       const latest = res.latest;
       confirmed.innerHTML = `${latest.confirmed}`;
       deaths.innerHTML = `${latest.deaths}`;
       recovered.innerHTML = `${latest.recovered}`;
       lastUpdated.innerHTML = `${lastUpdatedValue}`;
     },
-    error: function(error) {
+    error: function (error) {
       console.log(error);
     }
   });
@@ -44,20 +44,24 @@ $(document).ready(() => {
         a.count < b.count ? 1 : b.count < a.count ? -1 : 0
       );
 
-      let totalCountries = localStorage.getItem("totalCountries") || 150;
       const container = document.getElementById("country-graphs");
-    //   for (i = 0; i <= totalCountries - 1; i++) {
-    //   }
-        
-    sortedCountryArray.forEach((i,index)=>{
-        container.innerHTML += ` <div class='bg-light p-1 m-2 province-charts'> <button class="btn btn-star" id="chart-star-${index}"> <i class="fas fa-star"> </i> </button><div id='country-id-${index}' class='text-center'> <p class= "country-names"> ${i.country} </p> </div> <canvas id='myChart${index}' width='100%'></canvas> </div> `;
-    })
-      
+
+      sortedCountryArray.forEach((i, index) => {
+        container.innerHTML +=
+          ` <div class='bg-light p-1 m-2 province-charts'> 
+            <button class="btn btn-star" id="chart-star-${index}"> 
+              <i class="fas fa-star"> </i> 
+            </button>
+            <div id='country-id-${index}' class='text-center'> 
+              <p class= "country-names"> ${i.country} </p> 
+            </div> 
+            <canvas id='myChart${index}' width='100%'></canvas> 
+          </div> `;
+      });
 
       sortedCountryArray.forEach((i, index) => {
         let xlabels = [];
         let ylabels = [];
-        let countryIds = document.getElementById(`country-id-${i}`)
         countries.push(i.country);
         data[i.country].forEach(e => {
           ylabels.push(e.confirmed);
@@ -90,7 +94,7 @@ $(document).ready(() => {
           },
           options: {
             title: {
-              display: true,
+              display: true
             },
             animation: {
               duration: 1000,
