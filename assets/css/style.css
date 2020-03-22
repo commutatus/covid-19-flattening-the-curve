@@ -10202,3 +10202,10 @@ header.masthead h1 {
 .fa-star:hover{
   font-size: 20px;
 }
+
+.country-names{
+  color: #666666;
+  margin: 0;
+  padding: 10px 0 0 0;
+  font-size: 15px;
+}

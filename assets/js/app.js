@@ -5,6 +5,7 @@ $(document).ready(() => {
   const recovered = document.getElementById("total-recovered");
   const lastUpdated = document.getElementById("last-updated");
   let lastUpdatedValue;
+  let countries = [];
   $.ajax({
     url: api_url,
     contentType: "application/json",
@@ -45,13 +46,19 @@ $(document).ready(() => {
 
       let totalCountries = localStorage.getItem("totalCountries") || 150;
       const container = document.getElementById("country-graphs");
-      for (i = 0; i <= totalCountries - 1; i++) {
-        container.innerHTML += ` <div class='bg-light p-1 m-2 province-charts'> <button class="btn btn-star"> <i class="fas fa-star" id="chart-star-${i}"> </i></button>  <canvas id='myChart${i}' width='100%'></canvas> </div> `;
-      }
+    //   for (i = 0; i <= totalCountries - 1; i++) {
+    //   }
+        
+    sortedCountryArray.forEach((i,index)=>{
+        container.innerHTML += ` <div class='bg-light p-1 m-2 province-charts'> <button class="btn btn-star" id="chart-star-${index}"> <i class="fas fa-star"> </i> </button><div id='country-id-${index}' class='text-center'> <p class= "country-names"> ${i.country} </p> </div> <canvas id='myChart${index}' width='100%'></canvas> </div> `;
+    })
+      
 
       sortedCountryArray.forEach((i, index) => {
         let xlabels = [];
         let ylabels = [];
+        let countryIds = document.getElementById(`country-id-${i}`)
+        countries.push(i.country);
         data[i.country].forEach(e => {
           ylabels.push(e.confirmed);
           xlabels.push(moment(e.date, "YYYY-MM-DD").format("DD/MM"));
@@ -84,7 +91,6 @@ $(document).ready(() => {
           options: {
             title: {
               display: true,
-              text: `${i.country}`
             },
             animation: {
               duration: 1000,
