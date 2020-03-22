@@ -76,20 +76,23 @@
             <h2 class="mb-4">Flatten curves by Country</h2>
         </div>
 
-        <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-                <li class="page-item active" aria-current="page">
-                    <a class="page-link" href="#">All Countries<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">Starred</a>
-                </li>
-            </ul>
-        </nav>
-
-        <div id="country-graphs" class="row province-chart-parent">
-      
-        </div>
+        <ul class="nav nav-pills justify-content-center mb-4" id="pills-tab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-country-graphs" role="tab" aria-controls="pills-home" aria-selected="true">All Countries</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-starred" role="tab" aria-controls="pills-contact" aria-selected="false">Starred</a>
+            </li>
+          </ul>
+          <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-country-graphs" role="tabpanel" aria-labelledby="pills-country-graphs-tab">
+                <div id="country-graphs" class="row province-chart-parent"></div>
+            </div>
+            <div class="tab-pane fade" id="pills-starred" role="tabpanel" aria-labelledby="pills-starred-tab">
+                Starred 
+            </div>
+          </div>
+        
     </section>
     <!-- Footer-->
     <footer class="bg-light py-5">
