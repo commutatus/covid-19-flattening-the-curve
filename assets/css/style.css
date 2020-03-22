@@ -10143,6 +10143,7 @@ header.masthead h1 {
   padding: 5px 10px 5px 27px;
   font-size: 14px;
   width: 250px;
+  background-color: #F5F5F5;
 }
 
 .search:focus{
@@ -10160,4 +10161,38 @@ header.masthead h1 {
   font-size: 17px;
   padding: 2px;
   z-index: 2;
+}
+
+.btn-star{
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  border-radius: 10px;
+}
+
+.btn:focus,.btn:active {
+  outline: none !important;
+  box-shadow: none;
+}
+
+.btn-star:active{
+  background: #FFC107;
+}
+
+.fa-star{
+  font-size: 17px;
+  color: #F5F5F5;
+}
+
+.fa-star path {
+  stroke: black;
+  stroke-width: 30px;
+}
+
+.fa-star:hover path {
+  stroke: #FFC107;
+}
+
+.fa-star:hover{
+  font-size: 20px;
 }

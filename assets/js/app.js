@@ -46,7 +46,7 @@ $(document).ready(() => {
       let totalCountries = localStorage.getItem("totalCountries") || 150;
       const container = document.getElementById("country-graphs");
       for (i = 0; i <= totalCountries - 1; i++) {
-        container.innerHTML += ` <div class='bg-light p-1 m-2 province-charts'> <canvas id='myChart${i}' width='100%'></canvas> </div> `;
+        container.innerHTML += ` <div class='bg-light p-1 m-2 province-charts'> <button class="btn btn-star"> <i class="fas fa-star" id="chart-star-${i}"> </i></button>  <canvas id='myChart${i}' width='100%'></canvas> </div> `;
       }
 
       sortedCountryArray.forEach((i, index) => {
