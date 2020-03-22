@@ -1,12 +1,3 @@
-/*
- * Created Date: Friday March 20th 2020
- * Author: Gurubalan Harikrishnan
- * Email-ID: gurubalan.work@gmail.com
- * -----
- * Copyright (c) 2020 Gurubalan Harikrishnan
- */
-
-
  @charset "UTF-8";
 
 :root {
@@ -200,6 +191,7 @@ img {
 }
 
 svg {
+  color: #000000;
   overflow: hidden;
   vertical-align: middle;
 }
@@ -361,7 +353,7 @@ template {
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
   margin-bottom: 0.5rem;
-  font-family: "Merriweather Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: "Helvetica Neue", Arial, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-weight: 500;
   line-height: 1.2;
 }
@@ -573,6 +565,11 @@ pre code {
   }
   #stats-div{
     flex-direction: column;
+    align-items: center;
+  }
+  #mainNav a{
+    font-size: 14px;
+    padding-right: 0;
   }
 }
 
@@ -3941,12 +3938,25 @@ input[type=button].btn-block {
 }
 
 .nav-pills .nav-link {
-  border-radius: 0.25rem;
+  background-color: white;
+  color: #000000;
+  font-size: 14px;
+  padding-right: 35px;
+  padding-left: 35px
 }
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #f4623a;
+  background-color: #E0E0E0;
+}
+
+.country-border{
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+
+.starred-border{
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
 }
 
 .nav-fill .nav-item {
@@ -9985,7 +9995,20 @@ hr.light {
 }
 
 .page-section {
-  padding: 8rem 0;
+  padding: 2rem 0 4rem 0;
+}
+
+.global-stats-hr{
+  margin: 5px 0;
+  width: 200px;
+}
+
+.global-stats-section{
+  padding: 4rem 0 1rem 0;
+}
+
+.graphs-section{
+  background-color: #F5F5F5;
 }
 
 #mainNav {
@@ -9994,13 +10017,13 @@ hr.light {
   transition: background-color 0.2s ease;
 }
 #mainNav .navbar-brand {
-  font-family: "Merriweather Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family:  "Helvetica Neue", Arial, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-weight: 700;
   color: #212529;
 }
 #mainNav .navbar-nav .nav-item .nav-link {
   color: #6c757d;
-  font-family: "Merriweather Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family:  "Helvetica Neue", Arial, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-weight: 700;
   font-size: 0.9rem;
   padding: 0.75rem 0;
@@ -10082,42 +10105,6 @@ header.masthead h1 {
   }
 }
 
-#portfolio .container-fluid, #portfolio .container-sm, #portfolio .container-md, #portfolio .container-lg, #portfolio .container-xl {
-  max-width: 1920px;
-}
-#portfolio .container-fluid .portfolio-box, #portfolio .container-sm .portfolio-box, #portfolio .container-md .portfolio-box, #portfolio .container-lg .portfolio-box, #portfolio .container-xl .portfolio-box {
-  position: relative;
-  display: block;
-}
-#portfolio .container-fluid .portfolio-box .portfolio-box-caption, #portfolio .container-sm .portfolio-box .portfolio-box-caption, #portfolio .container-md .portfolio-box .portfolio-box-caption, #portfolio .container-lg .portfolio-box .portfolio-box-caption, #portfolio .container-xl .portfolio-box .portfolio-box-caption {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  bottom: 0;
-  text-align: center;
-  opacity: 0;
-  color: #fff;
-  background: rgba(244, 98, 58, 0.9);
-  transition: opacity 0.25s ease;
-  text-align: center;
-}
-#portfolio .container-fluid .portfolio-box .portfolio-box-caption .project-category, #portfolio .container-sm .portfolio-box .portfolio-box-caption .project-category, #portfolio .container-md .portfolio-box .portfolio-box-caption .project-category, #portfolio .container-lg .portfolio-box .portfolio-box-caption .project-category, #portfolio .container-xl .portfolio-box .portfolio-box-caption .project-category {
-  font-family: "Merriweather Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  font-size: 0.85rem;
-  font-weight: 600;
-  text-transform: uppercase;
-}
-#portfolio .container-fluid .portfolio-box .portfolio-box-caption .project-name, #portfolio .container-sm .portfolio-box .portfolio-box-caption .project-name, #portfolio .container-md .portfolio-box .portfolio-box-caption .project-name, #portfolio .container-lg .portfolio-box .portfolio-box-caption .project-name, #portfolio .container-xl .portfolio-box .portfolio-box-caption .project-name {
-  font-size: 1.2rem;
-}
-#portfolio .container-fluid .portfolio-box:hover .portfolio-box-caption, #portfolio .container-sm .portfolio-box:hover .portfolio-box-caption, #portfolio .container-md .portfolio-box:hover .portfolio-box-caption, #portfolio .container-lg .portfolio-box:hover .portfolio-box-caption, #portfolio .container-xl .portfolio-box:hover .portfolio-box-caption {
-  opacity: 1;
-}
-
 .text-white-75 {
   color: rgba(255, 255, 255, 0.75);
 }
@@ -10150,3 +10137,68 @@ header.masthead h1 {
   justify-content: space-between;
 }
 
+.global-stats p{
+  margin:0;
+}
+
+.search{
+  margin: 10px 0;
+  border-radius: 15px;
+  border: none;
+  padding: 5px 10px 5px 27px;
+  font-size: 14px;
+  width: 250px;
+  background-color: #F5F5F5;
+}
+
+.search:focus{
+  outline: none;
+}
+
+.list-js-search{
+  position: relative;
+}
+
+.fa-search-location{
+  position: absolute;
+  left: 8px;
+  top: 17px;
+  font-size: 17px;
+  padding: 2px;
+  z-index: 2;
+}
+
+.btn-star{
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  padding: 2px;
+  border-radius: 50%;
+}
+
+.btn:focus,.btn:active {
+  outline: none !important;
+  box-shadow: none;
+}
+
+.btn-star:active{
+  background: #FFC107;
+}
+
+.fa-star{
+  font-size: 17px;
+  color: #F5F5F5;
+}
+
+.fa-star path {
+  stroke: black;
+  stroke-width: 30px;
+}
+
+.fa-star:hover path {
+  stroke: #FFC107;
+}
+
+.fa-star:hover{
+  font-size: 20px;
+}
