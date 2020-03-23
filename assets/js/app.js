@@ -53,25 +53,54 @@ $(document).ready(() => {
         a.count < b.count ? 1 : b.count < a.count ? -1 : 0
       );
 
+
+
+
       
 
       const container = document.getElementById("country-graphs");
       sortedCountryArray.forEach((i, index) => {
-        container.innerHTML += `<div class='bg-light p-1 m-2 province-charts content' > 
-                  <button class="btn btn-star" id="chart-star-${index}"> 
-                    <i class="fas fa-star" id="fa-star-${index}"> </i> 
+
+        if (typeof Storage !== "undefined") {
+          if (localStorage.getItem("starred") === null) {
+          //
+          }else{
+
+            let starredCountriesGen = JSON.parse(localStorage.getItem("starred"));
+
+              if(starredCountriesGen.includes(i.country)){
+                container.innerHTML += `<div class='bg-light p-1 m-2 province-charts content' > 
+                  <button class="btn btn-star btn-star-active" id="chart-star-${index}"> 
+                    <i class="fas fa-star star-color" id="fa-star-${index}"> </i> 
                   </button>
                   <div id='country-id-${index}' class='text-center' > 
                     <p class= "country-names">${i.country}</p> 
                   </div> 
                   <canvas class='myCharts${index}' width='100%'></canvas> 
-          </div> `;
+                </div> `;
+              }
+              else{
+                container.innerHTML += `<div class='bg-light p-1 m-2 province-charts content' > 
+                <button class="btn btn-star" id="chart-star-${index}"> 
+                  <i class="fas fa-star" id="fa-star-${index}"> </i> 
+                </button>
+                <div id='country-id-${index}' class='text-center' > 
+                  <p class= "country-names">${i.country}</p> 
+                </div> 
+                <canvas class='myCharts${index}' width='100%'></canvas> 
+                </div> `;
+              }
+            }
+          }else{
+            console.log(`Your browser doesn't support Web Storage!`);
+          }
+
+        
       });
 
       sortedCountryArray.forEach((i, index) => {
         let xlabels = [];
         let ylabels = [];
-        countries.push(i.country);
         let dayCount = 0
         data[i.country].forEach(e => {
           if (e.confirmed !== 0) {
@@ -202,6 +231,23 @@ $(document).ready(() => {
 
         $('#tab-choose .btn-country').click(function(){
           $(".content").show();
+          sortedCountryArray.forEach((i,index)=>{
+            if (typeof Storage !== "undefined") {
+              if (localStorage.getItem("starred") === null) {
+              //
+              }else{
+    
+                let starredCountriesGenAddress = JSON.parse(localStorage.getItem("starred"));
+    
+                  if(starredCountriesGenAddress.includes(i.country)){
+                      $('#chart-star-'+index+'').removeClass('inactive').addClass('btn-star-active');
+                      $('#fa-star-'+index+'').addClass('star-color');
+                  }
+                }
+              }else{
+                console.log(`Your browser doesn't support Web Storage!`);
+              }
+          })
         });
 
         $('#tab-choose .btn-starred').click(function(){
@@ -215,8 +261,26 @@ $(document).ready(() => {
                 let starredCountriesArray = JSON.parse(localStorage.getItem("starred"));
                 starredCountriesArray.forEach((i)=>{
                   $('.content .country-names:contains("'+i+'")').closest('.content').show();
-
                 })
+
+                sortedCountryArray.forEach((i,index)=>{
+                  if (typeof Storage !== "undefined") {
+                    if (localStorage.getItem("starred") === null) {
+                    //
+                    }else{
+          
+                      let starredCountriesGenStarred = JSON.parse(localStorage.getItem("starred"));
+          
+                        if(starredCountriesGenStarred.includes(i.country)){
+                            $('#chart-star-'+index+'').removeClass('inactive').addClass('btn-star-active');
+                            $('#fa-star-'+index+'').addClass('star-color');
+                        }
+                      }
+                    }else{
+                      console.log(`Your browser doesn't support Web Storage!`);
+                    }
+                })
+                
               }
 
           });
