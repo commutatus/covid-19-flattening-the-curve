@@ -10639,6 +10639,7 @@ header.masthead h1 {
 
 .btn-star-active{
   background: #ffc107;
+  padding: 1px !important;
 }
 
 .btn-star:active {
