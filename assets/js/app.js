@@ -7,7 +7,8 @@ $(document).ready(() => {
   let lastUpdatedValue;
   let starredCountries = [];
   let sortedCountryArray = [];
-  let buttonIDs = [];
+  let notFound = document.getElementById('results-not-found');
+  let starFound = document.getElementById('starred-none');
   $.ajax({
     url: api_url,
     contentType: "application/json",
@@ -235,10 +236,14 @@ $(document).ready(() => {
                 .show();
             }
           });
+          if((".content").is(":visible")){
+            notFound.innerHTML =  `No results found.`;
+          }
         });
 
         $("#tab-choose .btn-country").click(function() {
           $(".content").show();
+          $("#starred-none").hide();
           sortedCountryArray.forEach((i, index) => {
             if (typeof Storage !== "undefined") {
               if (localStorage.getItem("starred") === null) {
@@ -263,6 +268,7 @@ $(document).ready(() => {
 
         $("#tab-choose .btn-starred").click(function() {
           $(".content").hide();
+          $("#starred-none").show();
 
           if (localStorage.getItem("starred") === null) {
             console.log(`0 countries are starred!`);
@@ -271,11 +277,10 @@ $(document).ready(() => {
               localStorage.getItem("starred")
             );
             
-            let notFound = document.getElementById('none-found');
             if(starredCountriesArray && starredCountriesArray.length){
-
+              starFound.innerHTML = ``;
             }else{
-              notFound.innerHTML =  `You haven't starred any countries.`;
+              starFound.innerHTML = `You haven't starred any country.`;
             }
 
             starredCountriesArray.forEach(i => {
