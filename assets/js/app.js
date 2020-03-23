@@ -286,6 +286,7 @@ $(document).ready(() => {
 
           if (localStorage.getItem("starred") === null) {
             console.log(`0 countries are starred!`);
+            starFound.innerHTML = `You haven't starred any country.`;
           } else {
             let starredCountriesArray = JSON.parse(
               localStorage.getItem("starred")
