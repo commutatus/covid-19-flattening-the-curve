@@ -10651,7 +10651,7 @@ header.masthead h1 {
 }
 
 .fa-star {
-  font-size: 17px;
+  font-size: 20px;
   color: #f5f5f5;
 }
 
@@ -10695,6 +10695,7 @@ header.masthead h1 {
 }
 
 .btn-starred {
+  background-color: #f8f9fa !important ;
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
   border-top-left-radius: 0px;

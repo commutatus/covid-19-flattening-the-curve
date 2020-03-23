@@ -249,10 +249,6 @@ $(document).ready(() => {
                 .show();
             }
           });
-          if ($('.content .country-names:contains("' + i + '")')) {
-          } else {
-            notFound.innerHTML = `No results found.`;
-          }
         });
 
         $("#tab-choose .btn-country").click(function() {
