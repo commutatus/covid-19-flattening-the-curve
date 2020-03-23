@@ -72,7 +72,7 @@ $(document).ready(() => {
             <div id='country-id-${index}' class='text-center' > 
               <p class= "country-names">${i.country}</p> 
             </div> 
-            <canvas id='myCharts${index}' width='100%'></canvas> 
+            <canvas id='myChart${index}' width='100%'></canvas> 
             </div> `;
           } else {
             let starredCountriesGen = JSON.parse(
@@ -87,7 +87,7 @@ $(document).ready(() => {
                   <div id='country-id-${index}' class='text-center' > 
                     <p class= "country-names">${i.country}</p> 
                   </div> 
-                  <canvas class='myCharts${index}' width='100%'></canvas> 
+                  <canvas id='myChart${index}' width='100%'></canvas> 
                 </div> `;
             } else {
               container.innerHTML += `<div class='bg-light p-1 m-2 province-charts content' > 
@@ -167,7 +167,7 @@ $(document).ready(() => {
             }
           });
 
-        let ctx = (document.getElementById(`myChart${index}`)).getContext('2d');
+        let ctx = (document.getElementById(`myChart${index}`))
         let myChart = new Chart(ctx, {
           type: "line",
           data: {
@@ -286,6 +286,7 @@ $(document).ready(() => {
 
           if (localStorage.getItem("starred") === null) {
             console.log(`0 countries are starred!`);
+            starFound.innerHTML = `You haven't starred any country.`;
           } else {
             let starredCountriesArray = JSON.parse(
               localStorage.getItem("starred")
