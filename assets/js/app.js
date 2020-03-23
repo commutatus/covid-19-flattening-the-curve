@@ -72,7 +72,7 @@ $(document).ready(() => {
             <div id='country-id-${index}' class='text-center' > 
               <p class= "country-names">${i.country}</p> 
             </div> 
-            <canvas class='myCharts${index}' width='100%'></canvas> 
+            <canvas id='myCharts${index}' width='100%'></canvas> 
             </div> `;
           } else {
             let starredCountriesGen = JSON.parse(
@@ -97,7 +97,7 @@ $(document).ready(() => {
               <div id='country-id-${index}' class='text-center' > 
                 <p class= "country-names">${i.country}</p> 
               </div> 
-              <canvas class='myCharts${index}' width='100%'></canvas> 
+              <canvas id='myChart${index}' width='100%'></canvas> 
               </div> `;
             }
           }
@@ -167,7 +167,7 @@ $(document).ready(() => {
             }
           });
 
-        let ctx = document.getElementsByClassName(`myCharts${index}`);
+        let ctx = (document.getElementById(`myChart${index}`)).getContext('2d');
         let myChart = new Chart(ctx, {
           type: "line",
           data: {
