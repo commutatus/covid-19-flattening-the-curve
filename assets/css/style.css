@@ -10615,8 +10615,12 @@ header.masthead h1 {
   box-shadow: none;
 }
 
-.btn-star:active {
+.btn-star-active{
   background: #ffc107;
+}
+
+.btn-star:active {
+  background: #ffc107 !important;
 }
 
 .fa-star {
@@ -10625,7 +10629,7 @@ header.masthead h1 {
 }
 
 .fa-star path {
-  stroke: black;
+  stroke: #ffc107;
   stroke-width: 30px;
 }
 
@@ -10642,4 +10646,36 @@ header.masthead h1 {
   margin: 0;
   padding: 10px 0 0 0;
   font-size: 15px;
+}
+
+#tab-choose .btn {
+  color: #000000;
+  font-size: 14px;
+  padding-right: 35px;
+  padding-left: 35px;
+  font-family: "Merriweather", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.btn-country{
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.btn-starred{
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+
+.active{
+  background-color: #E0E0E0 !important;
+}
+
+.inactive{
+  background-color: #F8F9FA !important;
 }

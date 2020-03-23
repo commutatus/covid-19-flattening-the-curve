@@ -120,27 +120,14 @@
 
     <!-- Flattening curve graphs section-->
     <section class="page-section graphs-section text-black" id="province-graphs">
-        <ul class="nav nav-pills justify-content-center mb-4" id="pills-tab" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link active country-border" id="pills-home-tab" data-toggle="pill"
-                    href="#pills-country-graphs" role="tab" aria-controls="pills-home" aria-selected="true">All Countries</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link starred-border" id="pills-contact-tab" data-toggle="pill" href="#pills-starred"
-                    role="tab" aria-controls="pills-contact" aria-selected="false">Starred</a>
-            </li>
-        </ul>
-        <div class="tab-content" id="pills-tabContent">
-            <div class="tab-pane fade show active" id="pills-country-graphs" role="tabpanel"
-                aria-labelledby="pills-country-graphs-tab">
-                <div id="country-graphs" class="row province-chart-parent"><!-- content generated from app.js --></div>
-            </div>
-            <div class="tab-pane fade" id="pills-starred" role="tabpanel" aria-labelledby="pills-starred-tab">
-                <div class="container">
-                    <h3>Starred stuff should come here</h3>
-                </div>
-            </div>
+
+        <div id="tab-choose" class="justify-content-center mb-4 row">
+                <button type="button" class="btn btn-country active" >All Countries</button>
+                <button type="button" class="btn btn-starred">Starred</button>
         </div>
+
+                <div id="country-graphs" class="row province-chart-parent"><!-- content generated from app.js --></div>
+    
     </section>
     <!-- Footer-->
     <footer class="bg-light py-5">

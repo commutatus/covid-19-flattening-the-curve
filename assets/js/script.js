@@ -41,3 +41,10 @@ var navbarCollapse = function() {
 navbarCollapse();
 // Collapse the navbar when page is scrolled
 $(window).scroll(navbarCollapse);
+
+$(document).ready(function(){
+  $('#tab-choose .btn').click(function(){
+    $('.btn').removeClass('active').addClass('inactive');
+     $(this).removeClass('inactive').addClass('active');
+    });
+})

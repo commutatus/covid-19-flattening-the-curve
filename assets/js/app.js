@@ -5,7 +5,9 @@ $(document).ready(() => {
   const recovered = document.getElementById("total-recovered");
   const lastUpdated = document.getElementById("last-updated");
   let lastUpdatedValue;
-  let countries = [];
+  let starredCountries = [];
+  let sortedCountryArray = [];
+  let buttonIDs = [];
   $.ajax({
     url: api_url,
     contentType: "application/json",
@@ -40,28 +42,28 @@ $(document).ready(() => {
           lastUpdated: latestDate
         });
       });
-      let sortedCountryArray = totalCountryCountArray.sort((a, b) =>
+        sortedCountryArray = totalCountryCountArray.sort((a, b) =>
         a.count < b.count ? 1 : b.count < a.count ? -1 : 0
       );
 
-      const container = document.getElementById("country-graphs");
+      
 
+      const container = document.getElementById("country-graphs");
       sortedCountryArray.forEach((i, index) => {
-        container.innerHTML += `<div class='bg-light p-1 m-2 province-charts content'> 
+        container.innerHTML += `<div class='bg-light p-1 m-2 province-charts content' > 
                   <button class="btn btn-star" id="chart-star-${index}"> 
-                    <i class="fas fa-star"> </i> 
+                    <i class="fas fa-star" id="fa-star-${index}"> </i> 
                   </button>
                   <div id='country-id-${index}' class='text-center' > 
                     <p class= "country-names">${i.country}</p> 
                   </div> 
-                  <canvas id='myChart${index}' width='100%'></canvas> 
+                  <canvas class='myCharts${index}' width='100%'></canvas> 
           </div> `;
       });
 
       sortedCountryArray.forEach((i, index) => {
         let xlabels = [];
         let ylabels = [];
-        countries.push(i.country);
         data[i.country].forEach(e => {
           ylabels.push(e.confirmed);
           xlabels.push(moment(e.date, "YYYY-MM-DD").format("DD/MM"));
@@ -72,7 +74,41 @@ $(document).ready(() => {
           "YYYY-MM-DD"
         ).format("DD/MM/YY");
 
-        let ctx = document.getElementById(`myChart${index}`);
+
+
+        let starredClick = document.getElementById(`chart-star-${index}`)
+
+        $('#chart-star-'+index+'').click(function(){
+           $(this).removeClass('inactive').addClass('btn-star-active');
+           $('#fa-star-'+index+'').addClass('star-color');
+        });
+
+        starredClick.addEventListener( 'click' ,(e)=>{
+
+          if (typeof Storage !== "undefined") {
+            if (localStorage.getItem("starred") === null) {
+              starredCountries.push(i.country);
+              localStorage.setItem("starred", JSON.stringify(starredCountries));
+            }else{
+              starredCountries = JSON.parse(localStorage.getItem("starred"));
+
+              if(starredCountries.includes(i.country)){
+                starredCountries = starredCountries.filter(e => e !== i.country );
+                localStorage.setItem("starred", JSON.stringify(starredCountries));
+                $('#chart-star-'+index+'').removeClass('btn-star-active');
+                $('#fa-star-'+index+'').removeClass('star-color');
+              }else{
+                starredCountries.push(i.country);
+                localStorage.setItem("starred", JSON.stringify(starredCountries));
+              }
+            
+            }
+          } else {
+            console.log(`Your browser doesn't support Web Storage!`);
+          }
+        })
+
+        let ctx = document.getElementsByClassName(`myCharts${index}`);
         let myChart = new Chart(ctx, {
           type: "line",
           data: {
@@ -122,11 +158,8 @@ $(document).ready(() => {
     .then(() => {
       $(document).ready(function() {
         $("#search").keyup(function() {
-          // Search text
-          var text = $(this).val();
-          // Hide all content class element
+          var text = $(this).val().toLowerCase();
           $(".content").hide();
-          // Search and show
           $(".content .country-names").each(function() {
             if (
               $(this)
@@ -140,6 +173,30 @@ $(document).ready(() => {
             }
           });
         });
+
+        $('#tab-choose .btn-country').click(function(){
+          $(".content").show();
+        });
+
+        $('#tab-choose .btn-starred').click(function(){
+            $(".content").hide();
+
+            if (localStorage.getItem("starred") === null) {
+                console.log(`0 countries are starred!`);
+              }
+              else
+              {
+                let starredCountriesArray = JSON.parse(localStorage.getItem("starred"));
+                starredCountriesArray.forEach((i)=>{
+                  $('.content .country-names:contains("'+i+'")').closest('.content').show();
+
+                })
+              }
+
+          });
       });
-    });
+
+      });  
 });
+
+
