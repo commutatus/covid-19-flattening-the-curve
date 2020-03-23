@@ -4378,6 +4378,7 @@ input[type="button"].btn-block {
 
 .navbar-toggler-icon {
   display: inline-block;
+  padding: 6px;
   width: 1.5em;
   height: 1.5em;
   vertical-align: middle;
@@ -10651,7 +10652,7 @@ header.masthead h1 {
 }
 
 .fa-star {
-  font-size: 17px;
+  font-size: 20px;
   color: #f5f5f5;
 }
 
@@ -10665,13 +10666,13 @@ header.masthead h1 {
 }
 
 .fa-star:hover {
-  font-size: 20px;
+  font-size: 22px;
 }
 
 .country-names {
   color: #666666;
   margin: 0;
-  padding: 10px 0 0 0;
+  padding: 6px 0 2px 0;
   font-size: 15px;
 }
 
@@ -10695,6 +10696,7 @@ header.masthead h1 {
 }
 
 .btn-starred {
+  background-color: #f8f9fa !important ;
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
   border-top-left-radius: 0px;
