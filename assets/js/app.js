@@ -10,7 +10,11 @@ $(document).ready(() => {
     url: api_url,
     contentType: "application/json",
     dataType: "json",
-    success: function(res) {
+    success: function (res) {
+      let globalStatsBoxLoader = document.getElementsByClassName('global-stats-spinner')
+      for (i = 0; i < globalStatsBoxLoader.length; i++) {
+        globalStatsBoxLoader[i].style.display = 'none';
+      }
       const latest = res;
       confirmed.innerHTML = `${(latest.cases).toLocaleString()}`;
       deaths.innerHTML = `${(latest.deaths).toLocaleString()}`;
@@ -25,6 +29,10 @@ $(document).ready(() => {
   fetch("https://pomber.github.io/covid19/timeseries.json")
     .then(response => response.json())
     .then(data => {
+      let ChartsContainer = document.getElementById('province-graphs')
+      ChartsContainer.style.display = 'block'
+      let mainLoaderContainer = document.getElementById('chart-loader')
+      mainLoaderContainer.style.display = 'none'
       let countriesArray = Object.keys(data);
       let totalCountryCountArray = [];
       countriesArray.forEach(country => {
@@ -91,16 +99,16 @@ $(document).ready(() => {
           options: {
             tooltips: {
               callbacks: {
-                title: function(tooltipItems, data) {
+                title: function (tooltipItems, data) {
                   return '';
                 },
-                label: function(tooltipItem, data) {
+                label: function (tooltipItem, data) {
                   return (data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index]).toLocaleString();
                 }
               },
               enabled: true,
               mode: 'nearest'
-           },
+            },
             animation: {
               duration: 1000,
               easing: "easeOutSine"
