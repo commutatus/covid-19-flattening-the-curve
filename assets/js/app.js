@@ -1,5 +1,5 @@
 $(document).ready(() => {
-  var api_url = "https://coronavirus-19-api.herokuapp.com/all";
+  var api_url = "https://corona.lmao.ninja/all";
   const confirmed = document.getElementById("total-confirmed");
   const deaths = document.getElementById("total-deaths");
   const recovered = document.getElementById("total-recovered");
@@ -15,7 +15,7 @@ $(document).ready(() => {
       confirmed.innerHTML = `${(latest.cases).toLocaleString()}`;
       deaths.innerHTML = `${(latest.deaths).toLocaleString()}`;
       recovered.innerHTML = `${(latest.recovered).toLocaleString()}`;
-      lastUpdated.innerHTML = `${lastUpdatedValue}`;
+      lastUpdated.innerHTML = `${moment(latest.updated).format('DD-MM-YY hh:mm A')}`;
     },
     error: function (error) {
       console.log(error);
