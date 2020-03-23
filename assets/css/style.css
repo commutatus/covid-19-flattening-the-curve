@@ -10011,6 +10011,23 @@ hr.light {
 
 .graphs-section{
   background-color: #F5F5F5;
+  display: none;
+}
+
+.loading-section{
+  background-color: #F5F5F5;
+  display: flex;
+  justify-content: center;
+  height: 80vh;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.main-loading-text{
+  padding-top: 1em;
+  color: rgba(0, 0, 0, 0.8);
+  font-family:  "Helvetica Neue", Arial, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 #mainNav {
