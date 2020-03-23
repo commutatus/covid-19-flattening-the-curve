@@ -1,3 +1,4 @@
+let notFound = document.getElementById("results-not-found");
 $('a.js-scroll-trigger[href*="#"]:not([href="#"])').click(function() {
   if (
     location.pathname.replace(/^\//, "") == this.pathname.replace(/^\//, "") &&
@@ -48,3 +49,4 @@ $(document).ready(function(){
      $(this).removeClass('inactive').addClass('active');
     });
 })
+
