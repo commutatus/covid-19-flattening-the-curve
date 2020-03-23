@@ -62,13 +62,23 @@ $(document).ready(() => {
 
       const container = document.getElementById("country-graphs");
       sortedCountryArray.forEach((i, index) => {
+
         if (typeof Storage !== "undefined") {
+
           if (localStorage.getItem("starred") === null) {
-            //
+            container.innerHTML += `<div class='bg-light p-1 m-2 province-charts content' > 
+            <button class="btn btn-star" id="chart-star-${index}"> 
+              <i class="fas fa-star" id="fa-star-${index}"> </i> 
+            </button>
+            <div id='country-id-${index}' class='text-center' > 
+              <p class= "country-names">${i.country}</p> 
+            </div> 
+            <canvas class='myCharts${index}' width='100%'></canvas> 
+            </div> `;
+
           } else {
             let starredCountriesGen = JSON.parse(
-              localStorage.getItem("starred")
-            );
+              localStorage.getItem("starred"));
 
             if (starredCountriesGen.includes(i.country)) {
               container.innerHTML += `<div class='bg-light p-1 m-2 province-charts content' > 
@@ -80,16 +90,16 @@ $(document).ready(() => {
                   </div> 
                   <canvas class='myCharts${index}' width='100%'></canvas> 
                 </div> `;
-            } else {
+            } else{
               container.innerHTML += `<div class='bg-light p-1 m-2 province-charts content' > 
-                <button class="btn btn-star" id="chart-star-${index}"> 
-                  <i class="fas fa-star" id="fa-star-${index}"> </i> 
-                </button>
-                <div id='country-id-${index}' class='text-center' > 
-                  <p class= "country-names">${i.country}</p> 
-                </div> 
-                <canvas class='myCharts${index}' width='100%'></canvas> 
-                </div> `;
+              <button class="btn btn-star" id="chart-star-${index}"> 
+                <i class="fas fa-star" id="fa-star-${index}"> </i> 
+              </button>
+              <div id='country-id-${index}' class='text-center' > 
+                <p class= "country-names">${i.country}</p> 
+              </div> 
+              <canvas class='myCharts${index}' width='100%'></canvas> 
+              </div> `;
             }
           }
         } else {
