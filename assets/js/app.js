@@ -1,5 +1,5 @@
 $(document).ready(() => {
-  var api_url = "https://coronavirus-tracker-api.herokuapp.com/v2/latest";
+  var api_url = "https://coronavirus-19-api.herokuapp.com/all";
   const confirmed = document.getElementById("total-confirmed");
   const deaths = document.getElementById("total-deaths");
   const recovered = document.getElementById("total-recovered");
@@ -10,11 +10,11 @@ $(document).ready(() => {
     url: api_url,
     contentType: "application/json",
     dataType: "json",
-    success: function (res) {
-      const latest = res.latest;
-      confirmed.innerHTML = `${latest.confirmed}`;
-      deaths.innerHTML = `${latest.deaths}`;
-      recovered.innerHTML = `${latest.recovered}`;
+    success: function(res) {
+      const latest = res;
+      confirmed.innerHTML = `${(latest.cases).toLocaleString()}`;
+      deaths.innerHTML = `${(latest.deaths).toLocaleString()}`;
+      recovered.innerHTML = `${(latest.recovered).toLocaleString()}`;
       lastUpdated.innerHTML = `${lastUpdatedValue}`;
     },
     error: function (error) {
