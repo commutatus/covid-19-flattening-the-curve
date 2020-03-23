@@ -66,7 +66,7 @@ $(document).ready(() => {
         if (typeof Storage !== "undefined") {
           if (localStorage.getItem("starred") === null) {
             container.innerHTML += `<div class='bg-light p-1 m-2 province-charts content' > 
-            <button class="btn" id="chart-star-${index}"> 
+            <button class="btn btn-star" id="chart-star-${index}"> 
               <i class="fas fa-star" id="fa-star-${index}"> </i> 
             </button>
             <div id='country-id-${index}' class='text-center' > 
