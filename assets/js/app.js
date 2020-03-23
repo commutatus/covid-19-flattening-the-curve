@@ -270,6 +270,14 @@ $(document).ready(() => {
             let starredCountriesArray = JSON.parse(
               localStorage.getItem("starred")
             );
+            
+            let notFound = document.getElementById('none-found');
+            if(starredCountriesArray && starredCountriesArray.length){
+
+            }else{
+              notFound.innerHTML =  `You haven't starred any countries.`;
+            }
+
             starredCountriesArray.forEach(i => {
               $('.content .country-names:contains("' + i + '")')
                 .closest(".content")
