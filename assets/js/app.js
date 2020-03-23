@@ -1,5 +1,5 @@
 $(document).ready(() => {
-  var api_url = "https://coronavirus-tracker-api.herokuapp.com/v2/latest";
+  var api_url = "https://corona.lmao.ninja/all";
   const confirmed = document.getElementById("total-confirmed");
   const deaths = document.getElementById("total-deaths");
   const recovered = document.getElementById("total-recovered");
@@ -12,14 +12,18 @@ $(document).ready(() => {
     url: api_url,
     contentType: "application/json",
     dataType: "json",
-    success: function(res) {
-      const latest = res.latest;
-      confirmed.innerHTML = `${latest.confirmed}`;
-      deaths.innerHTML = `${latest.deaths}`;
-      recovered.innerHTML = `${latest.recovered}`;
-      lastUpdated.innerHTML = `${lastUpdatedValue}`;
+    success: function (res) {
+      let globalStatsBoxLoader = document.getElementsByClassName('global-stats-spinner')
+      for (i = 0; i < globalStatsBoxLoader.length; i++) {
+        globalStatsBoxLoader[i].style.display = 'none';
+      }
+      const latest = res;
+      confirmed.innerHTML = `${(latest.cases).toLocaleString()}`;
+      deaths.innerHTML = `${(latest.deaths).toLocaleString()}`;
+      recovered.innerHTML = `${(latest.recovered).toLocaleString()}`;
+      lastUpdated.innerHTML = `${moment(latest.updated).format('DD-MM-YY hh:mm A')}`;
     },
-    error: function(error) {
+    error: function (error) {
       console.log(error);
     }
   });
@@ -27,13 +31,16 @@ $(document).ready(() => {
   fetch("https://pomber.github.io/covid19/timeseries.json")
     .then(response => response.json())
     .then(data => {
+      let ChartsContainer = document.getElementById('province-graphs')
+      ChartsContainer.style.display = 'block'
+      let mainLoaderContainer = document.getElementById('chart-loader')
+      mainLoaderContainer.style.display = 'none'
       let countriesArray = Object.keys(data);
-      localStorage.setItem("totalCountries", countriesArray.length);
       let totalCountryCountArray = [];
       countriesArray.forEach(country => {
         let countryTimelineArray = data[country];
         let latestCountryCount =
-          countryTimelineArray[countryTimelineArray.length - 1].confirmed;
+          countryTimelineArray[countryTimelineArray.length - 1].confirmed - (countryTimelineArray[countryTimelineArray.length - 1].deaths + countryTimelineArray[countryTimelineArray.length - 1].recovered);
         let latestDate =
           countryTimelineArray[countryTimelineArray.length - 1].date;
         totalCountryCountArray.push({
@@ -64,9 +71,14 @@ $(document).ready(() => {
       sortedCountryArray.forEach((i, index) => {
         let xlabels = [];
         let ylabels = [];
+        countries.push(i.country);
+        let dayCount = 0
         data[i.country].forEach(e => {
-          ylabels.push(e.confirmed);
-          xlabels.push(moment(e.date, "YYYY-MM-DD").format("DD/MM"));
+          if (e.confirmed !== 0) {
+            dayCount = dayCount + 1
+            ylabels.push(e.confirmed - (e.deaths + e.recovered));
+            xlabels.push(`${dayCount}`);
+          }
         });
 
         lastUpdatedValue = moment(
@@ -115,7 +127,7 @@ $(document).ready(() => {
             labels: xlabels,
             datasets: [
               {
-                label: `Total confirmed cases: ${sortedCountryArray[
+                label: `Active cases: ${sortedCountryArray[
                   index
                 ].count.toLocaleString()}`,
                 data: ylabels,
@@ -123,13 +135,23 @@ $(document).ready(() => {
                 borderColor: ["rgba(255, 99, 132, 1)"],
                 lineTension: 0.4,
                 borderWidth: 1,
-                pointRadius: 0
+                pointRadius: 2,
+                pointBackgroundColor: "rgba(255, 99, 132, 0.8)"
               }
             ]
           },
           options: {
-            title: {
-              display: true
+            tooltips: {
+              callbacks: {
+                title: function (tooltipItems, data) {
+                  return '';
+                },
+                label: function (tooltipItem, data) {
+                  return (data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index]).toLocaleString();
+                }
+              },
+              enabled: true,
+              mode: 'nearest'
             },
             animation: {
               duration: 1000,
@@ -145,6 +167,10 @@ $(document).ready(() => {
               ],
               xAxes: [
                 {
+                  scaleLabel: {
+                    display: true,
+                    labelString: `Days since first confirmed case in ${i.country}`
+                  },
                   ticks: {
                     maxTicksLimit: 12
                   }
