@@ -10633,6 +10633,8 @@ header.masthead h1 {
   right: 5px;
   top: 5px;
   padding: 2px;
+  margin-right: 8px;
+  margin-top: 2px;
   border-radius: 50%;
 }
 
@@ -10681,9 +10683,9 @@ header.masthead h1 {
   font-size: 14px;
   padding-right: 35px;
   padding-left: 35px;
-  font-family: "Merriweather", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: "Helvetica Neue", Arial, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-weight: 400;
   line-height: 1.5;
 }
