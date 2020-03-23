@@ -123,7 +123,7 @@ $(document).ready(() => {
           $("#fa-star-" + index + "").addClass("star-color");
         });
 
-        starredClick.addEventListener("click", e => {
+        starredClick && starredClick.addEventListener("click", e => {
           if (typeof Storage !== "undefined") {
             if (localStorage.getItem("starred") === null) {
               starredCountries.push(i.country);
