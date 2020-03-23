@@ -7,8 +7,8 @@ $(document).ready(() => {
   let lastUpdatedValue;
   let starredCountries = [];
   let sortedCountryArray = [];
-  let notFound = document.getElementById('results-not-found');
-  let starFound = document.getElementById('starred-none');
+  let notFound = document.getElementById("results-not-found");
+  let starFound = document.getElementById("starred-none");
   $.ajax({
     url: api_url,
     contentType: "application/json",
@@ -61,10 +61,9 @@ $(document).ready(() => {
       );
 
       const container = document.getElementById("country-graphs");
+
       sortedCountryArray.forEach((i, index) => {
-
         if (typeof Storage !== "undefined") {
-
           if (localStorage.getItem("starred") === null) {
             container.innerHTML += `<div class='bg-light p-1 m-2 province-charts content' > 
             <button class="btn btn-star" id="chart-star-${index}"> 
@@ -75,10 +74,10 @@ $(document).ready(() => {
             </div> 
             <canvas class='myCharts${index}' width='100%'></canvas> 
             </div> `;
-
           } else {
             let starredCountriesGen = JSON.parse(
-              localStorage.getItem("starred"));
+              localStorage.getItem("starred")
+            );
 
             if (starredCountriesGen.includes(i.country)) {
               container.innerHTML += `<div class='bg-light p-1 m-2 province-charts content' > 
@@ -90,7 +89,7 @@ $(document).ready(() => {
                   </div> 
                   <canvas class='myCharts${index}' width='100%'></canvas> 
                 </div> `;
-            } else{
+            } else {
               container.innerHTML += `<div class='bg-light p-1 m-2 province-charts content' > 
               <button class="btn btn-star" id="chart-star-${index}"> 
                 <i class="fas fa-star" id="fa-star-${index}"> </i> 
@@ -133,36 +132,40 @@ $(document).ready(() => {
           $("#fa-star-" + index + "").addClass("star-color");
         });
 
-        starredClick && starredClick.addEventListener("click", e => {
-          if (typeof Storage !== "undefined") {
-            if (localStorage.getItem("starred") === null) {
-              starredCountries.push(i.country);
-              localStorage.setItem("starred", JSON.stringify(starredCountries));
-            } else {
-              starredCountries = JSON.parse(localStorage.getItem("starred"));
-
-              if (starredCountries.includes(i.country)) {
-                starredCountries = starredCountries.filter(
-                  e => e !== i.country
-                );
-                localStorage.setItem(
-                  "starred",
-                  JSON.stringify(starredCountries)
-                );
-                $("#chart-star-" + index + "").removeClass("btn-star-active");
-                $("#fa-star-" + index + "").removeClass("star-color");
-              } else {
+        starredClick &&
+          starredClick.addEventListener("click", e => {
+            if (typeof Storage !== "undefined") {
+              if (localStorage.getItem("starred") === null) {
                 starredCountries.push(i.country);
                 localStorage.setItem(
                   "starred",
                   JSON.stringify(starredCountries)
                 );
+              } else {
+                starredCountries = JSON.parse(localStorage.getItem("starred"));
+
+                if (starredCountries.includes(i.country)) {
+                  starredCountries = starredCountries.filter(
+                    e => e !== i.country
+                  );
+                  localStorage.setItem(
+                    "starred",
+                    JSON.stringify(starredCountries)
+                  );
+                  $("#chart-star-" + index + "").removeClass("btn-star-active");
+                  $("#fa-star-" + index + "").removeClass("star-color");
+                } else {
+                  starredCountries.push(i.country);
+                  localStorage.setItem(
+                    "starred",
+                    JSON.stringify(starredCountries)
+                  );
+                }
               }
+            } else {
+              console.log(`Your browser doesn't support Web Storage!`);
             }
-          } else {
-            console.log(`Your browser doesn't support Web Storage!`);
-          }
-        });
+          });
 
         let ctx = document.getElementsByClassName(`myCharts${index}`);
         let myChart = new Chart(ctx, {
@@ -246,12 +249,10 @@ $(document).ready(() => {
                 .show();
             }
           });
-          if($('.content .country-names:contains("' + i + '")')){
-
-          }else{
-            notFound.innerHTML = `No results found.`
+          if ($('.content .country-names:contains("' + i + '")')) {
+          } else {
+            notFound.innerHTML = `No results found.`;
           }
-
         });
 
         $("#tab-choose .btn-country").click(function() {
@@ -289,10 +290,10 @@ $(document).ready(() => {
             let starredCountriesArray = JSON.parse(
               localStorage.getItem("starred")
             );
-            
-            if(starredCountriesArray && starredCountriesArray.length){
+
+            if (starredCountriesArray && starredCountriesArray.length) {
               starFound.innerHTML = ``;
-            }else{
+            } else {
               starFound.innerHTML = `You haven't starred any country.`;
             }
 
