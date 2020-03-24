@@ -72,6 +72,7 @@ function getSortedCountryArray(data) {
   sortedCountryArray = totalCountryCountArray.sort((a, b) =>
     a.count < b.count ? 1 : b.count < a.count ? -1 : 0
   );
+  sortedCountryArray = sortedCountryArray.slice(0,50);
 }
 
 function generateGraphCanvas() {
