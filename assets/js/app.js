@@ -232,11 +232,14 @@ $(document).ready(() => {
     })
     .then(() => {
       $(document).ready(function() {
+        $('#results-not-found').hide();
         $("#search").keyup(function() {
           var text = $(this)
             .val()
             .toLowerCase();
           $(".content").hide();
+          var resultCount = 0;
+          $('#results-not-found').hide();
           $(".content .country-names").each(function() {
             if (
               $(this)
@@ -247,6 +250,12 @@ $(document).ready(() => {
               $(this)
                 .closest(".content")
                 .show();
+                $('#results-not-found').hide();
+                resultCount ++;
+            }
+            
+            if(resultCount==0){
+              $('#results-not-found').show();
             }
           });
         });
@@ -254,6 +263,7 @@ $(document).ready(() => {
         $("#tab-choose .btn-country").click(function() {
           $(".content").show();
           $("#starred-none").hide();
+          $('#results-not-found').hide();
           sortedCountryArray.forEach((i, index) => {
             if (typeof Storage !== "undefined") {
               if (localStorage.getItem("starred") === null) {
@@ -279,7 +289,7 @@ $(document).ready(() => {
         $("#tab-choose .btn-starred").click(function() {
           $(".content").hide();
           $("#starred-none").show();
-
+          $('#results-not-found').hide();
           if (localStorage.getItem("starred") === null) {
             console.log(`0 countries are starred!`);
             starFound.innerHTML = `You haven't starred any country.`;
