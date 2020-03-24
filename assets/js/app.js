@@ -76,7 +76,6 @@ function getSortedCountryArray(data) {
 
 function generateGraphCanvas() {
   let container = document.getElementById("country-graphs");
-  console.log(sortedCountryArray);
   sortedCountryArray.forEach((i, index) => {
     if (typeof Storage !== "undefined") {
       if (localStorage.getItem("starred") === null) {
@@ -315,7 +314,6 @@ function ifStarredBtnClicked() {
     $("#starred-none").show();
     $("#results-not-found").hide();
     if (localStorage.getItem("starred") === null) {
-      console.log(`0 countries are starred!`);
       starFound.innerHTML = `You haven't starred any country.`;
     } else {
       let starredCountriesArray = JSON.parse(localStorage.getItem("starred"));
