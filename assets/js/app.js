@@ -130,9 +130,9 @@ function generateGraphContent(data) {
     data[i.country].forEach(e => {
       if (e.confirmed !== 0) {
         dayCount = dayCount + 1;
-        ylabels.push(e.confirmed - (e.deaths + (e.recovered !== NaN ? e.recovered : recentRecovered)));
+        ylabels.push(e.confirmed - (e.deaths + (e.recovered !== undefined ? e.recovered : recentRecovered)));
         xlabels.push(`${dayCount}`);
-        if (e.recovered !== NaN) recentRecovered = e.recovered
+        if (e.recovered !== undefined) recentRecovered = e.recovered
       }
     });
 
