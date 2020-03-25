@@ -15,7 +15,7 @@ function getLatestInfo() {
     url: api_url,
     contentType: "application/json",
     dataType: "json",
-    success: function(res) {
+    success: function (res) {
       let globalStatsBoxLoader = document.getElementsByClassName(
         "global-stats-spinner"
       );
@@ -30,7 +30,7 @@ function getLatestInfo() {
         "DD-MM-YY hh:mm A"
       )}`;
     },
-    error: function(error) {
+    error: function (error) {
       console.log(error);
     }
   });
@@ -58,10 +58,12 @@ function getSortedCountryArray(data) {
   let totalCountryCountArray = [];
   countriesArray.forEach(country => {
     let countryTimelineArray = data[country];
+    let countryRecoveredArray = countryTimelineArray.filter((item) => (item.recovered !== undefined))
+    let latestRecoveredCount = (countryRecoveredArray[countryRecoveredArray.length - 1]).recovered
     let latestCountryCount =
       countryTimelineArray[countryTimelineArray.length - 1].confirmed -
       (countryTimelineArray[countryTimelineArray.length - 1].deaths +
-        countryTimelineArray[countryTimelineArray.length - 1].recovered);
+        latestRecoveredCount);
     let latestDate = countryTimelineArray[countryTimelineArray.length - 1].date;
     totalCountryCountArray.push({
       country: country,
@@ -125,11 +127,13 @@ function generateGraphContent(data) {
     let xlabels = [];
     let ylabels = [];
     let dayCount = 0;
+    let recentRecovered = 0
     data[i.country].forEach(e => {
       if (e.confirmed !== 0) {
         dayCount = dayCount + 1;
-        ylabels.push(e.confirmed - (e.deaths + e.recovered));
+        ylabels.push(e.confirmed - (e.deaths + (e.recovered !== NaN ? e.recovered : recentRecovered)));
         xlabels.push(`${dayCount}`);
+        if (e.recovered !== NaN) recentRecovered = e.recovered
       }
     });
 
@@ -146,7 +150,7 @@ function generateGraphContent(data) {
 function starredButtonOnClick(i, index) {
   let starredClick = document.getElementById(`chart-star-${index}`);
 
-  $("#chart-star-" + index + "").click(function() {
+  $("#chart-star-" + index + "").click(function () {
     $(this)
       .removeClass("inactive")
       .addClass("btn-star-active");
@@ -202,10 +206,10 @@ function generateAllCharts(i, index, xlabels, ylabels) {
     options: {
       tooltips: {
         callbacks: {
-          title: function(tooltipItems, data) {
+          title: function (tooltipItems, data) {
             return "";
           },
-          label: function(tooltipItem, data) {
+          label: function (tooltipItem, data) {
             return data.datasets[tooltipItem.datasetIndex].data[
               tooltipItem.index
             ].toLocaleString();
@@ -243,7 +247,7 @@ function generateAllCharts(i, index, xlabels, ylabels) {
 }
 
 function userFunctions() {
-  $(document).ready(function() {
+  $(document).ready(function () {
     searchCountries();
     ifAllCountriesBtnClicked();
     ifStarredBtnClicked();
@@ -252,14 +256,14 @@ function userFunctions() {
 
 function searchCountries() {
   $("#results-not-found").hide();
-  $("#search").keyup(function() {
+  $("#search").keyup(function () {
     var text = $(this)
       .val()
       .toLowerCase();
     $(".content").hide();
     var resultCount = 0;
     $("#results-not-found").hide();
-    $(".content .country-names").each(function() {
+    $(".content .country-names").each(function () {
       if (
         $(this)
           .text()
@@ -281,7 +285,7 @@ function searchCountries() {
 }
 
 function ifAllCountriesBtnClicked() {
-  $("#tab-choose .btn-country").click(function() {
+  $("#tab-choose .btn-country").click(function () {
     $(".content").show();
     $("#starred-none").hide();
     $("#results-not-found").hide();
@@ -310,7 +314,7 @@ function ifAllCountriesBtnClicked() {
 
 function ifStarredBtnClicked() {
   let starFound = document.getElementById("starred-none");
-  $("#tab-choose .btn-starred").click(function() {
+  $("#tab-choose .btn-starred").click(function () {
     $(".content").hide();
     $("#starred-none").show();
     $("#results-not-found").hide();
