@@ -13,7 +13,7 @@ $(document).ready(() => {
     url: api_url,
     contentType: "application/json",
     dataType: "json",
-    success: function(res) {
+    success: function (res) {
       let globalStatsBoxLoader = document.getElementsByClassName(
         "global-stats-spinner"
       );
@@ -28,7 +28,7 @@ $(document).ready(() => {
         "DD-MM-YY hh:mm A"
       )}`;
     },
-    error: function(error) {
+    error: function (error) {
       console.log(error);
     }
   });
@@ -44,10 +44,12 @@ $(document).ready(() => {
       let totalCountryCountArray = [];
       countriesArray.forEach(country => {
         let countryTimelineArray = data[country];
+        let countryRecoveredArray = countryTimelineArray.filter((item) => (item.recovered !== undefined))
+        if (country === 'India') console.log(countryRecoveredArray)
+        let latestRecoveredCount = (countryRecoveredArray[countryRecoveredArray.length - 1]).recovered
         let latestCountryCount =
           countryTimelineArray[countryTimelineArray.length - 1].confirmed -
-          (countryTimelineArray[countryTimelineArray.length - 1].deaths +
-            countryTimelineArray[countryTimelineArray.length - 1].recovered);
+          (countryTimelineArray[countryTimelineArray.length - 1].deaths + latestRecoveredCount);
         let latestDate =
           countryTimelineArray[countryTimelineArray.length - 1].date;
         totalCountryCountArray.push({
@@ -110,11 +112,14 @@ $(document).ready(() => {
         let xlabels = [];
         let ylabels = [];
         let dayCount = 0;
+        let recentRecovered = 0
         data[i.country].forEach(e => {
           if (e.confirmed !== 0) {
             dayCount = dayCount + 1;
-            ylabels.push(e.confirmed - (e.deaths + e.recovered));
+            ylabels.push(e.confirmed - (e.deaths + (e.recovered !== NaN ? e.recovered : recentRecovered)));
+            if (i.country === 'India') console.log(e.confirmed - (e.deaths + (e.recovered !== NaN ? e.recovered : recentRecovered)))
             xlabels.push(`${dayCount}`);
+            if (e.recovered !== NaN) recentRecovered = e.recovered
           }
         });
 
@@ -125,7 +130,7 @@ $(document).ready(() => {
 
         let starredClick = document.getElementById(`chart-star-${index}`);
 
-        $("#chart-star-" + index + "").click(function() {
+        $("#chart-star-" + index + "").click(function () {
           $(this)
             .removeClass("inactive")
             .addClass("btn-star-active");
@@ -190,10 +195,10 @@ $(document).ready(() => {
           options: {
             tooltips: {
               callbacks: {
-                title: function(tooltipItems, data) {
+                title: function (tooltipItems, data) {
                   return "";
                 },
-                label: function(tooltipItem, data) {
+                label: function (tooltipItem, data) {
                   return data.datasets[tooltipItem.datasetIndex].data[
                     tooltipItem.index
                   ].toLocaleString();
@@ -231,16 +236,16 @@ $(document).ready(() => {
       });
     })
     .then(() => {
-      $(document).ready(function() {
+      $(document).ready(function () {
         $('#results-not-found').hide();
-        $("#search").keyup(function() {
+        $("#search").keyup(function () {
           var text = $(this)
             .val()
             .toLowerCase();
           $(".content").hide();
           var resultCount = 0;
           $('#results-not-found').hide();
-          $(".content .country-names").each(function() {
+          $(".content .country-names").each(function () {
             if (
               $(this)
                 .text()
@@ -250,17 +255,17 @@ $(document).ready(() => {
               $(this)
                 .closest(".content")
                 .show();
-                $('#results-not-found').hide();
-                resultCount ++;
+              $('#results-not-found').hide();
+              resultCount++;
             }
-            
-            if(resultCount==0){
+
+            if (resultCount == 0) {
               $('#results-not-found').show();
             }
           });
         });
 
-        $("#tab-choose .btn-country").click(function() {
+        $("#tab-choose .btn-country").click(function () {
           $(".content").show();
           $("#starred-none").hide();
           $('#results-not-found').hide();
@@ -286,7 +291,7 @@ $(document).ready(() => {
           });
         });
 
-        $("#tab-choose .btn-starred").click(function() {
+        $("#tab-choose .btn-starred").click(function () {
           $(".content").hide();
           $("#starred-none").show();
           $('#results-not-found').hide();
