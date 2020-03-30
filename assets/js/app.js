@@ -58,8 +58,8 @@ function getSortedCountryArray(data) {
   let totalCountryCountArray = [];
   countriesArray.forEach(country => {
     let countryTimelineArray = data[country];
-    let countryRecoveredArray = countryTimelineArray.filter((item) => (item.recovered !== undefined))
-    let latestRecoveredCount = (countryRecoveredArray[countryRecoveredArray.length - 1]).recovered
+    let countryRecoveredArray = countryTimelineArray.filter((item) => (item.recovered !== null))
+    let latestRecoveredCount = countryRecoveredArray.length > 0 ? (countryRecoveredArray[countryRecoveredArray.length - 1]).recovered : 0
     let latestCountryCount =
       countryTimelineArray[countryTimelineArray.length - 1].confirmed -
       (countryTimelineArray[countryTimelineArray.length - 1].deaths +
@@ -131,9 +131,9 @@ function generateGraphContent(data) {
     data[i.country].forEach(e => {
       if (e.confirmed !== 0) {
         dayCount = dayCount + 1;
-        ylabels.push(e.confirmed - (e.deaths + (e.recovered !== undefined ? e.recovered : recentRecovered)));
+        ylabels.push(e.confirmed - (e.deaths + (e.recovered !== null ? e.recovered : recentRecovered)));
         xlabels.push(`${dayCount}`);
-        if (e.recovered !== undefined) recentRecovered = e.recovered
+        if (e.recovered !== null) recentRecovered = e.recovered
       }
     });
 
