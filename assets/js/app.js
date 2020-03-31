@@ -5,6 +5,7 @@ const recovered = document.getElementById("total-recovered");
 const lastUpdated = document.getElementById("last-updated");
 let starredCountries = [];
 let sortedCountryArray = [];
+let hospitalBedCapacity = [129510.7351, 241847.304, 138861.6907, 670271.536, 390335.5958, 125989.4235, 39205.43766, 172430.4679, 629072.9, 6246665.188, 56887.77504, 66377.15326, 66756.22848, 19516.4676, 95110.22808, 34566.84351, 22420.3683, 467630.7174, 97919.55456, 15117.64722, 236992.7783, 26139.7157, 61495.3981, 71000.54403, 14615.84656, 26464.581, 132535.404, 2917.05748, 1650517.816, 250544.5648, 40335.18411, 18173.5616, 146579.9538, 43881.05734, 1044.20358, 93997.4517, 121197.4533, 328228.338, 1683.582, 966003.0695, 9355.221, 1174772.419, 109581.078, 166064.332, 52754.9664, 0, 14040.8208, 6221.44915, 9923.9641, 22989.4952]
 $(document).ready(() => {
   getLatestInfo();
   getAllCountryGraphs();
@@ -184,6 +185,8 @@ function starredButtonOnClick(i, index) {
 
 function generateAllCharts(i, index, xlabels, ylabels) {
   let ctx = document.getElementById(`myChart${index}`);
+  var thresholdValue = hospitalBedCapacity[index];
+  var thresholdHighArray = new Array(ylabels.length).fill(thresholdValue);
   let myChart = new Chart(ctx, {
     type: "line",
     data: {
@@ -200,7 +203,16 @@ function generateAllCharts(i, index, xlabels, ylabels) {
           borderWidth: 1,
           pointRadius: 2,
           pointBackgroundColor: "rgba(255, 99, 132, 0.8)"
-        }
+        },
+        {
+          label: `Hospital Beds: ${hospitalBedCapacity[index].toLocaleString()}`,
+          data: thresholdHighArray,
+          backgroundColor: ['rgba(235, 235, 235, 0.3)'],
+          borderColor: ['rgba(255, 159, 64, 1)'],
+          lineTension: 0.4,
+          borderWidth: 1,
+          pointRadius: 0,
+        },
       ]
     },
     options: {
