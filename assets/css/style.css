@@ -10801,6 +10801,20 @@ header.masthead h1 {
   font-size: 20px;
 }
 
+.charts-dashboard-loading-info{
+  visibility: hidden;
+  font-size: 0px;
+  display: inline;
+}
+.chart-loader-container{
+  visibility: hidden;
+  font-size: 0px;
+}
+
+.charts-dashboard-loading-info p{
+  display: inline;
+}
+
 .notice-section{
   display: flex;
   align-content: center;
