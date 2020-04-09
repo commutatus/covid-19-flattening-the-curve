@@ -1,0 +1,24 @@
+{
+  "name": "flattening-the-curve",
+  "private": true,
+  "scripts": {
+    "build": "gridsome build",
+    "develop": "gridsome develop",
+    "explore": "gridsome explore"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.28",
+    "@fortawesome/free-solid-svg-icons": "^5.13.0",
+    "@fortawesome/vue-fontawesome": "^0.1.9",
+    "axios": "^0.19.2",
+    "bootstrap": "^4.4.1",
+    "bootstrap-vue": "^2.11.0",
+    "chart.js": "^2.9.3",
+    "gridsome": "^0.7.0",
+    "jquery": "^3.4.1",
+    "moment": "^2.24.0",
+    "vue": "^2.6.11",
+    "vue-chartjs": "^3.5.0",
+    "vue-moment": "^4.1.0"
+  }
+}
