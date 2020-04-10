@@ -7,5 +7,14 @@
 module.exports = {
   siteName: 'Flattening the curve',
   titleTemplate: (title) => title ? `${title}` : 'Flattening the curve',
-  plugins: []
+  plugins: [
+    {
+      use: 'gridsome-plugin-gtm',
+      options: {
+        id: 'GTM-MGRZK7F',
+        enabled: true,
+        debug: false
+      }
+    }
+  ]
 }
