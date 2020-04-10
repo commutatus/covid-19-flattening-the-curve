@@ -1,5 +1,8 @@
 name: Flattening the curve
 
+schedule:
+    - cron: "30 0,2,12 * * *"
+
 jobs:
   deployment:
     runs-on: ubuntu-latest
