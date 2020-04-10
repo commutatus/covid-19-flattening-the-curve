@@ -1,6 +1,7 @@
 name: Flattening the curve
 
-schedule:
+on:
+  schedule:
     - cron: "30 0,2,12 * * *"
 
 jobs:
