@@ -1,8 +1,6 @@
 name: Flattening the curve
 
 on:
-  push:
-    branches: [ v ]
   schedule:
     - cron: "25 0,2,12 * * *"
 
