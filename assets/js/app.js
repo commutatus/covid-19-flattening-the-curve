@@ -1,4 +1,4 @@
-var api_url = "https://corona.lmao.ninja/all";
+var api_url = "https://corona.lmao.ninja/v2/all";
 const confirmed = document.getElementById("total-confirmed");
 const deaths = document.getElementById("total-deaths");
 const recovered = document.getElementById("total-recovered");
