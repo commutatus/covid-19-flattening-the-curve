@@ -12,7 +12,7 @@ module.exports = function (api) {
   // })
 
   api.loadSource(async actions => {
-    const { data } = await axios.get('https://corona.lmao.ninja/all')
+    const { data } = await axios.get('https://corona.lmao.ninja/v2/all')
 
     const collection = actions.addCollection('GlobalData')
 
