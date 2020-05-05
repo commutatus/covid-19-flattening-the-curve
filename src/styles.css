@@ -10654,7 +10654,7 @@ header.masthead h1 {
 
 .btn-star-active {
   background: #ffc107;
-  padding: 1px !important;
+  padding: 1px 4px 1px 4px !important;
 }
 
 .btn-star:active {
@@ -10674,10 +10674,6 @@ header.masthead h1 {
 .fa-star:hover path {
   stroke: #ffa807;
 }
-/* 
-.fa-star:hover {
-  font-size: 20px;
-} */
 
 .country-names {
   color: #666666;
