@@ -1,4 +1,4 @@
-<template>
+ <template>
   <Layout>
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top py-1" id="mainNav">
