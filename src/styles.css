@@ -10839,6 +10839,10 @@ header.masthead h1 {
   "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
+.prediction-notice{
+  margin-top: 60px;
+}
+
 .main-h1{
   font-size: 1.2em;
   font-weight: 300;

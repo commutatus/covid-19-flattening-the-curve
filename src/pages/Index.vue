@@ -21,6 +21,7 @@
           <i class="fa fa-bars" aria-hidden="true"></i>
         </span>
       </button>-->
+      <g-link class="nav__link" to="/predictions">Predictions</g-link>
       <div class="list-js-search">
         <label class="search-label-hidden" for="search">Search by country</label>
         <input class="search" type="text" id="search" placeholder="Search by country" />
