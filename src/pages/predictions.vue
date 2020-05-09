@@ -265,27 +265,28 @@ export default {
   data() {
     return {
       sortedCountryArray: this.sortedCountryArray,
+      sortedPredictedArray: this.sortedPredictedArray,
       PredictionData
     };
   },
   methods: {
     sortCountriesData: function() {      
       var predictedData = PredictionData;
-      let sortPredictedData = [];
+      let sortedPredictedArray = [];
       let totalPredictedCountArray = [];
-      let timelines = [];
       let predictedCountriesArray = Object.keys(predictedData);
       predictedCountriesArray.forEach((country)=>{
-        timelines = Obje
         let predictedTimelineArray = Object.values(predictedData[country]);
         let predictedDateArray = Object.keys(predictedData[country]);
+        predictedDateArray.forEach((e)=>{
+          moment(e).format("DD-MM-YY")
+        })
         let predictedActiveCount = 
         (predictedTimelineArray[predictedTimelineArray.length - 1].Infected + 
         predictedTimelineArray[predictedTimelineArray.length - 1].Recovered);
         let latestDate =
           predictedDateArray[predictedDateArray.length - 1];
-        totalPredictedCountArray.push(
-          {
+        totalPredictedCountArray.push({
             country: country,
             recovered: predictedTimelineArray[predictedTimelineArray.length - 1].Recovered,
             deaths: predictedTimelineArray[predictedTimelineArray.length - 1].Fatal,
@@ -294,9 +295,14 @@ export default {
         predictedTimelineArray[predictedTimelineArray.length - 1].Fatal),
             count: predictedActiveCount,
             lastUpdated: latestDate
-          }
-       )
-      })
+          });
+      });
+      sortedPredictedArray = totalPredictedCountArray.sort((a, b) =>
+        a.count < b.count ? 1 : b.count < a.count ? -1 : 0
+      );
+      this.sortedPredictedArray = sortedPredictedArray;
+      console.log(sortedPredictedArray);
+      
       
       let data = JSON.parse(this.$page.allCountriesData.edges[0].node.fullData);
       let sortedCountryArray = [];
