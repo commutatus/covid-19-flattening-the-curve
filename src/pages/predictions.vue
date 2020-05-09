@@ -1,18 +1,10 @@
-/*
- * Created Date: Saturday May 9th 2020
- * Author: Gurubalan Harikrishnan
- * Email-ID: gurubalan.work@gmail.com
- * -----
- * Copyright (c) 2020 Gurubalan Harikrishnan
- */
 <template>
     <Layout>
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top py-1" id="mainNav">
         <a class="navbar-brand font-weight-light js-scroll-trigger" href="/">
             <h1 class="main-h1">
-            Flattening the Curve Dashboard |
-            COVID-19
+            Prediction Graphs
             </h1>
         </a>
         <!-- <button
@@ -279,9 +271,32 @@ export default {
   methods: {
     sortCountriesData: function() {      
       var predictedData = PredictionData;
+      let sortPredictedData = [];
+      let totalPredictedCountArray = [];
       let predictedCountriesArray = Object.keys(predictedData);
-      console.log(Object.values(predictedData));
-      console.log(predictedCountriesArray);
+      predictedCountriesArray.forEach((country)=>{
+        let predictedTimelineArray = Object.values(predictedData[country]);
+        let predictedDateArray = Object.keys(predictedData[country]);
+        let predictedActiveCount = 
+        (predictedTimelineArray[predictedTimelineArray.length - 1].Infected + 
+        predictedTimelineArray[predictedTimelineArray.length - 1].Recovered);
+        let latestDate =
+          predictedDateArray[predictedDateArray.length - 1];
+        totalPredictedCountArray.push(
+          {
+            country: country,
+            recovered: predictedTimelineArray[predictedTimelineArray.length - 1].Recovered,
+            deaths: predictedTimelineArray[predictedTimelineArray.length - 1].Fatal,
+            confirmed: (predictedTimelineArray[predictedTimelineArray.length - 1].Infected + 
+        predictedTimelineArray[predictedTimelineArray.length - 1].Recovered + 
+        predictedTimelineArray[predictedTimelineArray.length - 1].Fatal),
+            count: predictedActiveCount,
+            lastUpdated: latestDate
+          }
+       )
+      })
+      console.log(totalPredictedCountArray);
+      
       let data = JSON.parse(this.$page.allCountriesData.edges[0].node.fullData);
       let sortedCountryArray = [];
       let countriesArray = Object.keys(data);
@@ -305,8 +320,7 @@ export default {
           country: country,
           recovered: latestRecoveredCount,
           deaths: countryTimelineArray[countryTimelineArray.length - 1].deaths,
-          confirmed:
-            countryTimelineArray[countryTimelineArray.length - 1].confirmed,
+          confirmed: countryTimelineArray[countryTimelineArray.length - 1].confirmed,
           count: latestCountryCount,
           lastUpdated: latestDate
         });
@@ -573,77 +587,6 @@ export default {
         }
       });
     }
-  },
-  metaInfo: {
-    title:
-      "Flattening the Curve (Live) | COVID-19/Coronavirus affected countries",
-    meta: [
-      {
-        name: "description",
-        content:
-          "Flattening the curve | Dashboard to track the projected number of people who will contract COVID-19 / Coronavirus over a period of time by countries."
-      },
-      {
-        property: "og:type",
-        content: "website"
-      },
-      {
-        property: "og:url",
-        content: "https://flattening-the-curve.commutatus.com/"
-      },
-      {
-        property: "og:title",
-        content:
-          "Flattening the Curve (Live) | COVID-19/Coronavirus affected countries"
-      },
-      {
-        property: "og:description",
-        content:
-          "Flattening the curve | Dashboard to track the projected number of people who will contract COVID-19 / Coronavirus over a period of time by countries."
-      },
-      {
-        property: "og:image",
-        content:
-          "https://flattening-the-curve.commutatus.com/assets/covid-dashboard-min.png"
-      },
-      {
-        property: "twitter:card",
-        content: "summary_large_image"
-      },
-      {
-        property: "twitter:url",
-        content: "https://flattening-the-curve.commutatus.com/"
-      },
-      {
-        property: "twitter:title",
-        content:
-          "Flattening the Curve (Live) | COVID-19/Coronavirus affected countries"
-      },
-      {
-        property: "twitter:description",
-        content:
-          "Flattening the curve | Dashboard to track the projected number of people who will contract COVID-19 / Coronavirus over a period of time by countries."
-      },
-      {
-        property: "twitter:image",
-        content:
-          "https://flattening-the-curve.commutatus.com/assets/covid-dashboard-min.png"
-      }
-    ],
-    link: [
-      { rel: "canonical", href: "https://flattening-the-curve.commutatus.com/" }
-    ],
-    script: [
-      {
-        innerHTML:
-          '{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://flattening-the-curve.commutatus.com/"},"headline":"Flattening the Curve updates (Live) by country charts | COVID-19","description":"Shows flattening the curve updates by each country. A flattened curve indicates that the same number of people ultimately get infected with coronavirus but spread over a longer period which leads to a less stressed health care system.","image":"https://flattening-the-curve.commutatus.com/assets/covid-dashboard-min.png","author":{"@type":"Organization","name":"Commutatus"},"publisher":{"@type":"Organization","name":"Commutatus","logo":{"@type":"ImageObject","url":"https://www.commutatus.com/images/Group.png","width":300,"height":40}},"datePublished":"2020-03-23","dateModified":"2020-04-10"}',
-        type: "application/ld+json"
-      },
-      {
-        innerHTML: `{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is an epidemic curve?","acceptedAnswer":{"@type":"Answer","text":"During any pandemic, healthcare resources like hospitals, ICU beds, and healthcare staff can be overwhelmed by the more number of patients, beyond the baseline number of patients who are already being cared for by the healthcare system. An epidemic curve is drawn to visualize the progress of a disease outbreak over time. This curve gives us a brief regarding the number of new outbreak cases by date of onset of the disease and hence the overall shape of the curve can reveal the type of outbreak we're dealing with."}},{"@type":"Question","name":"What is Healthcare capacity line?\n","acceptedAnswer":{"@type":"Answer","text":"The horizontal line represents the capacity of the country’s healthcare system. This capacity can be defined as the number of beds, staffing, and other measures available for patient care. Today, due to COVID-19 most of the countries are already operating close to the capacity line and the curve posses a threat of crossing this line as the virus spreads very rapidly."}},{"@type":"Question","name":"What happens when the line is crossed?\n","acceptedAnswer":{"@type":"Answer","text":"When the epidemic curve crosses the healthcare capacity line, the healthcare system can no longer meet the needs of COVID-19 patients and the other types of patients. At this point, people may not get the best care and the mortality rate starts to rise rapidly."}},{"@type":"Question","name":"What is flattening the curve?\n","acceptedAnswer":{"@type":"Answer","text":"A large number of lives can be saved by just ensuring that people get sick at a slower rate. This is termed as flattening the epidemic curve. A flattened curve indicates that the same number of people ultimately get infected with coronavirus but spread over a longer period which leads to a less stressed health care system.\n"}},{"@type":"Question","name":"When does flattening the curve happen?\n","acceptedAnswer":{"@type":"Answer","text":"The most important key factor to flatten the curve is social distancing. The objective of social distancing or self-isolation is to reduce the probability of close contact between persons carrying an infection, and others who are not infected, thus minimizing the virus transmission. This is the underlying reason why governments are closing schools, non-critical businesses, social/sports events and other places where a ton people gather."}},{"@type":"Question","name":"Can social distancing alone flatten the curve?","acceptedAnswer":{"@type":"Answer","text":"By limiting interactions between individuals, we can limit the spread of the disease but that doesn’t mean it is the only effective way to flatten the curve. There are several other factors that you can do to aid flatten the curve such as practicing good hygiene by washing your hands, using sanitizers, cleaning frequently touched surfaces and self-isolating in confirmed and suspected cases."}},{"@type":"Question","name":"How can we help in flattening the curve?","acceptedAnswer":{"@type":"Answer","text":"As the severity of COVID-19 rises, it's clear that our best option is to flatten the epidemic curve. So here is the list of things every individual is recommended to follow :\nWash your hands as frequently as you can.\nPractice efficient social distancing.\nStay home.\nProper usage of sanitizers.\nDon’t go for hospitals unless necessary.\nDon’t overbuy essential medical supplies like N95 masks which are required by healthcare providers while treating patients.\nMost importantly, don't panic!"}}]}`,
-        type: "application/ld+json"
-      }
-    ]
   }
 };
 </script>
