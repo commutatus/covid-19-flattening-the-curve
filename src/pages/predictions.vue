@@ -1,3 +1,10 @@
+/*
+ * Created Date: Saturday May 9th 2020
+ * Author: Gurubalan Harikrishnan
+ * Email-ID: gurubalan.work@gmail.com
+ * -----
+ * Copyright (c) 2020 Gurubalan Harikrishnan
+ */
 <template>
     <Layout>
         <!-- Navigation-->
@@ -244,6 +251,8 @@
 <script>
 import moment from "moment";
 import Chart from "../components/Chart";
+import PredictionData from "../../static/all-country-predictions.json";
+
 let starredCountries = [];
 export default {
   components: {
@@ -263,11 +272,16 @@ export default {
   },
   data() {
     return {
-      sortedCountryArray: this.sortedCountryArray
+      sortedCountryArray: this.sortedCountryArray,
+      PredictionData
     };
   },
   methods: {
-    sortCountriesData: function() {
+    sortCountriesData: function() {      
+      var predictedData = PredictionData;
+      let predictedCountriesArray = Object.keys(predictedData);
+      console.log(Object.values(predictedData));
+      console.log(predictedCountriesArray);
       let data = JSON.parse(this.$page.allCountriesData.edges[0].node.fullData);
       let sortedCountryArray = [];
       let countriesArray = Object.keys(data);
@@ -301,7 +315,7 @@ export default {
         a.count < b.count ? 1 : b.count < a.count ? -1 : 0
       );
       this.sortedCountryArray = sortedCountryArray;
-      this.generateGraphContent(sortedCountryArray, data);
+      this.generateGraphContent(sortedCountryArray, data);      
     },
     generateGraphContent: function(sortedCountryArray, data) {
       sortedCountryArray.forEach((i, index) => {
