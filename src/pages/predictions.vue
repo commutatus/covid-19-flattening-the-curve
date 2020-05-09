@@ -58,7 +58,7 @@
       <div id="country-graphs" class="row province-chart-parent">
         <!-- content generated from app.js -->
         <div
-          v-for="(item, index) in this.sortedCountryArray"
+          v-for="(item, index) in this.sortedPredictedArray"
           :key="index"
           class="bg-light p-1 m-2 province-charts content"
         >
@@ -303,7 +303,6 @@ export default {
       this.sortedPredictedArray = sortedPredictedArray;
       console.log(sortedPredictedArray);
       
-      
       let data = JSON.parse(this.$page.allCountriesData.edges[0].node.fullData);
       let sortedCountryArray = [];
       let countriesArray = Object.keys(data);
@@ -336,27 +335,27 @@ export default {
         a.count < b.count ? 1 : b.count < a.count ? -1 : 0
       );
       this.sortedCountryArray = sortedCountryArray;
-      this.generateGraphContent(sortedCountryArray, data);      
+
+      this.generateGraphContent(sortedPredictedArray, predictedData);      
     },
-    generateGraphContent: function(sortedCountryArray, data) {
-      sortedCountryArray.forEach((i, index) => {
+    generateGraphContent: function(sortedPredictedArray, predictedData) {
+      sortedPredictedArray.forEach((i, index) => {
         let xlabels = [];
         let ylabels = [];
         let dayCount = 0;
         let recentRecovered = 0;
-        data[i.country].forEach(e => {
-          if (e.confirmed !== 0) {
+        let predictedTimelineArray = Object.values(predictedData[i.country]);
+        predictedTimelineArray.forEach(e => {
+          let confirmed = (e.Infected + e.Recovered + e.Fatal);
+          let active = (e.Infected + e.Recovered);
+          if (confirmed !== 0) {
             dayCount = dayCount + 1;
-            ylabels.push(
-              e.confirmed -
-                (e.deaths +
-                  (e.recovered !== null ? e.recovered : recentRecovered))
-            );
+            ylabels.push(active);
             xlabels.push(`${dayCount}`);
-            if (e.recovered !== null) recentRecovered = e.recovered;
+            if (e.Recovered !== null) recentRecovered = e.Recovered;
           }
         });
-        this.generateAllCharts(i, index, xlabels, ylabels, sortedCountryArray);
+        this.generateAllCharts(i, index, xlabels, ylabels, sortedPredictedArray);
       });
     },
     generateAllCharts: function(
@@ -364,14 +363,14 @@ export default {
       index,
       xlabels,
       ylabels,
-      sortedCountryArray
+      sortedPredictedArray
     ) {
-      let tempObj = sortedCountryArray[index];
+      let tempObj = sortedPredictedArray[index];
       tempObj["chartData"] = {
         labels: xlabels,
         datasets: [
           {
-            label: `Active cases: ${sortedCountryArray[
+            label: `Active cases: ${sortedPredictedArray[
               index
             ].count.toLocaleString()}`,
             data: ylabels,
@@ -429,7 +428,7 @@ export default {
           ]
         }
       };
-      this.sortedCountryArray[index] = tempObj;
+      this.sortedPredictedArray[index] = tempObj;
     },
     starredButtonOnClick: function(i, index) {
       let starredClick = document.getElementById(`chart-star-${index}`);
@@ -474,7 +473,7 @@ export default {
         });
     },
     userFunctions: function() {
-      this.sortedCountryArray.forEach((i, index) => {
+      this.sortedPredictedArray.forEach((i, index) => {
         this.starredButtonOnClick(i, index);
       });
       this.searchCountries();
@@ -521,7 +520,7 @@ export default {
         $(".content").show();
         $("#starred-none").hide();
         $("#results-not-found").hide();
-        that.sortedCountryArray.forEach((i, index) => {
+        that.sortedPredictedArray.forEach((i, index) => {
           if (typeof Storage !== "undefined") {
             if (localStorage.getItem("starred") === null) {
               //
@@ -571,7 +570,7 @@ export default {
               .show();
           });
 
-          that.sortedCountryArray.forEach((i, index) => {
+          that.sortedPredictedArray.forEach((i, index) => {
             if (typeof Storage !== "undefined") {
               if (localStorage.getItem("starred") === null) {
                 //
