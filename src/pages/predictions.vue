@@ -273,8 +273,10 @@ export default {
       var predictedData = PredictionData;
       let sortPredictedData = [];
       let totalPredictedCountArray = [];
+      let timelines = [];
       let predictedCountriesArray = Object.keys(predictedData);
       predictedCountriesArray.forEach((country)=>{
+        timelines = Obje
         let predictedTimelineArray = Object.values(predictedData[country]);
         let predictedDateArray = Object.keys(predictedData[country]);
         let predictedActiveCount = 
@@ -295,7 +297,6 @@ export default {
           }
        )
       })
-      console.log(totalPredictedCountArray);
       
       let data = JSON.parse(this.$page.allCountriesData.edges[0].node.fullData);
       let sortedCountryArray = [];
