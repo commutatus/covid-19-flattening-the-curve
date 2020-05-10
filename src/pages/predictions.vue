@@ -1,26 +1,24 @@
 <template>
-    <Layout>
-        <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-dark fixed-top py-1" id="mainNav">
-        <a class="navbar-brand font-weight-light js-scroll-trigger" href="/">
-            <h1 class="main-h1">
-            Prediction Graphs
-            </h1>
-        </a>
+  <Layout>
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top py-1" id="mainNav">
+      <a class="navbar-brand font-weight-light js-scroll-trigger" href="/">
+        <h1 class="main-h1">Prediction Graphs</h1>
+      </a>
 
-        <div class="list-js-search">
-            <label class="search-label-hidden" for="search">Search by country</label>
-            <input class="search" type="text" id="search" placeholder="Search by country" />
-            <i class="fas fa-search-location"></i>
-        </div>
-        </nav>
+      <div class="list-js-search">
+        <label class="search-label-hidden" for="search">Search by country</label>
+        <input class="search" type="text" id="search" placeholder="Search by country" />
+        <i class="fas fa-search-location"></i>
+      </div>
+    </nav>
 
-        <div class="notice-section prediction-notice">
-            <div class="alert alert-danger mobile-alert" role="alert">
-                <i style="color: #dc3545; margin-right: 5px;" class="fas fa-exclamation-circle"></i>
-                This feature is still under development. 
-            </div>
-        </div>
+    <div class="notice-section prediction-notice">
+      <div class="alert alert-danger mobile-alert" role="alert">
+        <i style="color: #dc3545; margin-right: 5px;" class="fas fa-exclamation-circle"></i>
+        This feature is still under development.
+      </div>
+    </div>
 
     <section class="loading-section" id="chart-loader">
       <div class="spinner-grow text-primary" role="status">
@@ -54,10 +52,7 @@
           <div :id="`country-id-${index}`" class="text-center">
             <p class="country-names">{{item.country}}</p>
           </div>
-          <chart
-            :chartdata="item.chartData"
-            :chartoptions="item.chartOptions"
-          ></chart>
+          <chart :chartdata="item.chartData" :chartoptions="item.chartOptions"></chart>
         </div>
       </div>
     </section>
@@ -80,8 +75,7 @@
         </div>
       </div>
     </footer>
-
-    </Layout>
+  </Layout>
 </template>
 
 
@@ -114,39 +108,42 @@ export default {
     };
   },
   methods: {
-    sortCountriesData: function() {   
+    sortCountriesData: function() {
       let predictedData = PredictionData;
       let sortedPredictedArray = [];
       let totalPredictedCountArray = [];
       let predictedCountriesArray = Object.keys(predictedData);
-      predictedCountriesArray.forEach((country)=>{
+      predictedCountriesArray.forEach(country => {
         let predictedTimelineArray = Object.values(predictedData[country]);
         let predictedDateArray = Object.keys(predictedData[country]);
-        predictedDateArray.forEach((e)=>{
-          moment(e).format("DD-MM-YY")
-        })
-        let predictedActiveCount = 
-        (predictedTimelineArray[predictedTimelineArray.length - 1].Infected + 
-        predictedTimelineArray[predictedTimelineArray.length - 1].Recovered);
-        let latestDate =
-          predictedDateArray[predictedDateArray.length - 1];
+        predictedDateArray.forEach(e => {
+          moment(e).format("DD-MM-YY");
+        });
+        let predictedActiveCount =
+          predictedTimelineArray[predictedTimelineArray.length - 1].Infected +
+          predictedTimelineArray[predictedTimelineArray.length - 1].Recovered;
+        let latestDate = predictedDateArray[predictedDateArray.length - 1];
         totalPredictedCountArray.push({
-            country: country,
-            recovered: predictedTimelineArray[predictedTimelineArray.length - 1].Recovered,
-            deaths: predictedTimelineArray[predictedTimelineArray.length - 1].Fatal,
-            confirmed: (predictedTimelineArray[predictedTimelineArray.length - 1].Infected + 
-        predictedTimelineArray[predictedTimelineArray.length - 1].Recovered + 
-        predictedTimelineArray[predictedTimelineArray.length - 1].Fatal),
-            count: predictedActiveCount,
-            lastUpdated: latestDate
-          });
+          country: country,
+          recovered:
+            predictedTimelineArray[predictedTimelineArray.length - 1].Recovered,
+          deaths:
+            predictedTimelineArray[predictedTimelineArray.length - 1].Fatal,
+          confirmed:
+            predictedTimelineArray[predictedTimelineArray.length - 1].Infected +
+            predictedTimelineArray[predictedTimelineArray.length - 1]
+              .Recovered +
+            predictedTimelineArray[predictedTimelineArray.length - 1].Fatal,
+          count: predictedActiveCount,
+          lastUpdated: latestDate
+        });
       });
       sortedPredictedArray = totalPredictedCountArray.sort((a, b) =>
         a.count < b.count ? 1 : b.count < a.count ? -1 : 0
       );
       this.sortedPredictedArray = sortedPredictedArray;
       console.log(sortedPredictedArray);
-      this.generateGraphContent(sortedPredictedArray, predictedData);      
+      this.generateGraphContent(sortedPredictedArray, predictedData);
     },
     generateGraphContent: function(sortedPredictedArray, predictedData) {
       sortedPredictedArray.forEach((i, index) => {
@@ -156,15 +153,21 @@ export default {
         let recentRecovered = 0;
         let predictedTimelineArray = Object.values(predictedData[i.country]);
         predictedTimelineArray.forEach(e => {
-          let confirmed = (e.Infected + e.Recovered + e.Fatal);
-          let active = (e.Infected + e.Recovered);
+          let confirmed = e.Infected + e.Recovered + e.Fatal;
+          let active = e.Infected + e.Recovered;
           if (confirmed !== 0) {
             dayCount = dayCount + 1;
             ylabels.push(active);
             xlabels.push(`${dayCount}`);
           }
         });
-        this.generateAllCharts(i, index, xlabels, ylabels, sortedPredictedArray);
+        this.generateAllCharts(
+          i,
+          index,
+          xlabels,
+          ylabels,
+          sortedPredictedArray
+        );
       });
     },
     generateAllCharts: function(
