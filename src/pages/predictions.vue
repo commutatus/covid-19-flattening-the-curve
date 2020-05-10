@@ -75,147 +75,6 @@
         </div>
       </div>
     </section>
-    <section class="content-main">
-      <div class="content-main-text">
-        <h2>Flattening the Curve</h2>
-        <p>
-          COVID-19 / Coronavirus has led to a pandemic that is threatening every country today. The promising strategy
-          to
-          limit the damage caused by this pandemic is to flatten the curve.
-        </p>
-        <figure class="figure-container">
-          <g-image
-            alt="representation of flattening the curve of COVID-19 epidemic"
-            class="curve-gif"
-            src="~/images/covid-flattening-the-curve.gif"
-          />
-          <figcaption class="fig-text">
-            Source:
-            <a
-              href="https://commons.wikimedia.org/wiki/File:Covid-19-curves-graphic-social-v3.gif"
-            >Wikipedia</a>
-          </figcaption>
-        </figure>
-        <h3>What is an epidemic curve?</h3>
-        <p>
-          During any pandemic, healthcare resources like hospitals, ICU beds, and healthcare staff can be overwhelmed
-          by
-          the more number of patients, beyond the baseline number of patients who are already being cared for by the
-          healthcare system. An epidemic curve is drawn to visualize the progress of a disease outbreak over time.
-          This curve gives us a brief regarding the number of new outbreak cases by date of onset of the disease and
-          hence
-          the overall shape of the curve can reveal the type of outbreak we're dealing with.
-        </p>
-
-        <h4>Healthcare capacity line:</h4>
-        <p>
-          The horizontal line represents the capacity of the country’s healthcare system. This capacity can be defined
-          as
-          the number of beds, staffing, and other measures available for patient care. Today, due to COVID-19 most of
-          the
-          countries are already operating close to the capacity line and the curve posses a threat of crossing this
-          line
-          as the virus spreads very rapidly.
-        </p>
-
-        <h4>What happens when the line is crossed?</h4>
-        <p>
-          When the epidemic curve crosses the healthcare capacity line, the healthcare system can no longer meet the
-          needs
-          of COVID-19 patients and the other types of patients. At this point, people may not get the best care and
-          the
-          mortality rate starts to rise rapidly.
-        </p>
-        <h4>What is flattening the curve?</h4>
-        <p>
-          A large number of lives can be saved by just ensuring that people get sick at a slower rate. This is termed
-          as
-          flattening the epidemic curve. A flattened curve indicates that the same number of people ultimately get
-          infected with coronavirus but spread over a longer period which leads to a less stressed health care system.
-        </p>
-
-        <h4>When does flattening the COVID-19 epidemic curve take place?</h4>
-        <p>
-          The most important key factor to flatten the curve is social distancing. The objective of social distancing
-          or
-          self-isolation is to reduce the probability of close contact between persons carrying an infection, and
-          others
-          who are not infected, thus minimizing the virus transmission. This is the underlying reason why governments
-          are
-          closing schools, non-critical businesses, social/sports events and other places where a ton people gather.
-        </p>
-
-        <h4>Can social distancing alone flatten the curve?</h4>
-        <p>
-          By limiting interactions between individuals, we can limit the spread of the disease but that doesn’t mean
-          it is
-          the only effective way to flatten the curve. There are several other factors that you can do to aid flatten
-          the
-          curve such as practicing good hygiene by washing your hands, using sanitizers, cleaning frequently touched
-          surfaces and self-isolating in confirmed and suspected cases.
-        </p>
-
-        <h4>How can we help in flattening the curve?</h4>As the severity of COVID-19 rises, it's clear that our best option is to flatten the epidemic curve. So here
-        is
-        the list of things every individual is recommended to follow :
-        <ul>
-          <li>Wash your hands as frequently as you can.</li>
-          <li>Practice efficient social distancing.</li>
-          <li>Stay home.</li>
-          <li>Proper usage of sanitizers.</li>
-          <li>Don’t go for hospitals unless necessary.</li>
-          <li>
-            Don’t overbuy essential medical supplies like N95 masks which are required by healthcare providers
-            while
-            treating patients.
-          </li>
-          <li>
-            Most importantly,
-            <b>don't panic!</b>
-          </li>
-        </ul>
-        <figure class="figure-container">
-          <g-image
-            alt="Recommendations by WHO to help in flattening the curve of COVID-19 epidemic"
-            class="who-recommendation"
-            src="~/images/flattening-the-curve-covid.jpg"
-          />
-          <figcaption class="fig-text">
-            Source:
-            <a
-              href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public"
-            >WHO</a>
-          </figcaption>
-        </figure>
-        <p
-          class="last-quote"
-        >" Let's all unite against the COVID-19 pandemic and fight ourselves out of the difficult times."</p>
-      </div>
-      <div class="custom-data-table">
-        <h3>Flattening the curve dashboard | List of all countries affected with COVID-19 sorted by highest number of active cases</h3>
-        <table class="table table-striped table-hover">
-          <caption>Flattening the curve dashboard | COVID-19 Table showing - Confirmed, Recovered, Deaths and Active count data by country</caption>
-          <thead>
-            <tr>
-              <th scope="col">Country</th>
-              <th scope="col">Confirmed</th>
-              <th scope="col">Recovered</th>
-              <th scope="col">Deaths</th>
-              <th scope="col">Active</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(item, index) in this.sortedCountryArray" :key="index">
-              <th scope="row">{{(item.country).toLocaleString()}}</th>
-              <td>{{(item.confirmed).toLocaleString()}}</td>
-              <td>{{(item.recovered).toLocaleString()}}</td>
-              <td>{{(item.deaths).toLocaleString()}}</td>
-              <td>{{(item.count).toLocaleString()}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
     <!-- Footer-->
     <footer class="bg-light py-3">
       <div class="footer-container">
@@ -264,7 +123,6 @@ export default {
   },
   data() {
     return {
-      sortedCountryArray: this.sortedCountryArray,
       sortedPredictedArray: this.sortedPredictedArray,
       PredictionData
     };
@@ -302,40 +160,6 @@ export default {
       );
       this.sortedPredictedArray = sortedPredictedArray;
       console.log(sortedPredictedArray);
-      
-      let data = JSON.parse(this.$page.allCountriesData.edges[0].node.fullData);
-      let sortedCountryArray = [];
-      let countriesArray = Object.keys(data);
-      let totalCountryCountArray = [];
-      countriesArray.forEach(country => {
-        let countryTimelineArray = data[country];
-        let countryRecoveredArray = countryTimelineArray.filter(
-          item => item.recovered !== null
-        );
-        let latestRecoveredCount =
-          countryRecoveredArray.length > 0
-            ? countryRecoveredArray[countryRecoveredArray.length - 1].recovered
-            : 0;
-        let latestCountryCount =
-          countryTimelineArray[countryTimelineArray.length - 1].confirmed -
-          (countryTimelineArray[countryTimelineArray.length - 1].deaths +
-            latestRecoveredCount);
-        let latestDate =
-          countryTimelineArray[countryTimelineArray.length - 1].date;
-        totalCountryCountArray.push({
-          country: country,
-          recovered: latestRecoveredCount,
-          deaths: countryTimelineArray[countryTimelineArray.length - 1].deaths,
-          confirmed: countryTimelineArray[countryTimelineArray.length - 1].confirmed,
-          count: latestCountryCount,
-          lastUpdated: latestDate
-        });
-      });
-      sortedCountryArray = totalCountryCountArray.sort((a, b) =>
-        a.count < b.count ? 1 : b.count < a.count ? -1 : 0
-      );
-      this.sortedCountryArray = sortedCountryArray;
-
       this.generateGraphContent(sortedPredictedArray, predictedData);      
     },
     generateGraphContent: function(sortedPredictedArray, predictedData) {
