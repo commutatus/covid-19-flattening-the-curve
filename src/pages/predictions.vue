@@ -51,7 +51,7 @@
       </div>
       <h2
         class="main-h2"
-      >Dashboard to track the projected number of people who will contract COVID-19 / Coronavirus over a period of time by countries.</h2>
+      >Dashboard to track the projected number of people who will contract COVID-19 / Coronavirus over a period of next 6 months by countries.</h2>
       <h3 class="text-center" id="results-not-found">No results found.</h3>
       <h3 class="text-center" id="starred-none"></h3>
 
@@ -128,8 +128,8 @@ export default {
     };
   },
   methods: {
-    sortCountriesData: function() {      
-      var predictedData = PredictionData;
+    sortCountriesData: function() {   
+      let predictedData = PredictionData;
       let sortedPredictedArray = [];
       let totalPredictedCountArray = [];
       let predictedCountriesArray = Object.keys(predictedData);
@@ -176,7 +176,6 @@ export default {
             dayCount = dayCount + 1;
             ylabels.push(active);
             xlabels.push(`${dayCount}`);
-            if (e.Recovered !== null) recentRecovered = e.Recovered;
           }
         });
         this.generateAllCharts(i, index, xlabels, ylabels, sortedPredictedArray);
@@ -202,7 +201,7 @@ export default {
             borderColor: ["rgba(255, 99, 132, 1)"],
             lineTension: 0.4,
             borderWidth: 1,
-            pointRadius: 2,
+            pointRadius: 1,
             pointBackgroundColor: "rgba(255, 99, 132, 0.8)"
           }
         ]

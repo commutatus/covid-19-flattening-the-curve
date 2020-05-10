@@ -21,7 +21,6 @@
           <i class="fa fa-bars" aria-hidden="true"></i>
         </span>
       </button>-->
-      <g-link class="nav__link" to="/predictions">Predictions</g-link>
       <div class="list-js-search">
         <label class="search-label-hidden" for="search">Search by country</label>
         <input class="search" type="text" id="search" placeholder="Search by country" />
@@ -90,6 +89,9 @@
 
     <!-- Flattening curve graphs section-->
     <section class="page-section graphs-section text-black" id="province-graphs">
+      <div class="justify-content-center mb-4 row prediction-link">
+          <g-link class="btn btn-info" to="/predictions">Prediction Graphs</g-link>
+      </div>
       <div id="tab-choose" class="justify-content-center mb-4 row">
         <button type="button" class="btn btn-country active">All Countries</button>
         <button type="button" class="btn btn-starred">Starred</button>
