@@ -7,27 +7,13 @@
             Prediction Graphs
             </h1>
         </a>
-        <!-- <button
-            class="navbar-toggler navbar-toggler-right"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarResponsive"
-            aria-controls="navbarResponsive"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-        >
-            <span class="navbar-toggler-icon">
-            <i class="fa fa-bars" aria-hidden="true"></i>
-            </span>
-        </button>-->
+
         <div class="list-js-search">
             <label class="search-label-hidden" for="search">Search by country</label>
             <input class="search" type="text" id="search" placeholder="Search by country" />
             <i class="fas fa-search-location"></i>
         </div>
         </nav>
-
-        
 
         <div class="notice-section prediction-notice">
             <div class="alert alert-danger mobile-alert" role="alert">
@@ -425,16 +411,3 @@ export default {
   margin-right: 1rem;
 }
 </style>
-
-<page-query>
-query {
-  allCountriesData {
-    edges {
-      node {
-        title
-        fullData
-      }
-    }
-  }
-}
-</page-query>
