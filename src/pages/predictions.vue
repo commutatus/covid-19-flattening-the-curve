@@ -149,8 +149,6 @@ export default {
       sortedPredictedArray.forEach((i, index) => {
         let xlabels = [];
         let ylabels = [];
-        let dayCount = 0;
-        let recentRecovered = 0;
         let confirmed = 0;
         let active = 0;
         let predictedTimelineArray = Object.values(predictedData[i.country]);
@@ -165,8 +163,7 @@ export default {
         predictedTimelineArray.forEach((e, k) => {
           confirmed = e.Infected + e.Recovered + e.Fatal;
           active = e.Infected + e.Recovered;
-          if (confirmed !== 0) {
-            dayCount = dayCount + 1;
+          if (confirmed !== 0 && active > 0) {
             ylabels.push(active);
             xlabels.push(formatedDates[k]);
           }
