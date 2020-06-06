@@ -142,7 +142,6 @@ export default {
         a.count < b.count ? 1 : b.count < a.count ? -1 : 0
       );
       this.sortedPredictedArray = sortedPredictedArray;
-      console.log(sortedPredictedArray);
       this.generateGraphContent(sortedPredictedArray, predictedData);
     },
     generateGraphContent: function(sortedPredictedArray, predictedData) {
@@ -151,12 +150,42 @@ export default {
         let ylabels = [];
         let confirmed = 0;
         let active = 0;
-        let predictedTimelineArray = Object.values(predictedData[i.country]);
         let predictedDateArray = Object.keys(predictedData[i.country]);
+        let reformatDatesArray = [];
+        let sortedDatesArray = [];
+        let predictedTimelineArray = [];
         let formatedDates = [];
+        
         predictedDateArray.forEach((e)=>{
           let date = null;
           date = new Date(e);
+          date = moment(date).format("MM-DD-YYYY HH:mm:ss");
+          reformatDatesArray.push(date);
+        })
+        let SortedDates = reformatDatesArray.sort();
+        SortedDates.forEach((e)=>{
+          let date = null;
+          date = new Date(e);
+          date = moment(date).format("YYYY-MM-DD HH:mm:ss");
+          sortedDatesArray.push(date);
+        })
+        sortedDatesArray.forEach((e)=>{
+          predictedDateArray.forEach((k)=>{
+            if(e===k){
+              let valuesArray = Object.values(predictedData[i.country][e]);
+              predictedTimelineArray.push({
+                date: e,
+                Susceptible: valuesArray[0],
+                Infected: valuesArray[1],
+                Recovered: valuesArray[2],
+                Fatal: valuesArray[3]
+              })
+            }
+          })
+        })
+        predictedTimelineArray.forEach((e)=>{
+          let date = null;
+          date = new Date(e.date);
           date = moment(date).format("DD/MM");
           formatedDates.push(date);
         })
