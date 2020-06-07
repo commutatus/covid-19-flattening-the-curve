@@ -40,6 +40,17 @@ module.exports = function (api) {
     })
   })
 
+  api.loadSource(async actions => {
+    const { data } = await axios.get('https://sagemaker-covid19sirf.s3.ap-south-1.amazonaws.com/all-country-predictions.json')
+
+    const collection = actions.addCollection('PredictedData');
+
+    collection.addNode({
+      title: 'This returns predicted data of countries',
+      fullData: JSON.stringify(data)
+    })
+  })
+
   api.createPages(({ createPage }) => {
     // Use the Pages API here: https://gridsome.org/docs/pages-api/
   })

@@ -80,7 +80,6 @@
 import moment from "moment";
 import Chart from "../components/Chart";
 import Search from "../components/Search"
-import PredictionData from "../../static/all-country-predictions.json";
 import generatePredictedCharts from "../helpers/generatePredictedCharts";
 import starredButtonOnClick from "../helpers/starredButtonOnClick";
 import ifAllCountriesBtnClicked from "../helpers/ifAllCountriesBtnClicked";
@@ -107,12 +106,11 @@ export default {
   data() {
     return {
       sortedPredictedArray: this.sortedPredictedArray,
-      PredictionData
     };
   },
   methods: {
     sortCountriesData: function() {
-      let predictedData = PredictionData;
+      let predictedData = JSON.parse(this.$page.allPredictedData.edges[0].node.fullData);
       let sortedPredictedArray = [];
       let totalPredictedCountArray = [];
       let predictedCountriesArray = Object.keys(predictedData);
@@ -226,3 +224,16 @@ export default {
   margin-right: 1rem;
 }
 </style>
+
+<page-query>
+query {
+  allPredictedData {
+    edges {
+      node {
+        title
+        fullData
+      }
+    }
+  }
+}
+</page-query>
