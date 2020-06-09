@@ -10,7 +10,6 @@
       </a>
 
       <search></search>
-
     </nav>
 
     <section class="global-stats-section bg-dark text-white">
@@ -63,6 +62,14 @@
           href="mailto:chandan@commutatus.com?cc=mkv@commutatus.com&subject=Flattening%20the%20Curve%20Dashboard-Feedback/Suggestions"
         >here</a>.
       </div>
+      <g-link to="/predictions" style="display: flex;">
+        <div class="new-graphs-link" role="alert">
+          <i style="margin-right: 5px;">
+            <g-image style="height: 30px; width: 30px;" alt="new icon" src="~/images/new-icon.png" />
+          </i>
+          COVID-19 Predictions →
+        </div>
+      </g-link>
     </div>
 
     <section class="loading-section" id="chart-loader">
@@ -74,9 +81,6 @@
 
     <!-- Flattening curve graphs section-->
     <section class="page-section graphs-section text-black" id="province-graphs">
-      <div class="justify-content-center mb-4 row prediction-link">
-          <g-link class="btn btn-info" to="/predictions">Prediction Graphs</g-link>
-      </div>
       <div id="tab-choose" class="justify-content-center mb-4 row">
         <button type="button" class="btn btn-country active">All Countries</button>
         <button type="button" class="btn btn-starred">Starred</button>
@@ -100,10 +104,7 @@
           <div :id="`country-id-${index}`" class="text-center">
             <p class="country-names">{{item.country}}</p>
           </div>
-          <chart
-            :chartdata="item.chartData"
-            :chartoptions="item.chartOptions"
-          ></chart>
+          <chart :chartdata="item.chartData" :chartoptions="item.chartOptions"></chart>
         </div>
       </div>
     </section>
@@ -273,7 +274,7 @@
 <script>
 import moment from "moment";
 import Chart from "../components/Chart";
-import Search from "../components/Search"
+import Search from "../components/Search";
 import generateCountryCharts from "../helpers/generateCountryCharts";
 import starredButtonOnClick from "../helpers/starredButtonOnClick";
 import ifAllCountriesBtnClicked from "../helpers/ifAllCountriesBtnClicked";
@@ -357,7 +358,13 @@ export default {
             if (e.recovered !== null) recentRecovered = e.recovered;
           }
         });
-        this.generateCountryCharts(i, index, xlabels, ylabels, sortedCountryArray);
+        this.generateCountryCharts(
+          i,
+          index,
+          xlabels,
+          ylabels,
+          sortedCountryArray
+        );
       });
     },
     generateCountryCharts,
@@ -367,8 +374,16 @@ export default {
       this.sortedCountryArray.forEach((i, index) => {
         this.starredButtonOnClick(i, index, localStorageVal, starredCountries);
       });
-      this.ifAllCountriesBtnClicked.call(this, this.sortedCountryArray, localStorageVal);
-      this.ifStarredBtnClicked.call(this, this.sortedCountryArray, localStorageVal);
+      this.ifAllCountriesBtnClicked.call(
+        this,
+        this.sortedCountryArray,
+        localStorageVal
+      );
+      this.ifStarredBtnClicked.call(
+        this,
+        this.sortedCountryArray,
+        localStorageVal
+      );
     },
     ifAllCountriesBtnClicked,
     ifStarredBtnClicked

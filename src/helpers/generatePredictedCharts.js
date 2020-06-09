@@ -22,10 +22,10 @@ function generatePredictedCharts(i, index, xlabels, ylabels, sortedPredictedArra
     maintainAspectRatio: false,
     tooltips: {
       callbacks: {
-        title: function(tooltipItems, data) {
+        title: function (tooltipItems, data) {
           return "";
         },
-        label: function(tooltipItem, data) {
+        label: function (tooltipItem, data) {
           return data.datasets[tooltipItem.datasetIndex].data[
             tooltipItem.index
           ].toLocaleString();
@@ -42,11 +42,21 @@ function generatePredictedCharts(i, index, xlabels, ylabels, sortedPredictedArra
     },
     responsiveAnimationDuration: 0,
     scales: {
+      yAxes: [
+        {
+          ticks: {
+            callback: function (label, index, labels) {
+              return Number(label).toLocaleString();
+            },
+            maxTicksLimit: 8
+          }
+        }
+      ],
       xAxes: [
         {
           scaleLabel: {
             display: true,
-            labelString: `Days since first confirmed case in ${i.country}`,
+            labelString: `Predicted # of cases in ${i.country}`,
           },
           ticks: {
             maxTicksLimit: 12,

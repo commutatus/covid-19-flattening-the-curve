@@ -3,7 +3,8 @@
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top py-1" id="mainNav">
       <a class="navbar-brand font-weight-light js-scroll-trigger" href="/">
-        <h1 class="main-h1">Prediction Graphs</h1>
+        <h1 class="main-h1">
+          COVID-19 | Predictions</h1>
       </a>
 
     <search></search>

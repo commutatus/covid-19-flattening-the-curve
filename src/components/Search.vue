@@ -1,5 +1,5 @@
 <template>
-    <Layout>
+    <Layout class="search-custom-layout">
         <div class="list-js-search">
             <label class="search-label-hidden" for="search">Search by country</label>
             <input class="search" type="text" id="search" placeholder="Search by country" />
