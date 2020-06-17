@@ -8,19 +8,6 @@
           COVID-19
         </h1>
       </a>
-      <!-- <button
-        class="navbar-toggler navbar-toggler-right"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarResponsive"
-        aria-controls="navbarResponsive"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon">
-          <i class="fa fa-bars" aria-hidden="true"></i>
-        </span>
-      </button>-->
       <div class="list-js-search">
         <label class="search-label-hidden" for="search">Search by country</label>
         <input class="search" type="text" id="search" placeholder="Search by country" />
@@ -78,6 +65,14 @@
           href="mailto:chandan@commutatus.com?cc=mkv@commutatus.com&subject=Flattening%20the%20Curve%20Dashboard-Feedback/Suggestions"
         >here</a>.
       </div>
+      <a href="https://flattening-the-curve.commutatus.com/predictions" style="display: flex;">
+        <div class="new-graphs-link" role="alert">
+          <i style="margin-right: 5px;">
+            <g-image style="height: 30px; width: 30px;" alt="new icon" src="~/images/new-icon.png" />
+          </i>
+          COVID-19 Predictions →
+        </div>
+      <a>
     </div>
 
     <section class="loading-section" id="chart-loader">
@@ -112,10 +107,7 @@
           <div :id="`country-id-${index}`" class="text-center">
             <p class="country-names">{{item.country}}</p>
           </div>
-          <chart
-            :chartdata="item.chartData"
-            :chartoptions="item.chartOptions"
-          ></chart>
+          <chart :chartdata="item.chartData" :chartoptions="item.chartOptions"></chart>
         </div>
       </div>
     </section>
@@ -264,7 +256,7 @@
     <footer class="bg-light py-3">
       <div class="footer-container">
         <div class="small text-center text-muted">
-          Crafted with ❤️ by
+          Crafted with ❤️ &nbsp; by 
           <b>
             <a style="font-size:1.1em" href="https://www.commutatus.com">Commutatus</a>
           </b>
@@ -285,6 +277,11 @@
 <script>
 import moment from "moment";
 import Chart from "../components/Chart";
+import generateCountryCharts from "../helpers/generateCountryCharts";
+import starredButtonOnClick from "../helpers/starredButtonOnClick";
+import ifAllCountriesBtnClicked from "../helpers/ifAllCountriesBtnClicked";
+import ifStarredBtnClicked from "../helpers/ifStarredBtnClicked";
+
 let starredCountries = [];
 export default {
   components: {
@@ -362,130 +359,23 @@ export default {
             if (e.recovered !== null) recentRecovered = e.recovered;
           }
         });
-        this.generateAllCharts(i, index, xlabels, ylabels, sortedCountryArray);
+        this.sortedCountryArray[index] = generateCountryCharts(
+          i,
+          index,
+          xlabels,
+          ylabels,
+          sortedCountryArray
+        );
       });
-    },
-    generateAllCharts: function(
-      i,
-      index,
-      xlabels,
-      ylabels,
-      sortedCountryArray
-    ) {
-      let tempObj = sortedCountryArray[index];
-      tempObj["chartData"] = {
-        labels: xlabels,
-        datasets: [
-          {
-            label: `Active cases: ${sortedCountryArray[
-              index
-            ].count.toLocaleString()}`,
-            data: ylabels,
-            backgroundColor: ["rgba(255, 99, 132, 0.3)"],
-            borderColor: ["rgba(255, 99, 132, 1)"],
-            lineTension: 0.4,
-            borderWidth: 1,
-            pointRadius: 2,
-            pointBackgroundColor: "rgba(255, 99, 132, 0.8)"
-          }
-        ]
-      };
-      tempObj["chartOptions"] = {
-        responsive: true,
-        maintainAspectRatio: false,
-        tooltips: {
-          callbacks: {
-            title: function(tooltipItems, data) {
-              return "";
-            },
-            label: function(tooltipItem, data) {
-              return data.datasets[tooltipItem.datasetIndex].data[
-                tooltipItem.index
-              ].toLocaleString();
-            }
-          },
-          enabled: true,
-          mode: "nearest"
-        },
-        animation: {
-          duration: 0
-        },
-        hover: {
-          animationDuration: 0
-        },
-        responsiveAnimationDuration: 0,
-        scales: {
-          yAxes: [
-            {
-              ticks: {
-                maxTicksLimit: 8
-              }
-            }
-          ],
-          xAxes: [
-            {
-              scaleLabel: {
-                display: true,
-                labelString: `Days since first confirmed case in ${i.country}`
-              },
-              ticks: {
-                maxTicksLimit: 12
-              }
-            }
-          ]
-        }
-      };
-      this.sortedCountryArray[index] = tempObj;
-    },
-    starredButtonOnClick: function(i, index) {
-      let starredClick = document.getElementById(`chart-star-${index}`);
-
-      $("#chart-star-" + index + "").click(function() {
-        $(this)
-          .removeClass("inactive")
-          .addClass("btn-star-active");
-        $("#fa-star-" + index + "").addClass("star-color");
-      });
-
-      starredClick &&
-        starredClick.addEventListener("click", e => {
-          if (typeof Storage !== "undefined") {
-            if (localStorage.getItem("starred") === null) {
-              starredCountries.push(i.country);
-              localStorage.setItem("starred", JSON.stringify(starredCountries));
-            } else {
-              starredCountries = JSON.parse(localStorage.getItem("starred"));
-
-              if (starredCountries.includes(i.country)) {
-                starredCountries = starredCountries.filter(
-                  e => e !== i.country
-                );
-                localStorage.setItem(
-                  "starred",
-                  JSON.stringify(starredCountries)
-                );
-                $("#chart-star-" + index + "").removeClass("btn-star-active");
-                $("#fa-star-" + index + "").removeClass("star-color");
-              } else {
-                starredCountries.push(i.country);
-                localStorage.setItem(
-                  "starred",
-                  JSON.stringify(starredCountries)
-                );
-              }
-            }
-          } else {
-            console.log(`Your browser doesn't support Web Storage!`);
-          }
-        });
     },
     userFunctions: function() {
+      const localStorageVal = "starred";
       this.sortedCountryArray.forEach((i, index) => {
-        this.starredButtonOnClick(i, index);
+        starredButtonOnClick(i, index, localStorageVal, starredCountries);
       });
       this.searchCountries();
-      this.ifAllCountriesBtnClicked();
-      this.ifStarredBtnClicked();
+      ifAllCountriesBtnClicked(this.sortedCountryArray, localStorageVal);
+      ifStarredBtnClicked(this.sortedCountryArray, localStorageVal);
     },
     searchCountries: function() {
       $("#results-not-found").hide();
@@ -519,87 +409,6 @@ export default {
         });
       });
     },
-    ifAllCountriesBtnClicked: function() {
-      let that = this;
-      $("#tab-choose .btn-country").click(function() {
-        $("#tab-choose .btn-starred").removeClass("active");
-        $("#tab-choose .btn-country").addClass("active");
-        $(".content").show();
-        $("#starred-none").hide();
-        $("#results-not-found").hide();
-        that.sortedCountryArray.forEach((i, index) => {
-          if (typeof Storage !== "undefined") {
-            if (localStorage.getItem("starred") === null) {
-              //
-            } else {
-              let starredCountriesGenAddress = JSON.parse(
-                localStorage.getItem("starred")
-              );
-
-              if (starredCountriesGenAddress.includes(i.country)) {
-                $("#chart-star-" + index + "")
-                  .removeClass("inactive")
-                  .addClass("btn-star-active");
-                $("#fa-star-" + index + "").addClass("star-color");
-              }
-            }
-          } else {
-            console.log(`Your browser doesn't support Web Storage!`);
-          }
-        });
-      });
-    },
-    ifStarredBtnClicked: function() {
-      let that = this;
-      let starFound = document.getElementById("starred-none");
-      $("#tab-choose .btn-starred").click(function() {
-        $("#tab-choose .btn-starred").addClass("active");
-        $("#tab-choose .btn-country").removeClass("active");
-        $(".content").hide();
-        $("#starred-none").show();
-        $("#results-not-found").hide();
-        if (localStorage.getItem("starred") === null) {
-          starFound.innerHTML = `You haven't starred any country.`;
-        } else {
-          let starredCountriesArray = JSON.parse(
-            localStorage.getItem("starred")
-          );
-
-          if (starredCountriesArray && starredCountriesArray.length) {
-            starFound.innerHTML = ``;
-          } else {
-            starFound.innerHTML = `You haven't starred any country.`;
-          }
-
-          starredCountriesArray.forEach(i => {
-            $('.content .country-names:contains("' + i + '")')
-              .closest(".content")
-              .show();
-          });
-
-          that.sortedCountryArray.forEach((i, index) => {
-            if (typeof Storage !== "undefined") {
-              if (localStorage.getItem("starred") === null) {
-                //
-              } else {
-                let starredCountriesGenStarred = JSON.parse(
-                  localStorage.getItem("starred")
-                );
-
-                if (starredCountriesGenStarred.includes(i.country)) {
-                  $("#chart-star-" + index + "")
-                    .removeClass("inactive")
-                    .addClass("btn-star-active");
-                  $("#fa-star-" + index + "").addClass("star-color");
-                }
-              }
-            } else {
-              console.log(`Your browser doesn't support Web Storage!`);
-            }
-          });
-        }
-      });
-    }
   },
   metaInfo: {
     title:
