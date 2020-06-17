@@ -67,7 +67,7 @@ function generateCountryCharts(i,
             ]
           }
         };
-        this.sortedCountryArray[index] = tempObj;
+        return tempObj;
 
 }
 

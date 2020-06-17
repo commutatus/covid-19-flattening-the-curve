@@ -1,4 +1,4 @@
- <template>
+<template>
   <Layout>
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top py-1" id="mainNav">
@@ -8,8 +8,11 @@
           COVID-19
         </h1>
       </a>
-
-      <search></search>
+      <div class="list-js-search">
+        <label class="search-label-hidden" for="search">Search by country</label>
+        <input class="search" type="text" id="search" placeholder="Search by country" />
+        <i class="fas fa-search-location"></i>
+      </div>
     </nav>
 
     <section class="global-stats-section bg-dark text-white">
@@ -62,14 +65,14 @@
           href="mailto:chandan@commutatus.com?cc=mkv@commutatus.com&subject=Flattening%20the%20Curve%20Dashboard-Feedback/Suggestions"
         >here</a>.
       </div>
-      <g-link to="/predictions" style="display: flex;">
+      <a href="https://flattening-the-curve.commutatus.com/predictions" style="display: flex;">
         <div class="new-graphs-link" role="alert">
           <i style="margin-right: 5px;">
             <g-image style="height: 30px; width: 30px;" alt="new icon" src="~/images/new-icon.png" />
           </i>
           COVID-19 Predictions →
         </div>
-      </g-link>
+      <a>
     </div>
 
     <section class="loading-section" id="chart-loader">
@@ -253,7 +256,7 @@
     <footer class="bg-light py-3">
       <div class="footer-container">
         <div class="small text-center text-muted">
-          Crafted with ❤️ by
+          Crafted with ❤️ &nbsp; by 
           <b>
             <a style="font-size:1.1em" href="https://www.commutatus.com">Commutatus</a>
           </b>
@@ -274,7 +277,6 @@
 <script>
 import moment from "moment";
 import Chart from "../components/Chart";
-import Search from "../components/Search";
 import generateCountryCharts from "../helpers/generateCountryCharts";
 import starredButtonOnClick from "../helpers/starredButtonOnClick";
 import ifAllCountriesBtnClicked from "../helpers/ifAllCountriesBtnClicked";
@@ -283,8 +285,7 @@ import ifStarredBtnClicked from "../helpers/ifStarredBtnClicked";
 let starredCountries = [];
 export default {
   components: {
-    Chart,
-    search: Search
+    Chart
   },
   created() {
     this.sortCountriesData();
@@ -358,7 +359,7 @@ export default {
             if (e.recovered !== null) recentRecovered = e.recovered;
           }
         });
-        this.generateCountryCharts(
+        this.sortedCountryArray[index] = generateCountryCharts(
           i,
           index,
           xlabels,
@@ -367,26 +368,47 @@ export default {
         );
       });
     },
-    generateCountryCharts,
-    starredButtonOnClick,
     userFunctions: function() {
       const localStorageVal = "starred";
       this.sortedCountryArray.forEach((i, index) => {
-        this.starredButtonOnClick(i, index, localStorageVal, starredCountries);
+        starredButtonOnClick(i, index, localStorageVal, starredCountries);
       });
-      this.ifAllCountriesBtnClicked.call(
-        this,
-        this.sortedCountryArray,
-        localStorageVal
-      );
-      this.ifStarredBtnClicked.call(
-        this,
-        this.sortedCountryArray,
-        localStorageVal
-      );
+      this.searchCountries();
+      ifAllCountriesBtnClicked(this.sortedCountryArray, localStorageVal);
+      ifStarredBtnClicked(this.sortedCountryArray, localStorageVal);
     },
-    ifAllCountriesBtnClicked,
-    ifStarredBtnClicked
+    searchCountries: function() {
+      $("#results-not-found").hide();
+      $("#search").keyup(function() {
+        var text = $(this)
+          .val()
+          .toLowerCase();
+        if (text.length === 0) {
+          $("#tab-choose .btn-country").click();
+        }
+        $(".content").hide();
+        var resultCount = 0;
+        $("#results-not-found").hide();
+        $(".content .country-names").each(function() {
+          if (
+            $(this)
+              .text()
+              .toLowerCase()
+              .indexOf("" + text + "") != -1
+          ) {
+            $(this)
+              .closest(".content")
+              .show();
+            $("#results-not-found").hide();
+            resultCount++;
+          }
+
+          if (resultCount == 0) {
+            $("#results-not-found").show();
+          }
+        });
+      });
+    },
   },
   metaInfo: {
     title:

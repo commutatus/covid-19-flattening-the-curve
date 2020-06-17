@@ -65,7 +65,7 @@ function generatePredictedCharts(i, index, xlabels, ylabels, sortedPredictedArra
       ],
     },
   };
-  this.sortedPredictedArray[index] = tempObj;
+  return tempObj;
 }
 
 export default generatePredictedCharts;
