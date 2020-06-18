@@ -65,14 +65,14 @@
           href="mailto:chandan@commutatus.com?cc=mkv@commutatus.com&subject=Flattening%20the%20Curve%20Dashboard-Feedback/Suggestions"
         >here</a>.
       </div>
-      <a href="https://flattening-the-curve.commutatus.com/predictions" target="_blank" style="display: flex;">
+      <!-- <a href="https://flattening-the-curve.commutatus.com/predictions" target="_blank" style="display: flex;">
         <div class="new-graphs-link" role="alert">
           <i style="margin-right: 5px;">
             <g-image style="height: 30px; width: 30px;" alt="new icon" src="~/images/new-icon.png" />
           </i>
           COVID-19 Predictions →
         </div>
-      </a>
+      </a> -->
     </div>
 
     <section class="loading-section" id="chart-loader">
