@@ -86,6 +86,7 @@ import generatePredictedCharts from "../helpers/generatePredictedCharts";
 import starredButtonOnClick from "../helpers/starredButtonOnClick";
 import ifAllCountriesBtnClicked from "../helpers/ifAllCountriesBtnClicked";
 import ifStarredBtnClicked from "../helpers/ifStarredBtnClicked";
+import updateSortedActiveCount from "../helpers/updateSortedActiveCount";
 let starredCountries = [];
 export default {
   components: {
@@ -119,9 +120,9 @@ export default {
       predictedCountriesArray.forEach(country => {
         let predictedTimelineArray = Object.values(predictedData[country]);
         let predictedDateArray = Object.keys(predictedData[country]);
-        let predictedActiveCount =
-          predictedTimelineArray[predictedTimelineArray.length - 1].Infected +
-          predictedTimelineArray[predictedTimelineArray.length - 1].Recovered;
+        let predictedActiveCount = 
+          predictedTimelineArray[predictedTimelineArray.length - 1].Infected;
+          // generateSortedActiveCount(predictedData, country)
         let latestDate = predictedDateArray[predictedDateArray.length - 1];
         totalPredictedCountArray.push({
           country: country,
@@ -138,7 +139,8 @@ export default {
           lastUpdated: latestDate
         });
       });
-      sortedPredictedArray = totalPredictedCountArray.sort((a, b) =>
+      let updatedPredictedCountryArray = updateSortedActiveCount(totalPredictedCountArray, predictedData);
+      sortedPredictedArray = updatedPredictedCountryArray.sort((a, b) =>
         a.count < b.count ? 1 : b.count < a.count ? -1 : 0
       );
       this.sortedPredictedArray = sortedPredictedArray;
@@ -181,7 +183,8 @@ export default {
                 Infected: valuesArray[1],
                 Recovered: valuesArray[2],
                 Fatal: valuesArray[3],
-                count: valuesArray[1] + valuesArray[2]
+                count: valuesArray[1],
+                country: i.country
               });
             }
           });
@@ -200,7 +203,6 @@ export default {
             xlabels.push(formatedDates[k]);
           }
         });
-
         // Formating sorted Array from current date
         let currentSortedTimelineArray = [];
         let currentActive = 0;
@@ -247,7 +249,6 @@ export default {
         });
 
         let activeCasesToday = predictedCurrentTimeLineArray.filter((data) => data.count !== 0)[0];
-        console.log(activeCasesToday);
         predictedCurrentTimeLineArray.forEach((e, k) => {
           let currentconfirmed = e.Infected + e.Recovered + e.Fatal;
           currentActive = e.Infected;

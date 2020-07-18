@@ -5,7 +5,7 @@ function generatePredictedCharts(i, index, xlabels, ylabels, sortedPredictedArra
     labels: xlabels,
     datasets: [
       {
-        label: `Active cases: ${activeCasesToday ? activeCasesToday.Infected.toLocaleString() : active}`,
+        label: `Active cases: ${activeCasesToday ? activeCasesToday.Infected.toLocaleString() : active.toLocaleString()}`,
         data: ylabels,
         fill: 1,
         backgroundColor: ["rgba(255, 99, 132, 0.3)"],
