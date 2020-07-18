@@ -17,7 +17,7 @@ function generateCountryCharts(i,
               borderColor: ["rgba(255, 99, 132, 1)"],
               lineTension: 0.4,
               borderWidth: 1,
-              pointRadius: 2,
+              pointRadius: 1,
               pointBackgroundColor: "rgba(255, 99, 132, 0.8)"
             }
           ]
