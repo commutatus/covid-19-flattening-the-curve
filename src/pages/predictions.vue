@@ -167,12 +167,21 @@ export default {
           reformatDatesArray.push(date);
         });
         let SortedDates = reformatDatesArray.sort();
-        SortedDates.forEach(e => {
+
+        let primaryDate = SortedDates[0];
+        let tempLastDate = new Date(primaryDate);
+        let formattedLastDate = moment(tempLastDate).add(1, 'month').format("MM-DD-YYYY HH:mm:ss");
+        
+        SortedDates.forEach((e) => {
           let date = null;
           date = new Date(e);
-          date = moment(date).format("YYYY-MM-DD HH:mm:ss");
-          sortedDatesArray.push(date);
-        });
+          let formattedEndDate = new Date(formattedLastDate);
+          if(date.getMonth() <= formattedEndDate.getMonth() && date.getDate() <= formattedEndDate.getDate()){
+            date = moment(date).format("YYYY-MM-DD HH:mm:ss");
+            sortedDatesArray.push(date);
+          }
+        })
+        
         sortedDatesArray.forEach(e => {
           predictedDateArray.forEach(k => {
             if (e === k) {
