@@ -35,7 +35,7 @@
       </div>
       <h2
         class="main-h2"
-      >Dashboard to track the projected number of people who will contract COVID-19 / Coronavirus over a period of next 6 months by countries.</h2>
+      >Dashboard to track the projected number of people who will contract COVID-19 / Coronavirus over a period of the next 1 month by countries.</h2>
       <h3 class="text-center" id="results-not-found">No results found.</h3>
       <h3 class="text-center" id="starred-none"></h3>
 
@@ -86,7 +86,7 @@ import generatePredictedCharts from "../helpers/generatePredictedCharts";
 import starredButtonOnClick from "../helpers/starredButtonOnClick";
 import ifAllCountriesBtnClicked from "../helpers/ifAllCountriesBtnClicked";
 import ifStarredBtnClicked from "../helpers/ifStarredBtnClicked";
-
+import updateSortedActiveCount from "../helpers/updateSortedActiveCount";
 let starredCountries = [];
 export default {
   components: {
@@ -120,9 +120,9 @@ export default {
       predictedCountriesArray.forEach(country => {
         let predictedTimelineArray = Object.values(predictedData[country]);
         let predictedDateArray = Object.keys(predictedData[country]);
-        let predictedActiveCount =
-          predictedTimelineArray[predictedTimelineArray.length - 1].Infected +
-          predictedTimelineArray[predictedTimelineArray.length - 1].Recovered;
+        let predictedActiveCount = 
+          predictedTimelineArray[predictedTimelineArray.length - 1].Infected;
+          // generateSortedActiveCount(predictedData, country)
         let latestDate = predictedDateArray[predictedDateArray.length - 1];
         totalPredictedCountArray.push({
           country: country,
@@ -139,7 +139,8 @@ export default {
           lastUpdated: latestDate
         });
       });
-      sortedPredictedArray = totalPredictedCountArray.sort((a, b) =>
+      let updatedPredictedCountryArray = updateSortedActiveCount(totalPredictedCountArray, predictedData);
+      sortedPredictedArray = updatedPredictedCountryArray.sort((a, b) =>
         a.count < b.count ? 1 : b.count < a.count ? -1 : 0
       );
       this.sortedPredictedArray = sortedPredictedArray;
@@ -149,6 +150,7 @@ export default {
       sortedPredictedArray.forEach((i, index) => {
         let xlabels = [];
         let ylabels = [];
+        let currentYlabels = [];
         let confirmed = 0;
         let active = 0;
         let predictedDateArray = Object.keys(predictedData[i.country]);
@@ -157,6 +159,7 @@ export default {
         let predictedTimelineArray = [];
         let formatedDates = [];
 
+        //Format and sorting for the whole timeline array
         predictedDateArray.forEach(e => {
           let date = null;
           date = new Date(e);
@@ -164,12 +167,21 @@ export default {
           reformatDatesArray.push(date);
         });
         let SortedDates = reformatDatesArray.sort();
-        SortedDates.forEach(e => {
+
+        let primaryDate = SortedDates[0];
+        let tempLastDate = new Date(primaryDate);
+        let formattedLastDate = moment(tempLastDate).add(1, 'month').format("MM-DD-YYYY HH:mm:ss");
+        
+        SortedDates.forEach((e) => {
           let date = null;
           date = new Date(e);
-          date = moment(date).format("YYYY-MM-DD HH:mm:ss");
-          sortedDatesArray.push(date);
-        });
+          let formattedEndDate = new Date(formattedLastDate);
+          if(date.getMonth() <= formattedEndDate.getMonth() && date.getDate() <= formattedEndDate.getDate()){
+            date = moment(date).format("YYYY-MM-DD HH:mm:ss");
+            sortedDatesArray.push(date);
+          }
+        })
+        
         sortedDatesArray.forEach(e => {
           predictedDateArray.forEach(k => {
             if (e === k) {
@@ -179,7 +191,9 @@ export default {
                 Susceptible: valuesArray[0],
                 Infected: valuesArray[1],
                 Recovered: valuesArray[2],
-                Fatal: valuesArray[3]
+                Fatal: valuesArray[3],
+                count: valuesArray[1],
+                country: i.country
               });
             }
           });
@@ -192,18 +206,76 @@ export default {
         });
         predictedTimelineArray.forEach((e, k) => {
           confirmed = e.Infected + e.Recovered + e.Fatal;
-          active = e.Infected + e.Recovered;
+          active = e.Infected;
           if (confirmed !== 0 && active > 0) {
             ylabels.push(active);
             xlabels.push(formatedDates[k]);
           }
         });
+        // Formating sorted Array from current date
+        let currentSortedTimelineArray = [];
+        let currentActive = 0;
+        let predictedCurrentTimeLineArray = JSON.parse(JSON.stringify(predictedTimelineArray));
+        sortedDatesArray.forEach(e => {
+          let date = new Date(e);
+          let currentDate = new Date();
+          if (
+            date.getMonth() >= currentDate.getMonth() &&
+            date.getFullYear() >= currentDate.getFullYear()
+          ) {
+            if (date.getMonth() == currentDate.getMonth()) {
+              if (date.getDate() >= currentDate.getDate()) {
+                date = moment(date).format("YYYY-MM-DD HH:mm:ss");
+                currentSortedTimelineArray.push(date);
+              }
+            } else {
+              date = moment(date).format("YYYY-MM-DD HH:mm:ss");
+              currentSortedTimelineArray.push(date);
+            }
+          }
+        });
+
+        predictedCurrentTimeLineArray.forEach((e) => {
+          e.date = e.date;
+          e.Susceptible = 0;
+          e.Infected = 0;
+          e.Recovered = 0;
+          e.Fatal = 0;
+          e.count = 0;
+        });
+
+        currentSortedTimelineArray.forEach(e => {
+          predictedCurrentTimeLineArray.forEach((k, index) => {
+            if(k.date === e){
+              k.date = e;
+              k.Susceptible = predictedTimelineArray[index].Infected;;
+              k.Infected = predictedTimelineArray[index].Infected;
+              k.Recovered = predictedTimelineArray[index].Recovered;
+              k.Fatal = predictedTimelineArray[index].Fatal;
+              k.count = predictedTimelineArray[index].Infected + predictedTimelineArray[index].Recovered;
+            }
+          })
+        });
+
+        let activeCasesToday = predictedCurrentTimeLineArray.filter((data) => data.count !== 0)[0];
+        predictedCurrentTimeLineArray.forEach((e, k) => {
+          let currentconfirmed = e.Infected + e.Recovered + e.Fatal;
+          currentActive = e.Infected;
+          if (currentActive >= 0) {
+            currentYlabels.push(currentActive);
+          }
+        });
+
         this.sortedPredictedArray[index] = generatePredictedCharts(
           i,
           index,
           xlabels,
           ylabels,
-          sortedPredictedArray
+          sortedPredictedArray,
+          currentYlabels,
+          currentActive,
+          activeCasesToday,
+          active
         );
       });
     },
@@ -247,7 +319,7 @@ export default {
           }
         });
       });
-    },
+    }
   }
 };
 </script>
