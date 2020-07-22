@@ -120,9 +120,9 @@ export default {
       predictedCountriesArray.forEach(country => {
         let predictedTimelineArray = Object.values(predictedData[country]);
         let predictedDateArray = Object.keys(predictedData[country]);
-        let predictedActiveCount = 
+        let predictedActiveCount =
           predictedTimelineArray[predictedTimelineArray.length - 1].Infected;
-          // generateSortedActiveCount(predictedData, country)
+        // generateSortedActiveCount(predictedData, country)
         let latestDate = predictedDateArray[predictedDateArray.length - 1];
         totalPredictedCountArray.push({
           country: country,
@@ -139,7 +139,10 @@ export default {
           lastUpdated: latestDate
         });
       });
-      let updatedPredictedCountryArray = updateSortedActiveCount(totalPredictedCountArray, predictedData);
+      let updatedPredictedCountryArray = updateSortedActiveCount(
+        totalPredictedCountArray,
+        predictedData
+      );
       sortedPredictedArray = updatedPredictedCountryArray.sort((a, b) =>
         a.count < b.count ? 1 : b.count < a.count ? -1 : 0
       );
@@ -170,18 +173,27 @@ export default {
 
         let primaryDate = SortedDates[0];
         let tempLastDate = new Date(primaryDate);
-        let formattedLastDate = moment(tempLastDate).add(1, 'month').format("MM-DD-YYYY HH:mm:ss");
-        
-        SortedDates.forEach((e) => {
+        let formattedLastDate = moment(tempLastDate)
+          .add(1, "month")
+          .format("MM-DD-YYYY HH:mm:ss");
+
+        SortedDates.forEach(e => {
           let date = null;
           date = new Date(e);
           let formattedEndDate = new Date(formattedLastDate);
-          if(date.getMonth() <= formattedEndDate.getMonth() && date.getDate() <= formattedEndDate.getDate()){
-            date = moment(date).format("YYYY-MM-DD HH:mm:ss");
-            sortedDatesArray.push(date);
+          if (date.getMonth() <= formattedEndDate.getMonth()) {
+            if (date.getMonth() == formattedEndDate.getMonth()) {
+              if (date.getDate() <= formattedEndDate.getDate()) {
+                date = moment(date).format("YYYY-MM-DD HH:mm:ss");
+                sortedDatesArray.push(date);
+              }
+            } else {
+              date = moment(date).format("YYYY-MM-DD HH:mm:ss");
+              sortedDatesArray.push(date);
+            }
           }
-        })
-        
+        });
+
         sortedDatesArray.forEach(e => {
           predictedDateArray.forEach(k => {
             if (e === k) {
@@ -215,7 +227,9 @@ export default {
         // Formating sorted Array from current date
         let currentSortedTimelineArray = [];
         let currentActive = 0;
-        let predictedCurrentTimeLineArray = JSON.parse(JSON.stringify(predictedTimelineArray));
+        let predictedCurrentTimeLineArray = JSON.parse(
+          JSON.stringify(predictedTimelineArray)
+        );
         sortedDatesArray.forEach(e => {
           let date = new Date(e);
           let currentDate = new Date();
@@ -235,7 +249,7 @@ export default {
           }
         });
 
-        predictedCurrentTimeLineArray.forEach((e) => {
+        predictedCurrentTimeLineArray.forEach(e => {
           e.date = e.date;
           e.Susceptible = 0;
           e.Infected = 0;
@@ -246,18 +260,22 @@ export default {
 
         currentSortedTimelineArray.forEach(e => {
           predictedCurrentTimeLineArray.forEach((k, index) => {
-            if(k.date === e){
+            if (k.date === e) {
               k.date = e;
-              k.Susceptible = predictedTimelineArray[index].Infected;;
+              k.Susceptible = predictedTimelineArray[index].Infected;
               k.Infected = predictedTimelineArray[index].Infected;
               k.Recovered = predictedTimelineArray[index].Recovered;
               k.Fatal = predictedTimelineArray[index].Fatal;
-              k.count = predictedTimelineArray[index].Infected + predictedTimelineArray[index].Recovered;
+              k.count =
+                predictedTimelineArray[index].Infected +
+                predictedTimelineArray[index].Recovered;
             }
-          })
+          });
         });
 
-        let activeCasesToday = predictedCurrentTimeLineArray.filter((data) => data.count !== 0)[0];
+        let activeCasesToday = predictedCurrentTimeLineArray.filter(
+          data => data.count !== 0
+        )[0];
         predictedCurrentTimeLineArray.forEach((e, k) => {
           let currentconfirmed = e.Infected + e.Recovered + e.Fatal;
           currentActive = e.Infected;
