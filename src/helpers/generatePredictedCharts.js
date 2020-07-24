@@ -12,8 +12,8 @@ function generatePredictedCharts(
   let tempObj = sortedPredictedArray[index];
   let predictedData = activeCasesToday
     ? currentActive > activeCasesToday.Infected
-      ? currentActive - activeCasesToday.Infected
-      : activeCasesToday.Infected - currentActive
+      ? `+${(currentActive - activeCasesToday.Infected).toLocaleString()}`
+      : `-${(activeCasesToday.Infected - currentActive).toLocaleString()}`
     : currentActive;
   tempObj["chartData"] = {
     labels: xlabels,
@@ -34,7 +34,7 @@ function generatePredictedCharts(
         pointBackgroundColor: "rgba(255, 99, 132, 0.8)",
       },
       {
-        label: `Predicted cases: ${predictedData.toLocaleString()}`,
+        label: `Δ Active cases: ${predictedData}`,
         data: currentYlabels,
         backgroundColor: ["rgba(54, 162, 235, 0.3)"],
         borderColor:  ["rgba(255, 99, 132, 1)"],
@@ -86,7 +86,7 @@ function generatePredictedCharts(
             display: true,
             labelString: `Predicted # of Active cases in ${
               i.country
-            } (Total cases: ${active.toLocaleString()})`,
+            }: ${active.toLocaleString()}`,
           },
           ticks: {
             maxTicksLimit: 12,
