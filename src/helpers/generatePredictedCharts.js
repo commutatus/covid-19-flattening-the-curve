@@ -46,6 +46,9 @@ function generatePredictedCharts(
     ],
   };
   tempObj["chartOptions"] = {
+    legend: {
+      display: false
+    },
     responsive: true,
     maintainAspectRatio: false,
     tooltips: {
