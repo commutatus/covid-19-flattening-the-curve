@@ -10573,8 +10573,8 @@ header.masthead h1 {
   position: relative;
 }
 
-.chartjs-render-monitor{
-    height: 254px !important;
+.chartjs-render-monitor {
+  height: 254px !important;
 }
 
 @media only screen and (max-width: 600px) {
@@ -10584,7 +10584,7 @@ header.masthead h1 {
     width: 100vw;
     position: relative;
   }
-  .chartjs-render-monitor{
+  .chartjs-render-monitor {
     height: 200px !important;
   }
 }
@@ -10693,7 +10693,7 @@ header.masthead h1 {
   font-weight: 400;
   line-height: 1.5;
 }
-.search-label-hidden{
+.search-label-hidden {
   /* display: none; */
   font-size: 0px;
 }
@@ -10727,23 +10727,21 @@ header.masthead h1 {
   flex-direction: column;
 }
 
-.content-main-text{
+.content-main-text {
   width: 100%;
   padding-bottom: 3em;
 }
 
-.custom-data-table{
+.custom-data-table {
   width: 100%;
   overflow: scroll;
 }
-
-
 
 @media only screen and (max-width: 600px) {
   .content-main {
     padding: 1em;
   }
-  .custom-data-table h3{
+  .custom-data-table h3 {
     font-size: 1em;
   }
   .search {
@@ -10764,7 +10762,7 @@ header.masthead h1 {
     padding: 2px;
     z-index: 2;
   }
-  .navbar-brand{
+  .navbar-brand {
     margin-right: 0px !important;
   }
   .list-js-search {
@@ -10811,48 +10809,51 @@ header.masthead h1 {
   font-size: 1.2em;
 }
 
-
-#results-not-found{
+#results-not-found {
   font-size: 20px;
 }
 
-.star-color{
+.star-color {
   color: "#ffc107";
 }
 
-#starred-none{
+#starred-none {
   font-size: 20px;
 }
 
-.notice-section{
+.notice-section {
   display: flex;
   align-content: center;
   justify-content: space-around;
   padding-top: 1em;
   background-color: #f5f5f5;
   font-family: "Helvetica Neue", Arial, -apple-system, BlinkMacSystemFont,
-  "Segoe UI", Roboto, "Noto Sans", sans-serif, "Apple Color Emoji",
-  "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    "Segoe UI", Roboto, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
-.prediction-notice{
+.prediction-notice {
   margin-top: 60px;
 }
 
-.main-h1{
+.main-h1 {
   font-size: 1.2em;
   font-weight: 300;
-  font-family: "Helvetica Neue", Arial, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: "Helvetica Neue", Arial, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
-.main-h2{
+.main-h2 {
   font-size: 1em;
   text-align: center;
   font-weight: 300;
-  font-family: "Helvetica Neue", Arial, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: "Helvetica Neue", Arial, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
-.new-graphs-link{
+.new-graphs-link {
   background-color: #f5f5f5;
   display: flex;
   align-items: center;
@@ -10891,29 +10892,73 @@ header.masthead h1 {
   .global-stats-section {
     padding: 6rem 1em 1rem 1em;
   }
-  .main-h1{
+  .main-h1 {
     font-size: 1.2em;
     font-weight: 400;
-  }  
-  .main-h2{
+  }
+  .main-h2 {
     font-size: 0.8em;
   }
-  .notice-section{
+  .notice-section {
     font-size: 12px;
     padding: 1em 1em 0 1em;
     flex-direction: column;
   }
-  .mobile-alert{
+  .mobile-alert {
     margin-bottom: 0px;
   }
-  .new-graphs-link{
+  .new-graphs-link {
     margin-top: 10px !important;
     margin: auto;
   }
-  .prediction-notice{
+  .prediction-notice {
     padding-top: 4em;
   }
-  .search-custom-layout{
+  .search-custom-layout {
     width: 100%;
   }
+}
+
+.custom-legends {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-family: Arial, Helvetica, sans-serif;
+  align-items: center;
+  padding: 0 6%;
+}
+
+.custom-legends p {
+  margin: 0;
+  margin-top: 3px;
+  font-size: 12px;
+  color: #7F7F7F;
+}
+
+.custom-legends div {
+  display: flex;
+  align-items: center;
+}
+
+.active-cases-indicator {
+  background-color: #fbced9;
+  width: 38px;
+  height: 13px;
+  margin-right: 8px;
+}
+
+.predicted-cases-indicator {
+  background-color: #c6dff6;
+  width: 38px;
+  height: 13px;
+  margin-right: 8px;
+}
+
+.custom-delta {
+  margin-right: 3px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 5.5px 11px 5.5px;
+  border-color: transparent transparent #ff007b transparent;
 }

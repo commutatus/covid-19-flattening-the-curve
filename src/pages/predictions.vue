@@ -52,6 +52,21 @@
           <div :id="`country-id-${index}`" class="text-center">
             <p class="country-names">{{item.country}}</p>
           </div>
+          <div class="custom-legends text-center" :id="`legend-id-${index}`">
+            <div>
+              <div class="active-cases-indicator"></div>
+              <p>Active cases:</p>&nbsp;
+              <p>{{item.currentActiveCases}}</p>
+            </div>
+            <div>
+              <div class="predicted-cases-indicator"></div>
+              <div class="custom-delta"></div>
+              <p>Active cases:</p>&nbsp;
+              <p
+                v-bind:style="[item.predictedActiveCases !== 0 && (item.predictedActiveCases < 0 ? {'color': 'red'} : {'color': 'green'})]"
+              >{{item.predictedActiveCases > 0 ? '+' + item.predictedActiveCases.toLocaleString() : item.predictedActiveCases.toLocaleString()}}</p>
+            </div>
+          </div>
           <chart :chartdata="item.chartData" :chartoptions="item.chartOptions"></chart>
         </div>
       </div>
@@ -90,7 +105,7 @@ import updateSortedActiveCount from "../helpers/updateSortedActiveCount";
 let starredCountries = [];
 export default {
   components: {
-    Chart
+    Chart,
   },
   created() {
     this.sortCountriesData();
@@ -106,23 +121,22 @@ export default {
   },
   data() {
     return {
-      sortedPredictedArray: this.sortedPredictedArray
+      sortedPredictedArray: this.sortedPredictedArray,
     };
   },
   methods: {
-    sortCountriesData: function() {
+    sortCountriesData: function () {
       let predictedData = JSON.parse(
         this.$page.allPredictedData.edges[0].node.fullData
       );
       let sortedPredictedArray = [];
       let totalPredictedCountArray = [];
       let predictedCountriesArray = Object.keys(predictedData);
-      predictedCountriesArray.forEach(country => {
+      predictedCountriesArray.forEach((country) => {
         let predictedTimelineArray = Object.values(predictedData[country]);
         let predictedDateArray = Object.keys(predictedData[country]);
         let predictedActiveCount =
           predictedTimelineArray[predictedTimelineArray.length - 1].Infected;
-        // generateSortedActiveCount(predictedData, country)
         let latestDate = predictedDateArray[predictedDateArray.length - 1];
         totalPredictedCountArray.push({
           country: country,
@@ -136,7 +150,9 @@ export default {
               .Recovered +
             predictedTimelineArray[predictedTimelineArray.length - 1].Fatal,
           count: predictedActiveCount,
-          lastUpdated: latestDate
+          lastUpdated: latestDate,
+          currentActiveCases: null,
+          predictedActiveCases: null,
         });
       });
       let updatedPredictedCountryArray = updateSortedActiveCount(
@@ -149,7 +165,7 @@ export default {
       this.sortedPredictedArray = sortedPredictedArray;
       this.generateGraphContent(sortedPredictedArray, predictedData);
     },
-    generateGraphContent: function(sortedPredictedArray, predictedData) {
+    generateGraphContent: function (sortedPredictedArray, predictedData) {
       sortedPredictedArray.forEach((i, index) => {
         let xlabels = [];
         let ylabels = [];
@@ -163,7 +179,7 @@ export default {
         let formatedDates = [];
 
         //Format and sorting for the whole timeline array
-        predictedDateArray.forEach(e => {
+        predictedDateArray.forEach((e) => {
           let date = null;
           date = new Date(e);
           date = moment(date).format("MM-DD-YYYY HH:mm:ss");
@@ -177,7 +193,7 @@ export default {
           .add(1, "month")
           .format("MM-DD-YYYY HH:mm:ss");
 
-        SortedDates.forEach(e => {
+        SortedDates.forEach((e) => {
           let date = null;
           date = new Date(e);
           let formattedEndDate = new Date(formattedLastDate);
@@ -194,8 +210,8 @@ export default {
           }
         });
 
-        sortedDatesArray.forEach(e => {
-          predictedDateArray.forEach(k => {
+        sortedDatesArray.forEach((e) => {
+          predictedDateArray.forEach((k) => {
             if (e === k) {
               let valuesArray = Object.values(predictedData[i.country][e]);
               predictedTimelineArray.push({
@@ -205,12 +221,12 @@ export default {
                 Recovered: valuesArray[2],
                 Fatal: valuesArray[3],
                 count: valuesArray[1],
-                country: i.country
+                country: i.country,
               });
             }
           });
         });
-        predictedTimelineArray.forEach(e => {
+        predictedTimelineArray.forEach((e) => {
           let date = null;
           date = new Date(e.date);
           date = moment(date).format("DD/MM");
@@ -230,7 +246,7 @@ export default {
         let predictedCurrentTimeLineArray = JSON.parse(
           JSON.stringify(predictedTimelineArray)
         );
-        sortedDatesArray.forEach(e => {
+        sortedDatesArray.forEach((e) => {
           let date = new Date(e);
           let currentDate = new Date();
           if (
@@ -249,7 +265,7 @@ export default {
           }
         });
 
-        predictedCurrentTimeLineArray.forEach(e => {
+        predictedCurrentTimeLineArray.forEach((e) => {
           e.date = e.date;
           e.Susceptible = 0;
           e.Infected = 0;
@@ -258,7 +274,7 @@ export default {
           e.count = 0;
         });
 
-        currentSortedTimelineArray.forEach(e => {
+        currentSortedTimelineArray.forEach((e) => {
           predictedCurrentTimeLineArray.forEach((k, index) => {
             if (k.date === e) {
               k.date = e;
@@ -274,8 +290,9 @@ export default {
         });
 
         let activeCasesToday = predictedCurrentTimeLineArray.filter(
-          data => data.count !== 0
+          (data) => data.count !== 0
         )[0];
+
         predictedCurrentTimeLineArray.forEach((e, k) => {
           let currentconfirmed = e.Infected + e.Recovered + e.Fatal;
           currentActive = e.Infected;
@@ -283,6 +300,16 @@ export default {
             currentYlabels.push(currentActive);
           }
         });
+
+        i.currentActiveCases = activeCasesToday
+          ? activeCasesToday.Infected.toLocaleString()
+          : active.toLocaleString();
+
+        i.predictedActiveCases = activeCasesToday
+          ? currentActive > activeCasesToday.Infected
+            ? currentActive - activeCasesToday.Infected
+            : (activeCasesToday.Infected - currentActive) * -1
+          : currentActive;
 
         this.sortedPredictedArray[index] = generatePredictedCharts(
           i,
@@ -297,7 +324,7 @@ export default {
         );
       });
     },
-    userFunctions: function() {
+    userFunctions: function () {
       const localStorageVal = "predicted-starred";
       this.sortedPredictedArray.forEach((i, index) => {
         starredButtonOnClick(i, index, localStorageVal, starredCountries);
@@ -306,28 +333,24 @@ export default {
       ifAllCountriesBtnClicked(this.sortedCountryArray, localStorageVal);
       ifStarredBtnClicked(this.sortedCountryArray, localStorageVal);
     },
-    searchCountries: function() {
+    searchCountries: function () {
       $("#results-not-found").hide();
-      $("#search").keyup(function() {
-        var text = $(this)
-          .val()
-          .toLowerCase();
+      $("#search").keyup(function () {
+        var text = $(this).val().toLowerCase();
         if (text.length === 0) {
           $("#tab-choose .btn-country").click();
         }
         $(".content").hide();
         var resultCount = 0;
         $("#results-not-found").hide();
-        $(".content .country-names").each(function() {
+        $(".content .country-names").each(function () {
           if (
             $(this)
               .text()
               .toLowerCase()
               .indexOf("" + text + "") != -1
           ) {
-            $(this)
-              .closest(".content")
-              .show();
+            $(this).closest(".content").show();
             $("#results-not-found").hide();
             resultCount++;
           }
@@ -337,8 +360,8 @@ export default {
           }
         });
       });
-    }
-  }
+    },
+  },
 };
 </script>
 
