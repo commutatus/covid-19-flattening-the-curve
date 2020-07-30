@@ -63,7 +63,7 @@
               <div class="custom-delta"></div>
               <p>Active cases:</p>&nbsp;
               <p
-                v-bind:style="[item.predictedActiveCases !== 0 && item.predictedActiveCases < 0 ? {'color': 'red'} : {'color': 'green'}]"
+                v-bind:style="[item.predictedActiveCases !== 0 && (item.predictedActiveCases < 0 ? {'color': 'red'} : {'color': 'green'})]"
               >{{item.predictedActiveCases > 0 ? '+' + item.predictedActiveCases.toLocaleString() : item.predictedActiveCases.toLocaleString()}}</p>
             </div>
           </div>
@@ -163,7 +163,6 @@ export default {
         a.count < b.count ? 1 : b.count < a.count ? -1 : 0
       );
       this.sortedPredictedArray = sortedPredictedArray;
-      console.log(sortedPredictedArray);
       this.generateGraphContent(sortedPredictedArray, predictedData);
     },
     generateGraphContent: function (sortedPredictedArray, predictedData) {
