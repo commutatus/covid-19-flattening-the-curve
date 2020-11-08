@@ -1,21 +1,34 @@
 <template>
   <Layout>
     <!-- Navigation-->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top py-1" id="mainNav">
+    <nav
+      class="navbar navbar-expand-lg navbar-dark fixed-top py-1"
+      id="mainNav"
+    >
       <a class="navbar-brand font-weight-light js-scroll-trigger" href="/">
         <h1 class="main-h1">COVID-19 | Predictions</h1>
       </a>
 
       <div class="list-js-search">
-        <label class="search-label-hidden" for="search">Search by country</label>
-        <input class="search" type="text" id="search" placeholder="Search by country" />
+        <label class="search-label-hidden" for="search"
+          >Search by country</label
+        >
+        <input
+          class="search"
+          type="text"
+          id="search"
+          placeholder="Search by country"
+        />
         <i class="fas fa-search-location"></i>
       </div>
     </nav>
 
     <div class="notice-section prediction-notice">
       <div class="alert alert-danger mobile-alert" role="alert">
-        <i style="color: #dc3545; margin-right: 5px;" class="fas fa-exclamation-circle"></i>
+        <i
+          style="color: #dc3545; margin-right: 5px"
+          class="fas fa-exclamation-circle"
+        ></i>
         This feature is still under development.
       </div>
     </div>
@@ -28,14 +41,20 @@
     </section>
 
     <!-- Flattening curve graphs section-->
-    <section class="page-section graphs-section text-black" id="province-graphs">
+    <section
+      class="page-section graphs-section text-black"
+      id="province-graphs"
+    >
       <div id="tab-choose" class="justify-content-center mb-4 row">
-        <button type="button" class="btn btn-country active">All Countries</button>
+        <button type="button" class="btn btn-country active">
+          All Countries
+        </button>
         <button type="button" class="btn btn-starred">Starred</button>
       </div>
-      <h2
-        class="main-h2"
-      >Dashboard to track the projected number of people who will contract COVID-19 / Coronavirus over a period of the next 1 month by countries.</h2>
+      <h2 class="main-h2">
+        Dashboard to track the projected number of people who will contract
+        COVID-19 / Coronavirus over a period of the next 1 month by countries.
+      </h2>
       <h3 class="text-center" id="results-not-found">No results found.</h3>
       <h3 class="text-center" id="starred-none"></h3>
 
@@ -46,28 +65,48 @@
           :key="index"
           class="bg-light p-1 m-2 province-charts content"
         >
-          <button aria-label="Star a country" class="btn btn-star" :id="`chart-star-${index}`">
+          <button
+            aria-label="Star a country"
+            class="btn btn-star"
+            :id="`chart-star-${index}`"
+          >
             <i class="fas fa-star" :id="`fa-star-${index}`"></i>
           </button>
           <div :id="`country-id-${index}`" class="text-center">
-            <p class="country-names">{{item.country}}</p>
+            <p class="country-names">{{ item.country }}</p>
           </div>
           <div class="custom-legends text-center" :id="`legend-id-${index}`">
             <div>
               <div class="active-cases-indicator"></div>
-              <p>Active cases:</p>&nbsp;
-              <p>{{item.currentActiveCases}}</p>
+              <p>Active cases:</p>
+              &nbsp;
+              <p>{{ item.currentActiveCases }}</p>
             </div>
             <div>
               <div class="predicted-cases-indicator"></div>
               <div class="custom-delta"></div>
-              <p>Active cases:</p>&nbsp;
+              <p>Active cases:</p>
+              &nbsp;
               <p
-                v-bind:style="[item.predictedActiveCases !== 0 && (item.predictedActiveCases < 0 ? {'color': 'red'} : {'color': 'green'})]"
-              >{{item.predictedActiveCases > 0 ? '+' + item.predictedActiveCases.toLocaleString() : item.predictedActiveCases.toLocaleString()}}</p>
+                v-bind:style="[
+                  item.predictedActiveCases !== 0 &&
+                    (item.predictedActiveCases < 0
+                      ? { color: 'red' }
+                      : { color: 'green' }),
+                ]"
+              >
+                {{
+                  item.predictedActiveCases > 0
+                    ? "+" + item.predictedActiveCases.toLocaleString()
+                    : item.predictedActiveCases.toLocaleString()
+                }}
+              </p>
             </div>
           </div>
-          <chart :chartdata="item.chartData" :chartoptions="item.chartOptions"></chart>
+          <chart
+            :chartdata="item.chartData"
+            :chartoptions="item.chartOptions"
+          ></chart>
         </div>
       </div>
     </section>
@@ -77,14 +116,18 @@
         <div class="small text-center text-muted">
           Crafted with ❤️ &nbsp; by
           <b>
-            <a style="font-size:1.1em" href="https://www.commutatus.com">Commutatus</a>
+            <a style="font-size: 1.1em" href="https://www.commutatus.com"
+              >Commutatus</a
+            >
           </b>
         </div>
         <div class="small text-center text-muted">
           Data Source:
           <cite>
-            <a href="https://github.com/CSSEGISandData/COVID-19">CSSEGISandData</a> /
-            <a href="https://github.com/NovelCOVID/API">NovelCOVID</a> /
+            <a href="https://github.com/CSSEGISandData/COVID-19"
+              >CSSEGISandData</a
+            >
+            / <a href="https://github.com/NovelCOVID/API">NovelCOVID</a> /
             <a href="https://github.com/pomber/covid19">Pomber</a>
           </cite>
         </div>
@@ -187,7 +230,7 @@ export default {
         });
         let SortedDates = reformatDatesArray.sort();
 
-        let primaryDate = SortedDates[0];
+        let primaryDate = moment().format("MM-DD-YYYY HH:mm:ss");
         let tempLastDate = new Date(primaryDate);
         let formattedLastDate = moment(tempLastDate)
           .add(1, "month")
@@ -197,7 +240,11 @@ export default {
           let date = null;
           date = new Date(e);
           let formattedEndDate = new Date(formattedLastDate);
-          if (date.getMonth() <= formattedEndDate.getMonth()) {
+          let startingDate = new Date(primaryDate);
+          if (
+            date.getMonth() <= formattedEndDate.getMonth() &&
+            date.getMonth() >= startingDate.getMonth()
+          ) {
             if (date.getMonth() == formattedEndDate.getMonth()) {
               if (date.getDate() <= formattedEndDate.getDate()) {
                 date = moment(date).format("YYYY-MM-DD HH:mm:ss");
