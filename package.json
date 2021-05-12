@@ -13,7 +13,7 @@
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
     "bootstrap-vue": "^2.11.0",
-    "chart.js": "^2.9.3",
+    "chart.js": "^2.9.4",
     "gridsome": "^0.7.0",
     "gridsome-plugin-gtm": "^0.1.1",
     "jquery": "^3.4.1",
