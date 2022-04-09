@@ -17,7 +17,7 @@
     "gridsome": "^0.7.0",
     "gridsome-plugin-gtm": "^0.1.1",
     "jquery": "^3.4.1",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "vue": "^2.6.11",
     "vue-chartjs": "^3.5.0",
     "vue-moment": "^4.1.0"
